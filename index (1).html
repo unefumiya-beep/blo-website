@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BLO株式会社</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@300;400;500;700&family=Dancing+Script:wght@600;700&family=Oswald:wght@300;400;500;600&family=Fredoka+One&family=Hina+Mincho&family=Cormorant+SC:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0a2342;
+    --ocean: #1a5f8f;
+    --sky: #4ca9d8;
+    --aqua: #7dd3ea;
+    --mint: #a8d8c8;
+    --sage: #b8d4b0;
+    --cream: #f5f0e8;
+    --pale-yellow: #f9f3d0;
+    --white: #ffffff;
+    --text-dark: #1a2a3a;
+    --text-mid: #3a5a7a;
+    --text-light: #6a8a9a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Noto Serif JP', serif;
+    color: var(--text-dark);
+    background: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* ========== NAVIGATION ========== */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 0 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 72px;
+    background: rgba(10, 35, 66, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(76, 169, 216, 0.2);
+  }
+
+  .nav-logo {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 1.6rem;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    color: var(--aqua);
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: rgba(255,255,255,0.8);
+    text-decoration: none;
+    font-size: 0.78rem;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    transition: color 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--aqua); }
+
+  /* ========== HERO ========== */
+  #hero {
+    height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: linear-gradient(160deg, #0a2342 0%, #0f3a6a 25%, #1a5f8f 45%, #2a8fa8 60%, #4db89a 78%, #c8d98a 100%);
+  }
+
+  .hero-waves {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+
+  .wave {
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(ellipse at center, rgba(76,169,216,0.12) 0%, transparent 70%);
+    animation: waveAnim 12s ease-in-out infinite;
+  }
+
+  .wave:nth-child(2) {
+    background: radial-gradient(ellipse at 30% 60%, rgba(125,211,234,0.08) 0%, transparent 60%);
+    animation-duration: 18s;
+    animation-direction: reverse;
+  }
+
+  .wave:nth-child(3) {
+    background: radial-gradient(ellipse at 70% 30%, rgba(168,216,200,0.06) 0%, transparent 50%);
+    animation-duration: 24s;
+  }
+
+  @keyframes waveAnim {
+    0%, 100% { transform: translate(-25%, -25%) rotate(0deg); }
+    50% { transform: translate(-25%, -25%) rotate(180deg); }
+  }
+
+  /* Animated particles */
+  .particles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .particle {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(125,211,234,0.3);
+    animation: float linear infinite;
+  }
+
+  @keyframes float {
+    0% { transform: translateY(100vh) scale(0); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 0.5; }
+    100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 0 5%;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    color: var(--aqua);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.3s forwards;
+  }
+
+  .hero-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: clamp(2.5rem, 7vw, 6rem);
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    color: var(--white);
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.6s forwards;
+  }
+
+  .hero-subtitle {
+    font-family: 'Oswald', sans-serif;
+    font-size: clamp(0.9rem, 1.8vw, 1.2rem);
+    font-weight: 400;
+    color: rgba(255,255,255,0.65);
+    letter-spacing: 0.45em;
+    text-transform: uppercase;
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.9s forwards;
+  }
+
+  .hero-tagline {
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    color: var(--aqua);
+    font-weight: 300;
+    letter-spacing: 0.08em;
+    line-height: 1.8;
+    opacity: 0;
+    animation: fadeUp 1s ease 1.1s forwards;
+  }
+
+  .scroll-indicator {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: rgba(255,255,255,0.5);
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    animation: bounce 2s ease-in-out infinite;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, transparent, var(--aqua));
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(8px); }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ========== SECTIONS ========== */
+  section {
+    padding: 6rem 5%;
+  }
+
+  .section-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--sky);
+    margin-bottom: 0.8rem;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 400;
+    color: var(--navy);
+    margin-bottom: 3rem;
+    position: relative;
+    display: inline-block;
+  }
+
+  .section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(to right, var(--sky), var(--mint));
+  }
+
+  /* ========== COMPANY OVERVIEW ========== */
+  #overview {
+    background: linear-gradient(135deg, #f8fcff 0%, #edf7f2 50%, #fffdf0 100%);
+  }
+
+  .overview-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .overview-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .overview-table tr {
+    border-bottom: 1px solid rgba(76,169,216,0.15);
+  }
+
+  .overview-table td {
+    padding: 1rem 0.5rem;
+    font-size: 0.9rem;
+    line-height: 1.7;
+    vertical-align: top;
+  }
+
+  .overview-table td:first-child {
+    color: var(--sky);
+    font-weight: 500;
+    width: 35%;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+  }
+
+  .overview-table td:last-child {
+    color: var(--text-dark);
+  }
+
+  /* ========== GREETING ========== */
+  #greeting {
+    background: var(--navy);
+    position: relative;
+    overflow: hidden;
+  }
+
+  #greeting::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 60%;
+    height: 200%;
+    background: radial-gradient(ellipse, rgba(76,169,216,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  #greeting .section-title { color: var(--aqua); }
+  #greeting .section-label { color: rgba(125,211,234,0.6); }
+
+  .greeting-content {
+    max-width: 800px;
+  }
+
+  .greeting-text {
+    font-size: 0.95rem;
+    line-height: 2.2;
+    color: rgba(255,255,255,0.82);
+    font-weight: 300;
+    letter-spacing: 0.03em;
+    margin-bottom: 2.5rem;
+  }
+
+  .greeting-text p {
+    margin-bottom: 1.5rem;
+  }
+
+  .greeting-signature {
+    border-top: 1px solid rgba(76,169,216,0.3);
+    padding-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .sig-company {
+    font-family: 'Hina Mincho', serif;
+    font-size: 1.5rem;
+    color: var(--aqua);
+    letter-spacing: 0.2em;
+  }
+
+  .sig-title {
+    font-family: 'Hina Mincho', serif;
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.15em;
+  }
+
+  .sig-name {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.8rem;
+    color: var(--white);
+    letter-spacing: 0.05em;
+    line-height: 1.3;
+  }
+
+  /* ========== BUSINESS ========== */
+  #business {
+    background: linear-gradient(180deg, #f4faff 0%, #eef8f4 100%);
+  }
+
+  .business-list {
+    display: flex;
+    flex-direction: column;
+    gap: 5rem;
+  }
+
+  .business-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3.5rem;
+    align-items: center;
+  }
+
+  .business-item:nth-child(even) .business-text { order: 2; }
+  .business-item:nth-child(even) .business-visual { order: 1; }
+
+  .business-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4rem;
+    font-weight: 300;
+    color: rgba(76,169,216,0.2);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .business-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    color: var(--navy);
+    margin-bottom: 1.2rem;
+    line-height: 1.3;
+  }
+
+  .business-body {
+    font-size: 0.88rem;
+    line-height: 2;
+    color: var(--text-mid);
+    font-weight: 300;
+  }
+
+  .business-body p { margin-bottom: 0.8rem; }
+
+  .business-body strong {
+    color: var(--navy);
+    font-weight: 500;
+  }
+
+  .business-visual {
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    height: 320px;
+    box-shadow: 0 20px 60px rgba(10,35,66,0.12);
+  }
+
+  .business-visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+
+  .business-visual:hover img { transform: scale(1.04); }
+
+  .business-visual-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(10,35,66,0.1) 0%, transparent 60%);
+  }
+
+  /* Hotel cards */
+  .hotel-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .hotel-card {
+    background: var(--white);
+    border: 1px solid rgba(76,169,216,0.2);
+    border-radius: 10px;
+    padding: 1rem 1.2rem;
+    text-decoration: none;
+    color: var(--navy);
+    font-size: 0.82rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    box-shadow: 0 2px 12px rgba(10,35,66,0.05);
+  }
+
+  .hotel-card::before {
+    content: '';
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    background-color: currentColor;
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.5'%3E%3Crect x='3' y='3' width='18' height='18' rx='1'/%3E%3Cline x1='3' y1='9' x2='21' y2='9'/%3E%3Cline x1='9' y1='9' x2='9' y2='21'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.5'%3E%3Crect x='3' y='3' width='18' height='18' rx='1'/%3E%3Cline x1='3' y1='9' x2='21' y2='9'/%3E%3Cline x1='9' y1='9' x2='9' y2='21'/%3E%3C/svg%3E");
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    opacity: 0.7;
+    transition: opacity 0.3s;
+  }
+
+  .hotel-card:hover::before {
+    opacity: 1;
+  }
+
+  .hotel-card:hover {
+    background: linear-gradient(135deg, var(--navy), var(--ocean));
+    color: var(--white);
+    border-color: transparent;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(10,35,66,0.2);
+  }
+
+  .amenity-visual {
+    margin-top: 2rem;
+    border-radius: 12px;
+    overflow: hidden;
+    height: 220px;
+    position: relative;
+    box-shadow: 0 8px 30px rgba(10,35,66,0.1);
+  }
+
+  .amenity-visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .amenity-label {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    background: rgba(10,35,66,0.7);
+    color: var(--aqua);
+    font-size: 0.72rem;
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    letter-spacing: 0.1em;
+    backdrop-filter: blur(4px);
+  }
+
+  /* ========== RECRUITMENT ========== */
+  #recruitment {
+    background: var(--white);
+  }
+
+  .recruitment-placeholder {
+    background: linear-gradient(135deg, #f4faff, #eef8f4);
+    border: 2px dashed rgba(76,169,216,0.3);
+    border-radius: 16px;
+    padding: 4rem;
+    text-align: center;
+    color: var(--text-light);
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+  }
+
+  /* ========== NEWS ========== */
+  #news {
+    background: linear-gradient(135deg, #edf7f5 0%, #f5f8ff 100%);
+  }
+
+  .news-item {
+    display: flex;
+    gap: 2rem;
+    align-items: baseline;
+    padding: 1.2rem 0;
+    border-bottom: 1px solid rgba(76,169,216,0.15);
+  }
+
+  .news-date {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.9rem;
+    color: var(--sky);
+    white-space: nowrap;
+    min-width: 110px;
+  }
+
+  .news-body {
+    font-size: 0.88rem;
+    color: var(--text-dark);
+    line-height: 1.7;
+  }
+
+  /* ========== CONTACT ========== */
+  #contact {
+    background: linear-gradient(160deg, #0a2342 0%, #0f3a6a 25%, #1a5f8f 45%, #2a8fa8 60%, #4db89a 78%, #c8d98a 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  #contact::before {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    left: -10%;
+    width: 60%;
+    height: 150%;
+    background: radial-gradient(ellipse, rgba(125,211,234,0.06) 0%, transparent 70%);
+  }
+
+  #contact .section-title { color: var(--white); }
+  #contact .section-label { color: rgba(125,211,234,0.6); }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .contact-block {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(76,169,216,0.2);
+    border-radius: 12px;
+    padding: 2rem;
+    backdrop-filter: blur(8px);
+  }
+
+  .contact-block-title {
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    color: var(--aqua);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .contact-block-content {
+    color: rgba(255,255,255,0.85);
+    font-size: 0.9rem;
+    line-height: 2;
+  }
+
+  .contact-block-content a {
+    color: rgba(255,255,255,0.85);
+    text-decoration: none;
+  }
+
+  .contact-block-content a:hover { color: var(--white); }
+
+  /* ========== FOOTER ========== */
+  footer {
+    background: #060f1a;
+    padding: 3rem 5%;
+    text-align: center;
+  }
+
+  .footer-logo {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 1.8rem;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    color: var(--aqua);
+    margin-bottom: 1.5rem;
+    display: block;
+  }
+
+  .footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+  }
+
+  .footer-links a {
+    color: rgba(255,255,255,0.4);
+    text-decoration: none;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    transition: color 0.3s;
+  }
+
+  .footer-links a:hover { color: var(--aqua); }
+
+  .footer-copy {
+    color: rgba(255,255,255,0.2);
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+  }
+
+  /* ========== MODALS ========== */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(5,15,30,0.85);
+    z-index: 1000;
+    backdrop-filter: blur(6px);
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+  }
+
+  .modal-overlay.active { display: flex; }
+
+  .modal {
+    background: var(--white);
+    border-radius: 16px;
+    max-width: 700px;
+    width: 100%;
+    max-height: 80vh;
+    overflow-y: auto;
+    padding: 3rem;
+    position: relative;
+  }
+
+  .modal h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    color: var(--navy);
+    margin-bottom: 1.5rem;
+  }
+
+  .modal p, .modal li {
+    font-size: 0.85rem;
+    line-height: 2;
+    color: var(--text-mid);
+    margin-bottom: 0.8rem;
+  }
+
+  .modal ul { padding-left: 1.5rem; }
+
+  .modal-close {
+    position: absolute;
+    top: 1.2rem;
+    right: 1.5rem;
+    background: none;
+    border: none;
+    font-size: 1.4rem;
+    cursor: pointer;
+    color: var(--text-light);
+    transition: color 0.2s;
+  }
+
+  .modal-close:hover { color: var(--navy); }
+
+  .modal h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    color: var(--navy);
+    margin: 1.5rem 0 0.5rem;
+  }
+
+  /* ========== SCROLL REVEAL ========== */
+  .reveal {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.hidden {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  /* ========== DIVIDER ========== */
+  .wave-divider {
+    height: 80px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .wave-divider svg {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+  }
+
+  /* ========== RESPONSIVE ========== */
+  @media (max-width: 768px) {
+    .overview-grid,
+    .business-item,
+    .contact-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .business-item:nth-child(even) .business-text,
+    .business-item:nth-child(even) .business-visual {
+      order: unset;
+    }
+
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">BLO</a>
+  <ul class="nav-links">
+    <li><a href="#overview">会社概要</a></li>
+    <li><a href="#greeting">代表挨拶</a></li>
+    <li><a href="#business">事業内容</a></li>
+    <li><a href="#recruitment">採用情報</a></li>
+    <li><a href="#news">お知らせ</a></li>
+    <li><a href="#contact">お問合せ</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-waves">
+    <div class="wave"></div>
+    <div class="wave"></div>
+    <div class="wave"></div>
+  </div>
+  <div class="particles" id="particles"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Blue Ocean Strategy</p>
+    <h1 class="hero-title">BLO Co., Ltd.</h1>
+    <p class="hero-subtitle">BLO 株式会社</p>
+    <p class="hero-tagline">既存の枠組みにとらわれない<br>新たな価値の創造に挑戦し続ける企業</p>
+  </div>
+  <div class="scroll-indicator">
+    <span>SCROLL</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- COMPANY OVERVIEW -->
+<section id="overview">
+  <div class="section-inner">
+    <p class="section-label reveal">Company Profile</p>
+    <h2 class="section-title reveal">会社概要</h2>
+    <div class="overview-grid reveal">
+      <table class="overview-table">
+        <tr>
+          <td>社名</td>
+          <td>BLO株式会社</td>
+        </tr>
+        <tr>
+          <td>住所</td>
+          <td>〒904-0115<br>沖縄県中頭郡北谷町字吉原792-34</td>
+        </tr>
+        <tr>
+          <td>設立</td>
+          <td>令和3年9月1日</td>
+        </tr>
+        <tr>
+          <td>代表取締役社長</td>
+          <td>宇根 史也</td>
+        </tr>
+        <tr>
+          <td>TEL</td>
+          <td>098-911-5077</td>
+        </tr>
+        <tr>
+          <td>FAX</td>
+          <td>098-911-5073</td>
+        </tr>
+        <tr>
+          <td>取引銀行</td>
+          <td>沖縄銀行 / 琉球銀行<br>沖縄海邦銀行</td>
+        </tr>
+      </table>
+      <div style="background: linear-gradient(135deg, rgba(76,169,216,0.08), rgba(168,216,200,0.15)); border-radius: 16px; padding: 2.5rem; display:flex; align-items:center; justify-content:center; min-height:260px;">
+        <div style="text-align:center;">
+          <div style="font-family:'Dancing Script',cursive; font-size:3rem; color:var(--ocean); margin-bottom:1rem;">BLO</div>
+          <div style="font-size:0.82rem; color:var(--text-light); letter-spacing:0.15em; line-height:2;">Blue Ocean<br>沖縄から世界へ</div>
+          <div style="width:60px; height:2px; background: linear-gradient(to right, var(--sky), var(--mint)); margin: 1.2rem auto 0;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GREETING -->
+<section id="greeting">
+  <div class="section-inner">
+    <p class="section-label reveal">Message from CEO</p>
+    <h2 class="section-title reveal">代表挨拶</h2>
+    <div class="greeting-content reveal">
+      <div class="greeting-text">
+        <p>BLO株式会社は、「Blue Ocean」という名の通り、既存の枠組みにとらわれない新たな価値の創造に挑戦し続ける企業です。</p>
+        <p>競争が激化するレッドオーシャンではなく、可能性に満ちたブルーオーシャンを自ら切り拓き、まだ世にない事業や仕組みを創出し、広く社会へ届けていくことを使命としています。</p>
+        <p>急速に進化するIT・AIの時代において、私たちはテクノロジーを単なる効率化の手段としてではなく、「人と人とのつながりをより豊かにするための力」として活用していきます。</p>
+        <p>どれだけ技術が進化しても、最後に価値を生み出すのは"人"の想いと信頼関係です。</p>
+        <p>BLO株式会社は、関わるすべての方々とのご縁を大切にし、共に成長し、共に挑戦し、そして楽しく仕事ができる未来を創造してまいります。</p>
+        <p>今後とも一層のご支援、ご指導を賜りますようお願い申し上げます。</p>
+      </div>
+      <div class="greeting-signature">
+        <span class="sig-company">BLO株式会社</span>
+        <span class="sig-title">代表取締役社長</span>
+        <span class="sig-name">Fumiya Une</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BUSINESS -->
+<section id="business">
+  <div class="section-inner">
+    <p class="section-label reveal">Our Business</p>
+    <h2 class="section-title reveal">事業内容</h2>
+
+    <div class="business-list">
+
+      <!-- 01 宿泊施設 -->
+      <div class="business-item reveal">
+        <div class="business-text">
+          <div class="business-number">01</div>
+          <h3 class="business-title">宿泊施設運営・<br>マネジメント事業</h3>
+          <div class="business-body">
+            <p>私たちは宿泊施設を「不動産」ではなく、"収益を生み出すブランド資産"として運営します。</p>
+            <p>最先端テクノロジーとデータ分析を活用し、ダイナミックプライシング・海外マーケット戦略・レビュー最適化を徹底。国内外の宿泊需要を的確に捉え、安定的かつ最大化された収益モデルを構築します。</p>
+            <p>運営・顧客対応・トラブル対応・クレーム処理まで24時間365日フルサポート。</p>
+            <p>オーナー様に必要なのは、毎月の運営報告をご確認いただくことのみ。</p>
+            <p>"所有"から"経営"へ。<br>BLO株式会社は、資産価値を最大化する運営パートナーです。</p>
+            <p style="margin-top:1.5rem; font-size:0.82rem;">アメニティー・シーツ・タオル類も独自の販路でお安く調達が可能です。</p>
+          </div>
+
+          <!-- 運営実績 -->
+          <div style="margin-top:2rem;">
+            <p style="font-size:0.75rem; letter-spacing:0.15em; color:var(--sky); margin-bottom:0.8rem;">運営実績</p>
+            <div class="hotel-grid">
+              <a href="https://www.canva.com/design/DAG4K_dMr_4/USQmcXcH3Qf4Ja6Q3ewLxg/edit" target="_blank" class="hotel-card">KOKUSAI STREET GARDEN HOTEL</a>
+              <a href="https://www.canva.com/design/DAG-QvTOUI8/rcLh31aK_TOatHk1bLJszg/edit" target="_blank" class="hotel-card">Hanare AOZORA</a>
+              <a href="https://www.canva.com/design/DAG5SOXL40g/TbdDF_JqPOsirlyqvhR2gA/edit" target="_blank" class="hotel-card">Sapphire</a>
+              <a href="https://www.canva.com/design/DAG9sTbgVWQ/6HlVA1HxgOiA8I0vQN6LdA/edit" target="_blank" class="hotel-card">Churaumi terrace</a>
+              <a href="https://www.canva.com/design/DAGz9lrvB_Y/p6QSDFRHLKg4aRRfijXV9w/edit" target="_blank" class="hotel-card">Jin Jin House</a>
+              <a href="https://www.canva.com/design/DAG171yttAw/3if7nkjeJrFe0APMRDSSeQ/edit" target="_blank" class="hotel-card">Kahoo house</a>
+              <a href="https://www.canva.com/design/DAG2rA1iaOQ/Ds6GkxG0WQCruPfqaqKCyA/edit" target="_blank" class="hotel-card">IRIE HOUSE MOTOBU</a>
+              <a href="https://x.gd/jkQ7q" target="_blank" class="hotel-card">Tida Sesoko</a>
+              <a href="https://besteverhotel78.com/" target="_blank" class="hotel-card">Best ever hotel</a>
+              <a href="https://x.gd/Yn4fQ" target="_blank" class="hotel-card">美ら島ハートランド</a>
+              <a href="https://x.gd/ERAjI" target="_blank" class="hotel-card">イエローハウス</a>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="business-visual">
+            <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=80" alt="宿泊施設運営">
+            <div class="business-visual-overlay"></div>
+          </div>
+          <div class="amenity-visual">
+            <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800&q=80" alt="ホテル備品・アメニティー">
+            <span class="amenity-label">Hotel Amenities</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 02 不動産 -->
+      <div class="business-item reveal">
+        <div class="business-visual">
+          <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&q=80" alt="不動産コンサルティング">
+          <div class="business-visual-overlay"></div>
+        </div>
+        <div class="business-text">
+          <div class="business-number">02</div>
+          <h3 class="business-title">優良不動産売買の<br>コンサルティング</h3>
+          <div class="business-body">
+            <p>私たちは、不動産を「物件」ではなく「戦略資産」と捉えています。</p>
+            <p>市場に溢れる情報の中から、本質的な価値を見極め、収益性・将来性・流動性を多角的に分析。</p>
+            <p>単なる価格交渉ではなく、出口戦略までを設計した資産戦略型コンサルティングを提供します。</p>
+            <p>競争が激しいレッドオーシャン型の売買ではなく、独自ルート・水面下情報を活用したブルーオーシャン型不動産戦略。</p>
+            <p>BLO株式会社は、「選ばれる物件」ではなく「勝てる物件」をご提案します。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 03 オルタナティブ -->
+      <div class="business-item reveal">
+        <div class="business-text">
+          <div class="business-number">03</div>
+          <h3 class="business-title">オルタナティブ<br>アセット戦略事業</h3>
+          <div class="business-body">
+            <p>金・エネルギー・暗号資産・サーバーインフラなど、従来型投資とは異なる分野における戦略的提案を行っております。</p>
+            <p>市場変動を的確に捉え、情報優位性と分析力を活かした高付加価値案件をご提案。</p>
+            <p>単なる売買ではなく、リスク管理・市場分析・出口戦略までを設計したトータルアドバイザリーを提供します。</p>
+            <p>ブルーオーシャン領域における資産形成の可能性を、弊社は追求し続けます。</p>
+          </div>
+        </div>
+        <div class="business-visual">
+          <img src="https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=800&q=80" alt="オルタナティブアセット">
+          <div class="business-visual-overlay"></div>
+        </div>
+      </div>
+
+      <!-- 04 Blue Ocean Dev -->
+      <div class="business-item reveal">
+        <div class="business-visual">
+          <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&q=80" alt="Blue Ocean Development">
+          <div class="business-visual-overlay"></div>
+        </div>
+        <div class="business-text">
+          <div class="business-number">04</div>
+          <h3 class="business-title">Blue Ocean<br>Development事業</h3>
+          <div class="business-body">
+            <p>これから生まれる新市場・新領域に着目し、競争の少ないブルーオーシャン案件の発掘・開発・提案を行っております。</p>
+            <p>既存市場での価格競争ではなく、価値そのものを創り出すこと。</p>
+            <p>IT・AIをはじめとする最先端技術や、グローバルな情報ネットワークを活用し、将来性ある分野を先行的に捉えます。</p>
+            <p>単なる紹介ではなく、市場分析・リスク設計・戦略立案までを含めた総合プロデュース型事業。</p>
+            <p>まだ世に広がっていない可能性を、確かな形へと変えていく。<br>それがBLOのBlue Ocean Developmentです。</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- RECRUITMENT -->
+<section id="recruitment">
+  <div class="section-inner">
+    <p class="section-label reveal">Career</p>
+    <h2 class="section-title reveal">採用情報</h2>
+    <div class="recruitment-placeholder reveal">
+      <p style="font-size:1.4rem; margin-bottom:0.5rem; color:var(--sky);">Coming Soon</p>
+      <p>採用情報は近日公開予定です</p>
+    </div>
+  </div>
+</section>
+
+<!-- NEWS -->
+<section id="news">
+  <div class="section-inner">
+    <p class="section-label reveal">News</p>
+    <h2 class="section-title reveal">お知らせ</h2>
+    <div class="reveal">
+      <div class="news-item">
+        <span class="news-date">2026.03.20</span>
+        <span class="news-body">ホームページリニューアルしました。</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <p class="section-label reveal">Contact</p>
+    <h2 class="section-title reveal">お問合せ</h2>
+    <div class="contact-grid reveal">
+      <div class="contact-block">
+        <p class="contact-block-title">Phone / Fax</p>
+        <div class="contact-block-content">
+          <p>TEL: 098-911-5077</p>
+          <p>FAX: 098-911-5073</p>
+        </div>
+      </div>
+      <div class="contact-block">
+        <p class="contact-block-title">Email</p>
+        <div class="contact-block-content">
+          <p><a href="/cdn-cgi/l/email-protection#ef8d8380c1808486818e988edddfdddcaf88828e8683c18c8082"><span class="__cf_email__" data-cfemail="4426282b6a2b2f2d2a25332576747677042329252d286a272b29">[email&#160;protected]</span></a></p>
+        </div>
+      </div>
+      <div class="contact-block">
+        <p class="contact-block-title">Bank</p>
+        <div class="contact-block-content">
+          <p>沖縄銀行</p>
+          <p>琉球銀行</p>
+          <p>沖縄海邦銀行</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-logo">BLO Co., Ltd.</span>
+  <div class="footer-links">
+    <a href="#" onclick="openModal('privacy'); return false;">プライバシーポリシー</a>
+    <a href="#" onclick="openModal('tokusho'); return false;">特定商取引法に基づく表示</a>
+    <a href="#" onclick="openModal('terms'); return false;">利用規約</a>
+  </div>
+  <p class="footer-copy">© 2021 BLO株式会社. All Rights Reserved.</p>
+</footer>
+
+<!-- MODALS -->
+<div class="modal-overlay" id="modal-privacy">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('privacy')">✕</button>
+    <h2>プライバシーポリシー</h2>
+    <h3>個人情報の取り扱いについて</h3>
+    <p>BLO株式会社（以下「当社」）は、お客様の個人情報の保護を重要な責務と認識し、以下の方針に基づき個人情報を適切に管理・保護いたします。</p>
+    <h3>1. 個人情報の収集</h3>
+    <p>当社は、お問い合わせ・サービス提供・契約締結等の目的に必要な範囲で、適法かつ公正な手段により個人情報を収集します。</p>
+    <h3>2. 個人情報の利用目的</h3>
+    <ul>
+      <li>サービスの提供・改善・運営</li>
+      <li>お問い合わせへの対応</li>
+      <li>契約の履行</li>
+      <li>法令に基づく義務の履行</li>
+    </ul>
+    <h3>3. 個人情報の第三者提供</h3>
+    <p>当社は、法令に基づく場合または本人の同意がある場合を除き、個人情報を第三者に提供・開示いたしません。</p>
+    <h3>4. 個人情報の管理</h3>
+    <p>当社は、個人情報の漏洩・滅失・毀損の防止のため、適切な安全管理措置を講じます。</p>
+    <h3>5. お問い合わせ</h3>
+    <p>個人情報に関するお問い合わせは、<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="76141a1958191d1f181701174446444536111b171f1a5815191b">[email&#160;protected]</a> までご連絡ください。</p>
+    <p style="margin-top:1.5rem; font-size:0.8rem; color:#999;">BLO株式会社 制定：令和3年9月1日</p>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-tokusho">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('tokusho')">✕</button>
+    <h2>特定商取引法に基づく表示</h2>
+    <table style="width:100%; border-collapse:collapse; font-size:0.85rem;">
+      <tr style="border-bottom:1px solid #eee;">
+        <td style="padding:0.8rem 0.5rem; color:#4ca9d8; width:35%; vertical-align:top;">販売業者</td>
+        <td style="padding:0.8rem 0.5rem; line-height:1.7;">BLO株式会社</td>
+      </tr>
+      <tr style="border-bottom:1px solid #eee;">
+        <td style="padding:0.8rem 0.5rem; color:#4ca9d8; vertical-align:top;">代表者</td>
+        <td style="padding:0.8rem 0.5rem; line-height:1.7;">宇根 史也</td>
+      </tr>
+      <tr style="border-bottom:1px solid #eee;">
+        <td style="padding:0.8rem 0.5rem; color:#4ca9d8; vertical-align:top;">所在地</td>
+        <td style="padding:0.8rem 0.5rem; line-height:1.7;">沖縄県中頭郡北谷町字吉原792-34</td>
+      </tr>
+      <tr style="border-bottom:1px solid #eee;">
+        <td style="padding:0.8rem 0.5rem; color:#4ca9d8; vertical-align:top;">電話番号</td>
+        <td style="padding:0.8rem 0.5rem; line-height:1.7;">098-911-5077</td>
+      </tr>
+      <tr style="border-bottom:1px solid #eee;">
+        <td style="padding:0.8rem 0.5rem; color:#4ca9d8; vertical-align:top;">メールアドレス</td>
+        <td style="padding:0.8rem 0.5rem; line-height:1.7;"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d8bab4b7f6b7b3b1b6b9afb9eae8eaeb98bfb5b9b1b4f6bbb7b5">[email&#160;protected]</a></td>
+      </tr>
+      <tr style="border-bottom:1px solid #eee;">
+        <td style="padding:0.8rem 0.5rem; color:#4ca9d8; vertical-align:top;">サービス内容</td>
+        <td style="padding:0.8rem 0.5rem; line-height:1.7;">宿泊施設運営・不動産コンサルティング・アセット戦略・Blue Ocean Development</td>
+      </tr>
+      <tr style="border-bottom:1px solid #eee;">
+        <td style="padding:0.8rem 0.5rem; color:#4ca9d8; vertical-align:top;">料金</td>
+        <td style="padding:0.8rem 0.5rem; line-height:1.7;">各サービスにより異なります。詳細はお問い合わせください。</td>
+      </tr>
+      <tr style="border-bottom:1px solid #eee;">
+        <td style="padding:0.8rem 0.5rem; color:#4ca9d8; vertical-align:top;">キャンセル・返金</td>
+        <td style="padding:0.8rem 0.5rem; line-height:1.7;">契約内容に基づきます。詳細はお問い合わせください。</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-terms">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('terms')">✕</button>
+    <h2>利用規約</h2>
+    <h3>第1条（目的）</h3>
+    <p>本利用規約は、BLO株式会社（以下「当社」）が提供するサービスおよびウェブサイトの利用条件を定めるものです。</p>
+    <h3>第2条（利用条件）</h3>
+    <p>本サービスをご利用いただくにあたり、本規約に同意いただく必要があります。本サービスをご利用いただいた時点で、本規約に同意されたものとみなします。</p>
+    <h3>第3条（禁止事項）</h3>
+    <ul>
+      <li>法令または公序良俗に反する行為</li>
+      <li>当社または第三者の権利を侵害する行為</li>
+      <li>当社のサービス運営を妨害する行為</li>
+      <li>虚偽の情報を提供する行為</li>
+      <li>その他当社が不適切と判断する行為</li>
+    </ul>
+    <h3>第4条（免責事項）</h3>
+    <p>当社は、本サービスに関連して生じた損害について、当社の故意または重大な過失による場合を除き、責任を負いません。</p>
+    <h3>第5条（規約の変更）</h3>
+    <p>当社は、必要に応じて本規約を変更することがあります。変更後の規約は、当ウェブサイトに掲載した時点で効力を生じるものとします。</p>
+    <h3>第6条（準拠法・管轄裁判所）</h3>
+    <p>本規約は日本法に準拠し、本規約に関する紛争は沖縄地方裁判所を第一審管轄裁判所とします。</p>
+    <p style="margin-top:1.5rem; font-size:0.8rem; color:#999;">BLO株式会社 制定：令和3年9月1日</p>
+  </div>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // Particles
+  const container = document.getElementById('particles');
+  for (let i = 0; i < 20; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const size = Math.random() * 6 + 2;
+    p.style.cssText = `
+      width:${size}px; height:${size}px;
+      left:${Math.random() * 100}%;
+      animation-duration:${Math.random() * 15 + 10}s;
+      animation-delay:${Math.random() * 10}s;
+      opacity:${Math.random() * 0.5 + 0.1};
+    `;
+    container.appendChild(p);
+  }
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  reveals.forEach(el => el.classList.add('hidden'));
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.remove('hidden');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  reveals.forEach(el => observer.observe(el));
+
+  // Modals
+  function openModal(name) {
+    document.getElementById('modal-' + name).
