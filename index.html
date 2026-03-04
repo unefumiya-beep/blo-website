@@ -505,11 +505,13 @@
     backdrop-filter: blur(4px);
   }
 
-  /* Slideshow */
+  /* Slideshow CSS only */
   .slideshow-wrap {
     position: relative;
     overflow: hidden;
     height: 320px;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(10,35,66,0.12);
   }
   .slideshow-wrap .slide {
     position: absolute;
@@ -518,10 +520,19 @@
     height: 100%;
     object-fit: cover;
     opacity: 0;
-    transition: opacity 1.2s ease;
+    animation: slideFade 12s infinite;
   }
-  .slideshow-wrap .slide.active {
-    opacity: 1;
+  .slideshow-wrap .slide:nth-child(1) { animation-delay: 0s; }
+  .slideshow-wrap .slide:nth-child(2) { animation-delay: 3s; }
+  .slideshow-wrap .slide:nth-child(3) { animation-delay: 6s; }
+  .slideshow-wrap .slide:nth-child(4) { animation-delay: 9s; }
+
+  @keyframes slideFade {
+    0%   { opacity: 0; }
+    5%   { opacity: 1; }
+    25%  { opacity: 1; }
+    30%  { opacity: 0; }
+    100% { opacity: 0; }
   }
 
   /* ========== RECRUITMENT ========== */
@@ -892,7 +903,7 @@
 
         <div>
           <div class="business-visual slideshow-wrap">
-            <img class="slide active" src="https://images.unsplash.com/photo-1559494007-9f5847c49d94?w=800&q=80" alt="南国リゾート1">
+            <img class="slide" src="https://images.unsplash.com/photo-1559494007-9f5847c49d94?w=800&q=80" alt="南国リゾート1">
             <img class="slide" src="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=800&q=80" alt="南国リゾート2">
             <img class="slide" src="https://images.unsplash.com/photo-1582719508461-905c673771fd?w=800&q=80" alt="南国リゾート3">
             <img class="slide" src="https://images.unsplash.com/photo-1540541338287-41700207dee6?w=800&q=80" alt="南国リゾート4">
@@ -1223,17 +1234,6 @@
         }
       });
     }
-  })();
-
-  // Slideshow
-  (function() {
-    var slides = document.querySelectorAll('.slideshow-wrap .slide');
-    var current = 0;
-    setInterval(function() {
-      slides[current].classList.remove('active');
-      current = (current + 1) % slides.length;
-      slides[current].classList.add('active');
-    }, 3000);
   })();
 
   // Scroll reveal (右から出てくる)
