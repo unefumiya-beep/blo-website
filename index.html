@@ -121,37 +121,6 @@
     50% { transform: translate(-25%, -25%) rotate(180deg); }
   }
 
-  /* Animated bubbles */
-  .particles {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    overflow: hidden;
-  }
-
-  .particle {
-    position: absolute;
-    border-radius: 50%;
-    background: radial-gradient(circle at 35% 35%, rgba(255,255,255,0.6), rgba(125,211,234,0.15));
-    border: 1px solid rgba(125,211,234,0.4);
-    animation: bubbleRise linear infinite;
-    bottom: -50px;
-  }
-
-  @keyframes bubbleRise {
-    0% {
-      transform: translateX(0) translateY(0) scale(1);
-      opacity: 0;
-    }
-    5% { opacity: 1; }
-    50% { transform: translateX(var(--sway)) translateY(-50vh) scale(1.05); }
-    95% { opacity: 0.6; }
-    100% {
-      transform: translateX(calc(var(--sway) * -0.5)) translateY(-110vh) scale(0.9);
-      opacity: 0;
-    }
-  }
-
   .hero-content {
     position: relative;
     z-index: 2;
@@ -868,7 +837,6 @@
     <div class="wave"></div>
     <div class="wave"></div>
   </div>
-  <div class="particles" id="particles"></div>
   <div class="hero-content">
     <p class="hero-eyebrow">Blue Ocean Strategy</p>
     <h1 class="hero-title">BLO Co., Ltd.</h1>
@@ -947,7 +915,7 @@
           </div>
         </div>
         <div class="business-visual">
-          <img src="https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=800&q=80" alt="オルタナティブアセット">
+          <img src="https://images.unsplash.com/photo-1621416894569-0f39ed31d247?w=800&q=80" alt="ビットコイン・金・サーバー">
           <div class="business-visual-overlay"></div>
         </div>
       </div>
@@ -1011,6 +979,7 @@
           <a href="https://x.gd/rj6WG" target="_blank" class="hotel-card">IRIE HOUSE MOTOBU <span style="font-size:0.7rem; color:var(--text-light); margin-left:0.5rem;">本部町</span></a>
           <a href="https://x.gd/jkQ7q" target="_blank" class="hotel-card">Tida Sesoko <span style="font-size:0.7rem; color:var(--text-light); margin-left:0.5rem;">本部町</span></a>
           <a href="https://blo-okinawa.my.canva.site/jinjinhouse/" target="_blank" class="hotel-card">Jin Jin House <span style="font-size:0.7rem; color:var(--text-light); margin-left:0.5rem;">今帰仁村</span></a>
+          <a href="https://yagajistay.com/" target="_blank" class="hotel-card">YAGAJI STAY <span style="font-size:0.7rem; color:var(--text-light); margin-left:0.5rem;">名護市</span></a>
         </div>
       </div>
 
@@ -1237,24 +1206,6 @@
       });
     }
   })();
-
-  // Bubbles
-  const container = document.getElementById('particles');
-  for (let i = 0; i < 40; i++) {
-    const p = document.createElement('div');
-    p.className = 'particle';
-    const size = Math.random() * 18 + 4;
-    const sway = (Math.random() - 0.5) * 80;
-    p.style.cssText = `
-      width:${size}px;
-      height:${size}px;
-      left:${Math.random() * 100}%;
-      animation-duration:${Math.random() * 10 + 8}s;
-      animation-delay:${Math.random() * 12}s;
-      --sway:${sway}px;
-    `;
-    container.appendChild(p);
-  }
 
   // Scroll reveal (右から出てくる)
   const observer = new IntersectionObserver((entries) => {
