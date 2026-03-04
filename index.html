@@ -156,14 +156,15 @@
 
   .hero-title {
     font-family: 'Noto Serif JP', serif;
-    font-size: clamp(2.5rem, 7vw, 6rem);
+    font-size: clamp(1.6rem, 5vw, 6rem);
     font-weight: 400;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.15em;
     color: var(--white);
     line-height: 1.1;
     margin-bottom: 0.5rem;
     opacity: 0;
     animation: fadeUp 1s ease 0.6s forwards;
+    white-space: nowrap;
   }
 
   .hero-subtitle {
@@ -725,13 +726,13 @@
   /* ========== SCROLL REVEAL ========== */
   .reveal {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(0);
     transition: opacity 0.7s ease, transform 0.7s ease;
   }
 
   .reveal.hidden {
     opacity: 0;
-    transform: translateY(24px);
+    transform: translateX(40px);
   }
 
   /* ========== DIVIDER ========== */
@@ -770,13 +771,13 @@
 <nav>
   <a href="#hero" class="nav-logo">BLO</a>
   <ul class="nav-links">
-    <li><a href="#overview">会社概要</a></li>
-    <li><a href="#greeting">代表挨拶</a></li>
     <li><a href="#business">事業内容</a></li>
     <li><a href="#achievements">運営実績</a></li>
     <li><a href="#recruitment">採用情報</a></li>
     <li><a href="#news">お知らせ</a></li>
     <li><a href="#contact">お問合せ</a></li>
+    <li><a href="#overview">会社概要</a></li>
+    <li><a href="#greeting">代表挨拶</a></li>
   </ul>
 </nav>
 
@@ -900,25 +901,6 @@
             <p>"所有"から"経営"へ。<br>BLO株式会社は、資産価値を最大化する運営パートナーです。</p>
             <p style="margin-top:1.5rem; font-size:0.82rem;">アメニティー・シーツ・タオル類も独自の販路でお安く調達が可能です。</p>
           </div>
-
-          <!-- 運営実績 -->
-          <div style="margin-top:2rem;">
-            <p style="font-size:0.75rem; letter-spacing:0.15em; color:var(--sky); margin-bottom:0.8rem;">運営実績</p>
-            <div class="hotel-grid">
-              <a href="https://blo-okinawa.my.canva.site/kokusai-street-garden-hotel/" target="_blank" class="hotel-card">KOKUSAI STREET GARDEN HOTEL</a>
-              <a href="https://blo-okinawa.my.canva.site/hanare-aozora" target="_blank" class="hotel-card">Hanare AOZORA</a>
-              <a href="https://blo-okinawa.my.canva.site/sapphire" target="_blank" class="hotel-card">Sapphire</a>
-              <a href="https://blo-okinawa.my.canva.site/churaumi-terrace" target="_blank" class="hotel-card">Churaumi terrace</a>
-              <a href="https://blo-okinawa.my.canva.site/jinjinhouse/" target="_blank" class="hotel-card">Jin Jin House</a>
-              <a href="https://blo-okinawa.my.canva.site/kahoo-house" target="_blank" class="hotel-card">Kahoo house</a>
-              <a href="https://x.gd/rj6WG" target="_blank" class="hotel-card">IRIE HOUSE MOTOBU</a>
-              <a href="https://x.gd/jkQ7q" target="_blank" class="hotel-card">Tida Sesoko</a>
-              <a href="https://besteverhotel78.com/" target="_blank" class="hotel-card">Best ever hotel</a>
-              <a href="https://x.gd/Yn4fQ" target="_blank" class="hotel-card">美ら島ハートランド</a>
-              <a href="https://x.gd/ERAjI" target="_blank" class="hotel-card">イエローハウス</a>
-            </div>
-          </div>
-        </div>
 
         <div>
           <div class="business-visual">
