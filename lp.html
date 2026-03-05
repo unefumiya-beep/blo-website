@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>宿泊施設運営・マネジメント事業 | BLO株式会社</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;700&family=Dancing+Script:wght@600;700&family=Oswald:wght@400;500;600&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --coral:#ff6b4a; --orange:#ff9a3c; --yellow:#ffd166;
+    --teal:#06b6a2; --sky:#38bdf8; --navy:#0c2d48;
+    --white:#ffffff; --cream:#fffbf0; --sand:#fef3c7;
+    --text:#1a2e3b; --muted:#5a7a8a;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Zen Kaku Gothic New','Noto Serif JP',sans-serif;color:var(--text);background:var(--white);overflow-x:hidden;}
+
+  /* NAV */
+  nav{position:fixed;top:0;left:0;right:0;z-index:9999;height:64px;padding:0 5%;display:flex;align-items:center;justify-content:space-between;background:rgba(12,45,72,0.93);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,107,74,0.25);}
+  .nav-logo{font-family:'Dancing Script',cursive;font-size:1.8rem;color:var(--yellow);text-decoration:none;}
+  .nav-back{color:rgba(255,255,255,0.7);font-size:0.78rem;letter-spacing:0.1em;text-decoration:none;transition:color 0.3s;}
+  .nav-back:hover{color:var(--yellow);}
+
+  /* HERO */
+  #hero{min-height:100vh;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;background:linear-gradient(135deg,#0c2d48 0%,#0e4d6e 30%,#0891b2 60%,#06b6a2 80%,#84cc16 100%);padding-top:64px;}
+  .hero-img{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1559494007-9f5847c49d94?w=1600&q=80') center/cover no-repeat;opacity:0.18;}
+  .hero-deco{position:absolute;border-radius:50%;pointer-events:none;}
+  .deco1{width:500px;height:500px;background:radial-gradient(circle,rgba(255,165,56,0.18) 0%,transparent 70%);top:-100px;right:-100px;}
+  .deco2{width:400px;height:400px;background:radial-gradient(circle,rgba(6,182,162,0.18) 0%,transparent 70%);bottom:-80px;left:-80px;}
+  .deco3{width:250px;height:250px;background:radial-gradient(circle,rgba(255,209,102,0.15) 0%,transparent 70%);top:40%;left:10%;}
+  .hero-inner{position:relative;z-index:2;text-align:center;padding:4rem 5% 6rem;max-width:900px;}
+  .hero-badge{display:inline-block;padding:0.4rem 1.4rem;background:linear-gradient(135deg,var(--coral),var(--orange));color:var(--white);border-radius:50px;font-size:0.72rem;letter-spacing:0.2em;font-weight:700;margin-bottom:1.8rem;box-shadow:0 4px 20px rgba(255,107,74,0.4);opacity:0;animation:fadeUp 0.8s ease 0.2s forwards;}
+  .hero-title{font-family:'Noto Serif JP',serif;font-size:clamp(1.8rem,5.5vw,4.2rem);font-weight:700;color:var(--white);line-height:1.4;margin-bottom:1.5rem;opacity:0;animation:fadeUp 0.8s ease 0.4s forwards;}
+  .hero-title em{font-style:normal;background:linear-gradient(135deg,var(--yellow),var(--orange));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+  .hero-sub{font-size:clamp(0.9rem,1.8vw,1.1rem);color:rgba(255,255,255,0.82);line-height:2;margin-bottom:3rem;opacity:0;animation:fadeUp 0.8s ease 0.6s forwards;}
+  .hero-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;opacity:0;animation:fadeUp 0.8s ease 0.8s forwards;}
+  .btn-primary{display:inline-block;padding:1rem 2.5rem;background:linear-gradient(135deg,var(--coral),var(--orange));color:var(--white);text-decoration:none;border-radius:50px;font-size:0.9rem;font-weight:700;letter-spacing:0.08em;box-shadow:0 8px 30px rgba(255,107,74,0.45);transition:all 0.3s;}
+  .btn-primary:hover{transform:translateY(-3px);box-shadow:0 14px 40px rgba(255,107,74,0.5);}
+  .btn-secondary{display:inline-block;padding:1rem 2.5rem;background:transparent;border:2px solid rgba(255,255,255,0.5);color:var(--white);text-decoration:none;border-radius:50px;font-size:0.9rem;font-weight:500;letter-spacing:0.08em;transition:all 0.3s;}
+  .btn-secondary:hover{border-color:var(--yellow);color:var(--yellow);transform:translateY(-3px);}
+  .hero-scroll{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:0.4rem;color:rgba(255,255,255,0.5);font-size:0.62rem;letter-spacing:0.25em;animation:bounce2 2s ease-in-out infinite;}
+  .hero-scroll::after{content:'';width:1px;height:36px;background:linear-gradient(to bottom,transparent,var(--yellow));display:block;}
+  @keyframes bounce2{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(8px);}}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:translateY(0);}}
+
+  /* COMMON */
+  section{padding:5rem 5%;}
+  .inner{max-width:1100px;margin:0 auto;}
+  .sec-eyebrow{font-size:0.68rem;letter-spacing:0.35em;text-transform:uppercase;font-weight:700;margin-bottom:0.6rem;}
+  .sec-title{font-family:'Noto Serif JP',serif;font-size:clamp(1.6rem,3.5vw,2.5rem);font-weight:700;color:var(--navy);margin-bottom:0.8rem;line-height:1.4;}
+  .sec-lead{font-size:0.92rem;color:var(--muted);line-height:2;max-width:600px;margin-bottom:3rem;}
+  .divider{width:50px;height:4px;border-radius:2px;margin-bottom:2.5rem;}
+
+  /* PROBLEM */
+  #problem{background:var(--cream);}
+  #problem .sec-eyebrow{color:var(--coral);}
+  #problem .divider{background:linear-gradient(to right,var(--coral),var(--orange));}
+  .problem-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem;}
+  .problem-card{background:var(--white);border-radius:16px;padding:1.8rem;border-left:4px solid var(--coral);box-shadow:0 4px 20px rgba(255,107,74,0.08);}
+  .problem-card .icon{font-size:1.8rem;margin-bottom:0.8rem;display:block;}
+  .problem-card p{font-size:0.88rem;line-height:1.9;}
+  .problem-solution{margin-top:3rem;padding:2.5rem;background:linear-gradient(135deg,var(--navy),#0e4d6e);border-radius:20px;text-align:center;color:var(--white);box-shadow:0 12px 40px rgba(12,45,72,0.2);}
+  .problem-solution p{font-size:1.1rem;line-height:2;}
+  .problem-solution strong{color:var(--yellow);font-size:1.25rem;}
+
+  /* FEATURES */
+  #features{background:var(--white);}
+  #features .sec-eyebrow{color:var(--teal);}
+  .features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem;}
+  .feature-card{border-radius:20px;padding:2.5rem 2rem;transition:transform 0.3s,box-shadow 0.3s;position:relative;overflow:hidden;}
+  .feature-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;}
+  .feature-card:hover{transform:translateY(-5px);box-shadow:0 20px 50px rgba(0,0,0,0.1);}
+  .fc1{background:linear-gradient(135deg,#fff7ed,#fff);border:1px solid rgba(255,154,60,0.2);}
+  .fc1::before{background:linear-gradient(to right,var(--coral),var(--orange));}
+  .fc2{background:linear-gradient(135deg,#ecfdf5,#fff);border:1px solid rgba(6,182,162,0.2);}
+  .fc2::before{background:linear-gradient(to right,var(--teal),var(--sky));}
+  .fc3{background:linear-gradient(135deg,#fffbeb,#fff);border:1px solid rgba(255,209,102,0.3);}
+  .fc3::before{background:linear-gradient(to right,var(--yellow),var(--orange));}
+  .fc4{background:linear-gradient(135deg,#eff6ff,#fff);border:1px solid rgba(56,189,248,0.2);}
+  .fc4::before{background:linear-gradient(to right,var(--sky),var(--teal));}
+  .fc5{background:linear-gradient(135deg,#fff1f2,#fff);border:1px solid rgba(255,107,74,0.15);}
+  .fc5::before{background:linear-gradient(to right,#f43f5e,var(--coral));}
+  .fc6{background:linear-gradient(135deg,#f0fdf4,#fff);border:1px solid rgba(132,204,22,0.2);}
+  .fc6::before{background:linear-gradient(to right,#84cc16,var(--teal));}
+  .feature-icon{font-size:2.5rem;margin-bottom:1rem;display:block;}
+  .feature-title{font-family:'Noto Serif JP',serif;font-size:1.1rem;font-weight:700;color:var(--navy);margin-bottom:0.8rem;}
+  .feature-text{font-size:0.84rem;line-height:2;color:var(--muted);}
+
+  /* PLAN */
+  #plan{background:linear-gradient(135deg,#0c2d48 0%,#0e4d6e 60%,#065f6a 100%);position:relative;overflow:hidden;}
+  #plan::before{content:'';position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1540541338287-41700207dee6?w=1200&q=80') center/cover no-repeat;opacity:0.06;}
+  #plan .sec-eyebrow{color:var(--yellow);}
+  #plan .sec-title{color:var(--white);}
+  #plan .sec-lead{color:rgba(255,255,255,0.7);}
+  #plan .divider{background:linear-gradient(to right,var(--yellow),var(--orange));}
+  .plan-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem;}
+  .plan-card{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);border-radius:20px;padding:2.5rem 2rem;backdrop-filter:blur(10px);transition:transform 0.3s,background 0.3s;position:relative;}
+  .plan-card:hover{transform:translateY(-5px);background:rgba(255,255,255,0.1);}
+  .plan-card.featured{background:linear-gradient(135deg,rgba(255,107,74,0.25),rgba(255,154,60,0.2));border-color:rgba(255,154,60,0.5);}
+  .plan-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--coral),var(--orange));color:var(--white);font-size:0.68rem;font-weight:700;padding:0.3rem 1.2rem;border-radius:50px;letter-spacing:0.1em;white-space:nowrap;}
+  .plan-name{font-family:'Noto Serif JP',serif;font-size:1.3rem;font-weight:700;color:var(--white);margin-bottom:0.5rem;}
+  .plan-sub{font-size:0.78rem;color:rgba(255,255,255,0.6);margin-bottom:1.5rem;}
+  .plan-price{font-family:'Oswald',sans-serif;font-size:2.8rem;font-weight:600;color:var(--yellow);margin-bottom:0.3rem;line-height:1;}
+  .plan-price span{font-size:1rem;color:rgba(255,255,255,0.6);font-weight:400;}
+  .plan-note{font-size:0.72rem;color:rgba(255,255,255,0.5);margin-bottom:1.8rem;}
+  .plan-list{list-style:none;display:flex;flex-direction:column;gap:0.8rem;}
+  .plan-list li{font-size:0.84rem;color:rgba(255,255,255,0.85);display:flex;align-items:flex-start;gap:0.6rem;line-height:1.7;}
+  .plan-list li::before{content:'✓';color:var(--teal);font-weight:700;flex-shrink:0;margin-top:0.1rem;}
+
+  /* FLOW */
+  #flow{background:var(--sand);}
+  #flow .sec-eyebrow{color:var(--orange);}
+  .flow-steps{display:grid;grid-template-columns:repeat(5,1fr);gap:0;}
+  .flow-step{text-align:center;padding:2rem 1.5rem;position:relative;}
+  .flow-step:not(:last-child)::after{content:'→';position:absolute;right:-12px;top:42px;font-size:1.5rem;color:var(--orange);z-index:1;}
+  .step-num{width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,var(--coral),var(--orange));color:var(--white);font-family:'Oswald',sans-serif;font-size:1.5rem;font-weight:600;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;box-shadow:0 6px 20px rgba(255,107,74,0.35);}
+  .step-title{font-size:0.88rem;font-weight:700;color:var(--navy);margin-bottom:0.5rem;}
+  .step-text{font-size:0.75rem;color:var(--muted);line-height:1.8;}
+
+  /* RESULTS */
+  #results{background:var(--white);}
+  #results .sec-eyebrow{color:var(--teal);}
+  .stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1.5rem;margin-bottom:3.5rem;}
+  .stat-box{text-align:center;padding:2rem 1rem;background:linear-gradient(135deg,#f0fdfa,#ecfeff);border:1px solid rgba(6,182,162,0.2);border-radius:16px;}
+  .stat-num{font-family:'Oswald',sans-serif;font-size:3rem;font-weight:600;color:var(--teal);line-height:1;margin-bottom:0.3rem;}
+  .stat-num sup{font-size:1.2rem;}
+  .stat-label{font-size:0.75rem;color:var(--muted);letter-spacing:0.08em;}
+  .area-section{margin-bottom:2.5rem;}
+  .area-title{font-size:0.72rem;letter-spacing:0.25em;font-weight:700;padding:0.5rem 1rem;border-radius:6px;display:inline-block;margin-bottom:1rem;}
+  .area-south{background:rgba(255,107,74,0.1);color:var(--coral);}
+  .area-central{background:rgba(6,182,162,0.1);color:var(--teal);}
+  .area-north{background:rgba(56,189,248,0.1);color:#0369a1;}
+  .hotels-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:0.9rem;}
+  .hotel-link{background:var(--white);border:1px solid rgba(6,182,162,0.2);border-radius:10px;padding:0.9rem 1.1rem;text-decoration:none;color:var(--navy);font-size:0.82rem;font-weight:500;display:flex;align-items:center;gap:0.6rem;box-shadow:0 2px 10px rgba(0,0,0,0.05);transition:all 0.3s;}
+  .hotel-link::before{content:'🏨';flex-shrink:0;}
+  .hotel-link:hover{background:linear-gradient(135deg,var(--navy),#0e4d6e);color:var(--white);border-color:transparent;transform:translateY(-2px);box-shadow:0 8px 24px rgba(12,45,72,0.2);}
+  .hotel-area{font-size:0.68rem;color:var(--muted);margin-left:auto;white-space:nowrap;}
+  .hotel-link:hover .hotel-area{color:rgba(255,255,255,0.6);}
+
+  /* FAQ */
+  #faq{background:linear-gradient(135deg,#fff7ed,#fffbf0);}
+  #faq .sec-eyebrow{color:var(--orange);}
+  .faq-wrap{max-width:780px;display:flex;flex-direction:column;gap:1rem;}
+  .faq-item{background:var(--white);border-radius:14px;overflow:hidden;box-shadow:0 2px 16px rgba(0,0,0,0.06);}
+  .faq-q{padding:1.2rem 1.5rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-size:0.9rem;font-weight:600;color:var(--navy);user-select:none;border-left:4px solid var(--orange);}
+  .faq-q::after{content:'+';font-size:1.4rem;color:var(--orange);transition:transform 0.3s;flex-shrink:0;margin-left:1rem;}
+  .faq-item.open .faq-q::after{transform:rotate(45deg);}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height 0.4s ease,padding 0.3s;font-size:0.85rem;line-height:2;color:var(--muted);padding:0 1.5rem;}
+  .faq-item.open .faq-a{max-height:300px;padding:1.2rem 1.5rem;border-top:1px solid rgba(255,154,60,0.1);}
+
+  /* CONTACT */
+  #contact{background:linear-gradient(135deg,#0c2d48 0%,#065f6a 100%);position:relative;overflow:hidden;}
+  #contact::before{content:'';position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1582719508461-905c673771fd?w=1200&q=80') center/cover no-repeat;opacity:0.07;}
+  #contact .inner{position:relative;z-index:1;}
+  #contact .sec-eyebrow{color:var(--yellow);}
+  #contact .sec-title{color:var(--white);}
+  #contact .sec-lead{color:rgba(255,255,255,0.7);}
+  #contact .divider{background:linear-gradient(to right,var(--yellow),var(--orange));}
+  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;}
+  .form-full{grid-column:1/-1;}
+  .form-group{display:flex;flex-direction:column;gap:0.5rem;}
+  .form-group label{font-size:0.78rem;color:rgba(255,255,255,0.8);letter-spacing:0.08em;font-weight:500;}
+  .form-group label span{color:var(--coral);margin-left:0.3rem;}
+  .form-group input,.form-group select,.form-group textarea{padding:0.9rem 1.1rem;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.2);border-radius:10px;color:var(--white);font-size:0.88rem;font-family:inherit;outline:none;transition:border-color 0.3s,background 0.3s;}
+  .form-group input::placeholder,.form-group textarea::placeholder{color:rgba(255,255,255,0.35);}
+  .form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--yellow);background:rgba(255,255,255,0.12);}
+  .form-group select option{background:var(--navy);color:var(--white);}
+  .form-group textarea{resize:vertical;min-height:120px;}
+  .form-submit{display:block;width:100%;padding:1.1rem;background:linear-gradient(135deg,var(--coral),var(--orange));color:var(--white);border:none;border-radius:50px;font-size:1rem;font-weight:700;letter-spacing:0.1em;cursor:pointer;margin-top:1rem;box-shadow:0 8px 30px rgba(255,107,74,0.4);transition:all 0.3s;font-family:inherit;}
+  .form-submit:hover{transform:translateY(-3px);box-shadow:0 14px 40px rgba(255,107,74,0.5);}
+  .form-note{font-size:0.72rem;color:rgba(255,255,255,0.45);text-align:center;margin-top:1rem;line-height:1.8;}
+
+  /* FOOTER */
+  footer{background:var(--navy);padding:2.5rem 5%;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;border-top:1px solid rgba(255,255,255,0.08);}
+  .footer-logo{font-family:'Dancing Script',cursive;font-size:1.6rem;color:var(--yellow);}
+  .footer-copy{font-size:0.72rem;color:rgba(255,255,255,0.4);}
+  .footer-back{color:rgba(255,255,255,0.6);font-size:0.78rem;text-decoration:none;transition:color 0.3s;}
+  .footer-back:hover{color:var(--yellow);}
+
+  /* REVEAL */
+  .reveal{opacity:1;transform:translateY(0);transition:opacity 0.7s ease,transform 0.7s ease;}
+  .reveal.hidden{opacity:0;transform:translateY(30px);}
+
+  /* RESPONSIVE */
+  @media(max-width:900px){.flow-steps{grid-template-columns:1fr 1fr;}.flow-step:not(:last-child)::after{display:none;}}
+  @media(max-width:768px){.form-grid{grid-template-columns:1fr;}.stats-row{grid-template-columns:1fr 1fr;}footer{flex-direction:column;text-align:center;}}
+  @media(max-width:480px){.flow-steps{grid-template-columns:1fr;}.hero-btns{flex-direction:column;align-items:center;}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">BLO</a>
+  <a href="index.html" class="nav-back">← メインサイトへ戻る</a>
+</nav>
+
+<section id="hero">
+  <div class="hero-img"></div>
+  <div class="hero-deco deco1"></div>
+  <div class="hero-deco deco2"></div>
+  <div class="hero-deco deco3"></div>
+  <div class="hero-inner">
+    <span class="hero-badge">🌺 OKINAWA HOTEL MANAGEMENT</span>
+    <h1 class="hero-title">あなたの物件を<br><em>稼ぐ宿泊施設</em>に変える。</h1>
+    <p class="hero-sub">運営・集客・対応・清掃・レポートまで<br>すべてBLOにお任せください。オーナー様の手間はゼロです。</p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-primary">🏝️ 無料相談はこちら</a>
+      <a href="#features" class="btn-secondary">サービスを見る</a>
+    </div>
+  </div>
+  <div class="hero-scroll">SCROLL</div>
+</section>
+
+<section id="problem">
+  <div class="inner">
+    <p class="sec-eyebrow reveal">😓 こんなお悩みありませんか？</p>
+    <h2 class="sec-title reveal">オーナー様のお悩みを<br>すべて解決します</h2>
+    <div class="divider reveal"></div>
+    <div class="problem-grid">
+      <div class="problem-card reveal"><span class="icon">📉</span><p>宿泊施設を持っているのに<strong>稼働率が上がらない</strong>、収益が安定しない</p></div>
+      <div class="problem-card reveal"><span class="icon">🗣️</span><p>ゲストの問い合わせ対応や<strong>クレーム処理</strong>が大変すぎる</p></div>
+      <div class="problem-card reveal"><span class="icon">🌍</span><p>海外のお客様を取り込みたいが<strong>言語対応・OTA運用</strong>がわからない</p></div>
+      <div class="problem-card reveal"><span class="icon">🧹</span><p>清掃・備品管理など<strong>日常業務に追われ</strong>て本業に集中できない</p></div>
+    </div>
+    <div class="problem-solution reveal">
+      <p>その悩み、<strong>すべてBLOが解決します。</strong><br>オーナー様がすることは、毎月の収益報告を確認するだけ。</p>
+    </div>
+  </div>
+</section>
+
+<section id="features">
+  <div class="inner">
+    <p class="sec-eyebrow reveal">✨ Features</p>
+    <h2 class="sec-title reveal">BLOが選ばれる6つの理由</h2>
+    <div class="divider reveal" style="background:linear-gradient(to right,var(--teal),var(--sky));"></div>
+    <div class="features-grid">
+      <div class="feature-card fc1 reveal"><span class="feature-icon">📊</span><h3 class="feature-title">データ駆動の収益最大化</h3><p class="feature-text">ダイナミックプライシング・海外マーケット戦略・レビュー最適化を徹底。最先端テクノロジーで収益を最大化します。</p></div>
+      <div class="feature-card fc2 reveal"><span class="feature-icon">🕐</span><h3 class="feature-title">24時間365日フルサポート</h3><p class="feature-text">運営・顧客対応・トラブル対応・クレーム処理まですべてBLOが担当。オーナー様の手を一切わずらわせません。</p></div>
+      <div class="feature-card fc3 reveal"><span class="feature-icon">🌏</span><h3 class="feature-title">海外インバウンド特化</h3><p class="feature-text">多言語対応・海外OTA戦略で世界中の旅行者にリーチ。沖縄への旺盛なインバウンド需要を最大限取り込みます。</p></div>
+      <div class="feature-card fc4 reveal"><span class="feature-icon">🛁</span><h3 class="feature-title">アメニティー独自調達</h3><p class="feature-text">シーツ・タオル・アメニティー類を独自ルートでお安く調達。品質を保ちながらランニングコストを大幅削減します。</p></div>
+      <div class="feature-card fc5 reveal"><span class="feature-icon">📋</span><h3 class="feature-title">月次運営レポート</h3><p class="feature-text">毎月わかりやすい運営報告書をお届け。収益・稼働率・レビュー動向など重要な数字を一目で把握できます。</p></div>
+      <div class="feature-card fc6 reveal"><span class="feature-icon">🔑</span><h3 class="feature-title">完全おまかせ運営</h3><p class="feature-text">「所有」から「経営」へ。面倒な手続きや日常管理は一切不要。オーナー様は毎月の報告を確認するだけでOKです。</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="plan">
+  <div class="inner">
+    <p class="sec-eyebrow reveal">💰 Plan & Price</p>
+    <h2 class="sec-title reveal">料金プラン</h2>
+    <div class="divider reveal"></div>
+    <p class="sec-lead reveal">物件の規模・状況に合わせた柔軟なプランをご用意しています。まずはお気軽にご相談ください。</p>
+    <div class="plan-grid">
+      <div class="plan-card reveal">
+        <p class="plan-name">🌿 ライトプラン</p>
+        <p class="plan-sub">小規模・個人オーナー向け</p>
+        <p class="plan-price">応相談</p>
+        <p class="plan-note">物件規模により変動します</p>
+        <ul class="plan-list">
+          <li>OTA登録・運用管理</li>
+          <li>予約対応・チェックイン手続き</li>
+          <li>清掃手配・品質管理</li>
+          <li>月次運営レポート</li>
+          <li>基本的なゲスト対応</li>
+        </ul>
+      </div>
+      <div class="plan-card featured reveal">
+        <span class="plan-badge">🏆 最人気</span>
+        <p class="plan-name">🌺 スタンダードプラン</p>
+        <p class="plan-sub">複数物件・本格運営向け</p>
+        <p class="plan-price">応相談</p>
+        <p class="plan-note">収益シェア型もご相談可能</p>
+        <ul class="plan-list">
+          <li>ライトプランの全内容</li>
+          <li>ダイナミックプライシング</li>
+          <li>海外OTA・多言語対応</li>
+          <li>24時間365日サポート</li>
+          <li>アメニティー独自調達</li>
+          <li>クレーム・トラブル対応</li>
+        </ul>
+      </div>
+      <div class="plan-card reveal">
+        <p class="plan-name">🌊 プレミアムプラン</p>
+        <p class="plan-sub">リゾート・大型施設向け</p>
+        <p class="plan-price">応相談</p>
+        <p class="plan-note">完全カスタマイズ対応</p>
+        <ul class="plan-list">
+          <li>スタンダードプランの全内容</li>
+          <li>ブランド戦略・マーケティング</li>
+          <li>インテリア・備品コンサル</li>
+          <li>収益最大化の戦略設計</li>
+          <li>出口戦略までのトータル支援</li>
+          <li>専任担当者アサイン</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="flow">
+  <div class="inner">
+    <p class="sec-eyebrow reveal">📍 Flow</p>
+    <h2 class="sec-title reveal">ご利用の流れ</h2>
+    <div class="divider reveal" style="background:linear-gradient(to right,var(--orange),var(--yellow));"></div>
+    <div class="flow-steps">
+      <div class="flow-step reveal"><div class="step-num">1</div><p class="step-title">お問い合わせ</p><p class="step-text">フォームまたはメールでご連絡ください</p></div>
+      <div class="flow-step reveal"><div class="step-num">2</div><p class="step-title">現地調査</p><p class="step-text">物件を拝見し収益をシミュレーション</p></div>
+      <div class="flow-step reveal"><div class="step-num">3</div><p class="step-title">契約・準備</p><p class="step-text">契約後、開業準備をすべてBLOが担当</p></div>
+      <div class="flow-step reveal"><div class="step-num">4</div><p class="step-title">運営開始</p><p class="step-text">予約受付から清掃まで完全おまかせ</p></div>
+      <div class="flow-step reveal"><div class="step-num">5</div><p class="step-title">月次レポート</p><p class="step-text">毎月報告書をお届け・収益振込</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="results">
+  <div class="inner">
+    <p class="sec-eyebrow reveal">🏨 Track Record</p>
+    <h2 class="sec-title reveal">宿泊施設運営実績</h2>
+    <div class="divider reveal" style="background:linear-gradient(to right,var(--teal),var(--sky));"></div>
+    <div class="stats-row reveal">
+      <div class="stat-box"><p class="stat-num">12<sup>棟</sup></p><p class="stat-label">運営施設数</p></div>
+      <div class="stat-box"><p class="stat-num">24<sup>h</sup></p><p class="stat-label">サポート体制</p></div>
+      <div class="stat-box"><p class="stat-num">365<sup>日</sup></p><p class="stat-label">年間稼働</p></div>
+      <div class="stat-box"><p class="stat-num">4<sup>年+</sup></p><p class="stat-label">運営実績</p></div>
+    </div>
+    <div class="area-section reveal">
+      <p class="area-title area-south">SOUTH ／ 南部</p>
+      <div class="hotels-grid">
+        <a href="https://blo-okinawa.my.canva.site/kokusai-street-garden-hotel/" target="_blank" class="hotel-link">KOKUSAI STREET GARDEN HOTEL<span class="hotel-area">那覇市</span></a>
+        <a href="https://besteverhotel78.com/" target="_blank" class="hotel-link">Best ever hotel<span class="hotel-area">那覇市</span></a>
+      </div>
+    </div>
+    <div class="area-section reveal">
+      <p class="area-title area-central">CENTRAL ／ 中部</p>
+      <div class="hotels-grid">
+        <a href="https://x.gd/ERAjI" target="_blank" class="hotel-link">イエローハウス<span class="hotel-area">沖縄市</span></a>
+        <a href="https://blo-okinawa.my.canva.site/sapphire" target="_blank" class="hotel-link">Sapphire<span class="hotel-area">うるま市</span></a>
+        <a href="https://blo-okinawa.my.canva.site/hanare-aozora" target="_blank" class="hotel-link">Hanare AOZORA<span class="hotel-area">恩納村</span></a>
+        <a href="https://x.gd/Yn4fQ" target="_blank" class="hotel-link">美ら島ハートランド<span class="hotel-area">恩納村</span></a>
+      </div>
+    </div>
+    <div class="area-section reveal">
+      <p class="area-title area-north">NORTH ／ 北部</p>
+      <div class="hotels-grid">
+        <a href="https://blo-okinawa.my.canva.site/kahoo-house" target="_blank" class="hotel-link">Kahoo house<span class="hotel-area">名護市</span></a>
+        <a href="https://blo-okinawa.my.canva.site/churaumi-terrace" target="_blank" class="hotel-link">Churaumi terrace<span class="hotel-area">本部町</span></a>
+        <a href="https://x.gd/rj6WG" target="_blank" class="hotel-link">IRIE HOUSE MOTOBU<span class="hotel-area">本部町</span></a>
+        <a href="https://x.gd/jkQ7q" target="_blank" class="hotel-link">Tida Sesoko<span class="hotel-area">本部町</span></a>
+        <a href="https://blo-okinawa.my.canva.site/jinjinhouse/" target="_blank" class="hotel-link">Jin Jin House<span class="hotel-area">今帰仁村</span></a>
+        <a href="https://yagajistay.com/" target="_blank" class="hotel-link">YAGAJI STAY<span class="hotel-area">名護市</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="inner">
+    <p class="sec-eyebrow reveal">❓ FAQ</p>
+    <h2 class="sec-title reveal">よくある質問</h2>
+    <div class="divider reveal" style="background:linear-gradient(to right,var(--orange),var(--yellow));"></div>
+    <div class="faq-wrap">
+      <div class="faq-item reveal"><div class="faq-q">どんな物件でも対応できますか？</div><div class="faq-a">マンション・一軒家・リゾート施設など様々な物件に対応しています。まずはお気軽にご相談ください。物件の状態を確認した上で最適なプランをご提案します。</div></div>
+      <div class="faq-item reveal"><div class="faq-q">初期費用はどのくらいかかりますか？</div><div class="faq-a">物件の状態や規模によって異なります。詳細はお問い合わせいただければ、無料でシミュレーションをご提供します。</div></div>
+      <div class="faq-item reveal"><div class="faq-q">収益はどのくらい見込めますか？</div><div class="faq-a">エリア・物件規模・設備によって異なりますが、データに基づいた収益シミュレーションを無料でご提供しています。他社運営より収益が上がるケースも多くあります。</div></div>
+      <div class="faq-item reveal"><div class="faq-q">既に他社で運営中ですが切り替えは可能ですか？</div><div class="faq-a">はい、可能です。現在の契約状況を確認の上、スムーズに移行できるようサポートします。切り替えに伴う手続きもBLOがサポートします。</div></div>
+      <div class="faq-item reveal"><div class="faq-q">オーナーは何をすればいいですか？</div><div class="faq-a">毎月お送りする運営報告書をご確認いただくだけで構いません。運営に関するすべての業務はBLOが対応しますので、オーナー様の手間はゼロです。</div></div>
+      <div class="faq-item reveal"><div class="faq-q">契約期間はどのくらいですか？</div><div class="faq-a">基本は1年契約となりますが、物件の状況によって柔軟に対応しております。詳細はお問い合わせ時にご確認ください。</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="inner">
+    <p class="sec-eyebrow reveal">📩 Contact</p>
+    <h2 class="sec-title reveal">無料相談・お問い合わせ</h2>
+    <div class="divider reveal"></div>
+    <p class="sec-lead reveal">まずはお気軽にご連絡ください。無料で収益シミュレーションをご提供します。</p>
+    <form class="reveal" onsubmit="handleSubmit(event)">
+      <div class="form-grid">
+        <div class="form-group"><label>お名前<span>*</span></label><input type="text" placeholder="山田 太郎" required></div>
+        <div class="form-group"><label>電話番号<span>*</span></label><input type="tel" placeholder="098-000-0000" required></div>
+        <div class="form-group"><label>メールアドレス<span>*</span></label><input type="email" placeholder="example@email.com" required></div>
+        <div class="form-group"><label>物件エリア</label>
+          <select><option value="">選択してください</option><option>那覇市・南部エリア</option><option>中部エリア（北谷・沖縄市・うるま市等）</option><option>北部エリア（名護・本部・今帰仁等）</option><option>その他・未定</option></select>
+        </div>
+        <div class="form-group"><label>物件種別</label>
+          <select><option value="">選択してください</option><option>マンション・アパート</option><option>一軒家・戸建て</option><option>リゾート・ヴィラ</option><option>その他</option></select>
+        </div>
+        <div class="form-group"><label>ご相談内容</label>
+          <select><option value="">選択してください</option><option>新規で宿泊施設を始めたい</option><option>既存施設の運営を委託したい</option><option>他社から切り替えたい</option><option>まずは話を聞きたい</option></select>
+        </div>
+        <div class="form-group form-full"><label>メッセージ・ご質問</label><textarea placeholder="物件の詳細や気になる点など、お気軽にご記入ください。"></textarea></div>
+      </div>
+      <button type="submit" class="form-submit">🌺 無料相談を申し込む</button>
+      <p class="form-note">送信後、担当者より2営業日以内にご連絡いたします。<br>blo.okinawa2023@gmail.com</p>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-logo">BLO</span>
+  <p class="footer-copy">© 2021 BLO株式会社. All Rights Reserved.</p>
+  <a href="index.html" class="footer-back">← メインサイトへ戻る</a>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) setTimeout(() => e.target.classList.remove('hidden'), i * 80);
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => { el.classList.add('hidden'); observer.observe(el); });
+
+  document.querySelectorAll('.faq-q').forEach(q => {
+    q.addEventListener('click', () => q.parentElement.classList.toggle('open'));
+  });
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('.form-submit');
+    btn.textContent = '✅ 送信しました！担当者より連絡いたします。';
+    btn.style.background = 'linear-gradient(135deg, #06b6a2, #38bdf8)';
+    btn.disabled = true;
+  }
+</script>
+</body>
+</html>
