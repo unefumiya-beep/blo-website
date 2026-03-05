@@ -145,9 +145,9 @@
   .faq-item{background:var(--white);border-radius:14px;overflow:hidden;box-shadow:0 2px 16px rgba(0,0,0,0.06);}
   .faq-q{padding:1.2rem 1.5rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-size:0.9rem;font-weight:600;color:var(--navy);user-select:none;border-left:4px solid var(--orange);}
   .faq-q::after{content:'+';font-size:1.4rem;color:var(--orange);transition:transform 0.3s;flex-shrink:0;margin-left:1rem;}
-  .faq-item.open .faq-q::after{transform:rotate(45deg);}
+  .faq-item input:checked ~ .faq-q::after{transform:rotate(45deg);}
   .faq-a{max-height:0;overflow:hidden;transition:max-height 0.4s ease,padding 0.3s;font-size:0.85rem;line-height:2;color:var(--muted);padding:0 1.5rem;}
-  .faq-item.open .faq-a{max-height:300px;padding:1.2rem 1.5rem;border-top:1px solid rgba(255,154,60,0.1);}
+  .faq-item input:checked ~ .faq-a{max-height:300px;padding:1.2rem 1.5rem;border-top:1px solid rgba(255,154,60,0.1);}
 
   /* CONTACT */
   #contact{background:linear-gradient(135deg,#0c2d48 0%,#065f6a 100%);position:relative;overflow:hidden;}
@@ -298,7 +298,7 @@
       <div class="flow-step reveal"><div class="step-num">2</div><p class="step-title">現地調査</p><p class="step-text">物件を拝見し収益をシミュレーション</p></div>
       <div class="flow-step reveal"><div class="step-num">3</div><p class="step-title">契約・準備</p><p class="step-text">契約後、開業準備をすべてBLOが担当</p></div>
       <div class="flow-step reveal"><div class="step-num">4</div><p class="step-title">運営開始</p><p class="step-text">予約受付から清掃まで完全おまかせ</p></div>
-      <div class="flow-step reveal"><div class="step-num">5</div><p class="step-title">月次レポート</p><p class="step-text">毎月報告書をお届け・収益振込</p></div>
+      <div class="flow-step reveal"><div class="step-num">5</div><p class="step-title">月次レポート</p><p class="step-text">毎月報告書をお届け・収益確認</p></div>
     </div>
   </div>
 </section>
@@ -350,12 +350,12 @@
     <h2 class="sec-title reveal">よくある質問</h2>
     <div class="divider reveal" style="background:linear-gradient(to right,var(--orange),var(--yellow));"></div>
     <div class="faq-wrap">
-      <div class="faq-item reveal"><div class="faq-q">どんな物件でも対応できますか？</div><div class="faq-a">マンション・一軒家・リゾート施設など様々な物件に対応しています。まずはお気軽にご相談ください。物件の状態を確認した上で最適なプランをご提案します。</div></div>
-      <div class="faq-item reveal"><div class="faq-q">初期費用はどのくらいかかりますか？</div><div class="faq-a">物件の状態や規模によって異なります。詳細はお問い合わせいただければ、無料でシミュレーションをご提供します。</div></div>
-      <div class="faq-item reveal"><div class="faq-q">収益はどのくらい見込めますか？</div><div class="faq-a">エリア・物件規模・設備によって異なりますが、データに基づいた収益シミュレーションを無料でご提供しています。他社運営より収益が上がるケースも多くあります。</div></div>
-      <div class="faq-item reveal"><div class="faq-q">既に他社で運営中ですが切り替えは可能ですか？</div><div class="faq-a">はい、可能です。現在の契約状況を確認の上、スムーズに移行できるようサポートします。切り替えに伴う手続きもBLOがサポートします。</div></div>
-      <div class="faq-item reveal"><div class="faq-q">オーナーは何をすればいいですか？</div><div class="faq-a">毎月お送りする運営報告書をご確認いただくだけで構いません。運営に関するすべての業務はBLOが対応しますので、オーナー様の手間はゼロです。</div></div>
-      <div class="faq-item reveal"><div class="faq-q">契約期間はどのくらいですか？</div><div class="faq-a">基本は1年契約となりますが、物件の状況によって柔軟に対応しております。詳細はお問い合わせ時にご確認ください。</div></div>
+      <div class="faq-item reveal"><input type="checkbox" id="faq1" style="display:none;"><label class="faq-q" for="faq1">どんな物件でも対応できますか？</label><div class="faq-a">マンション・一軒家・リゾート施設など様々な物件に対応しています。まずはお気軽にご相談ください。物件の状態を確認した上で最適なプランをご提案します。</div></div>
+      <div class="faq-item reveal"><input type="checkbox" id="faq2" style="display:none;"><label class="faq-q" for="faq2">初期費用はどのくらいかかりますか？</label><div class="faq-a">物件の状態や規模によって異なります。詳細はお問い合わせいただければ、無料でシミュレーションをご提供します。</div></div>
+      <div class="faq-item reveal"><input type="checkbox" id="faq3" style="display:none;"><label class="faq-q" for="faq3">収益はどのくらい見込めますか？</label><div class="faq-a">エリア・物件規模・設備によって異なりますが、データに基づいた収益シミュレーションを無料でご提供しています。他社運営より収益が上がるケースも多くあります。</div></div>
+      <div class="faq-item reveal"><input type="checkbox" id="faq4" style="display:none;"><label class="faq-q" for="faq4">既に他社で運営中ですが切り替えは可能ですか？</label><div class="faq-a">はい、可能です。現在の契約状況を確認の上、スムーズに移行できるようサポートします。切り替えに伴う手続きもBLOがサポートします。</div></div>
+      <div class="faq-item reveal"><input type="checkbox" id="faq5" style="display:none;"><label class="faq-q" for="faq5">オーナーは何をすればいいですか？</label><div class="faq-a">毎月お送りする運営報告書をご確認いただくだけで構いません。運営に関するすべての業務はBLOが対応しますので、オーナー様の手間はゼロです。</div></div>
+      <div class="faq-item reveal"><input type="checkbox" id="faq6" style="display:none;"><label class="faq-q" for="faq6">契約期間はどのくらいですか？</label><div class="faq-a">基本は1年契約となりますが、物件の状況によって柔軟に対応しております。詳細はお問い合わせ時にご確認ください。</div></div>
     </div>
   </div>
 </section>
@@ -402,8 +402,7 @@
   }, { threshold: 0.1 });
   document.querySelectorAll('.reveal').forEach(el => { el.classList.add('hidden'); observer.observe(el); });
 
-  document.querySelectorAll('.faq-q').forEach(q => {
-    q.addEventListener('click', () => q.parentElement.classList.toggle('open'));
+  // FAQ handled by CSS
   });
 
   function handleSubmit(e) {
