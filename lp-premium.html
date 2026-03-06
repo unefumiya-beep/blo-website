@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BLO プレミアム会員 | 300万円で手にする6つの特権</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Serif+JP:wght@200;300;400;700&family=Oswald:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold:   #c9a84c;
+    --gold2:  #e8c97a;
+    --gold3:  #f5e6b8;
+    --dark:   #080808;
+    --dark2:  #0f0f0f;
+    --dark3:  #181818;
+    --dark4:  #222222;
+    --white:  #ffffff;
+    --text:   #d4cabb;
+    --muted:  #6a6050;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Noto Serif JP',serif;color:var(--text);background:var(--dark);overflow-x:hidden;}
+
+  /* ===== NAV ===== */
+  nav{position:fixed;top:0;left:0;right:0;z-index:9999;height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 6%;background:rgba(8,8,8,0.97);border-bottom:1px solid rgba(201,168,76,0.15);}
+  .nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.7rem;color:var(--gold);letter-spacing:0.08em;text-decoration:none;font-style:italic;}
+  .nav-badge{font-size:0.65rem;letter-spacing:0.25em;color:rgba(201,168,76,0.5);text-transform:uppercase;}
+  .nav-back{font-size:0.72rem;color:var(--muted);text-decoration:none;letter-spacing:0.1em;transition:color 0.3s;}
+  .nav-back:hover{color:var(--gold);}
+
+  /* ===== HERO ===== */
+  #hero{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;padding-top:60px;}
+
+  /* ノイズ・テクスチャ背景 */
+  #hero::before{
+    content:'';position:absolute;inset:0;
+    background:
+      radial-gradient(ellipse 80% 60% at 20% 50%, rgba(201,168,76,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 80% at 80% 30%, rgba(201,168,76,0.04) 0%, transparent 50%),
+      repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(201,168,76,0.015) 2px, rgba(201,168,76,0.015) 4px);
+  }
+
+  /* ビル背景画像 */
+  .hero-img{position:absolute;inset:0;}
+  .hero-img img{width:100%;height:100%;object-fit:cover;opacity:0.08;filter:grayscale(100%);}
+
+  /* 縦線デコ */
+  .vline{position:absolute;width:1px;background:linear-gradient(to bottom,transparent,rgba(201,168,76,0.2),transparent);height:70%;}
+  .vl1{left:12%;top:15%;}
+  .vl2{right:12%;top:10%;}
+
+  .hero-inner{position:relative;z-index:2;text-align:center;padding:3rem 5%;max-width:860px;}
+  .hero-tag{display:inline-block;border:1px solid rgba(201,168,76,0.35);padding:0.45rem 1.8rem;font-size:0.68rem;letter-spacing:0.45em;color:var(--gold);text-transform:uppercase;margin-bottom:2.5rem;opacity:0;animation:fadeUp 1s ease 0.2s forwards;}
+  .hero-price{font-family:'Oswald',sans-serif;font-size:clamp(0.8rem,1.5vw,0.95rem);letter-spacing:0.3em;color:rgba(201,168,76,0.6);margin-bottom:1rem;opacity:0;animation:fadeUp 1s ease 0.4s forwards;}
+  .hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,7vw,5.5rem);font-weight:300;color:var(--white);line-height:1.15;margin-bottom:0.5rem;letter-spacing:0.03em;opacity:0;animation:fadeUp 1s ease 0.6s forwards;}
+  .hero-title em{font-style:italic;background:linear-gradient(135deg,var(--gold),var(--gold2),var(--gold3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+  .hero-sub-title{font-size:clamp(1rem,2.5vw,1.5rem);font-weight:200;color:rgba(255,255,255,0.5);letter-spacing:0.1em;margin-bottom:3rem;opacity:0;animation:fadeUp 1s ease 0.8s forwards;}
+  .hero-divider{display:flex;align-items:center;gap:1rem;justify-content:center;margin-bottom:3rem;opacity:0;animation:fadeUp 1s ease 0.9s forwards;}
+  .hero-divider::before,.hero-divider::after{content:'';flex:1;max-width:100px;height:1px;background:linear-gradient(to right,transparent,rgba(201,168,76,0.4));}
+  .hero-divider::after{background:linear-gradient(to left,transparent,rgba(201,168,76,0.4));}
+  .hero-divider span{font-size:0.6rem;letter-spacing:0.4em;color:var(--gold);text-transform:uppercase;}
+  .hero-desc{font-size:clamp(0.85rem,1.4vw,0.95rem);color:rgba(255,255,255,0.45);line-height:2.4;margin-bottom:3.5rem;font-weight:200;opacity:0;animation:fadeUp 1s ease 1s forwards;}
+  .hero-btns{display:flex;gap:1.2rem;justify-content:center;flex-wrap:wrap;opacity:0;animation:fadeUp 1s ease 1.2s forwards;}
+  .btn-gold{display:inline-block;padding:1.1rem 3.5rem;background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--dark);text-decoration:none;font-size:0.8rem;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;transition:all 0.4s;box-shadow:0 0 40px rgba(201,168,76,0.2);}
+  .btn-gold:hover{transform:translateY(-3px);box-shadow:0 8px 50px rgba(201,168,76,0.4);}
+  .btn-line{display:inline-flex;align-items:center;gap:0.6rem;padding:1.1rem 3rem;background:transparent;border:1px solid rgba(201,168,76,0.3);color:var(--gold);text-decoration:none;font-size:0.8rem;letter-spacing:0.2em;transition:all 0.4s;}
+  .btn-line:hover{background:rgba(201,168,76,0.08);border-color:var(--gold);}
+  .hero-scroll{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:0.5rem;color:rgba(201,168,76,0.3);font-size:0.58rem;letter-spacing:0.35em;animation:pulse 2.5s ease-in-out infinite;}
+  .hero-scroll::after{content:'';width:1px;height:45px;background:linear-gradient(to bottom,rgba(201,168,76,0.4),transparent);display:block;}
+  @keyframes pulse{0%,100%{opacity:0.4;}50%{opacity:1;}}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:translateY(0);}}
+
+  /* ===== COMMON ===== */
+  section{padding:7rem 6%;}
+  .inner{max-width:1080px;margin:0 auto;}
+  .eyebrow{font-family:'Oswald',sans-serif;font-size:0.7rem;letter-spacing:0.5em;text-transform:uppercase;color:rgba(201,168,76,0.55);margin-bottom:0.8rem;}
+  .sec-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,4vw,3rem);font-weight:300;color:var(--white);line-height:1.3;margin-bottom:1.2rem;}
+  .sec-title em{font-style:italic;color:var(--gold);}
+  .gold-rule{width:40px;height:1px;background:var(--gold);margin-bottom:2.5rem;opacity:0.5;}
+  .reveal{transition:opacity 0.9s ease,transform 0.9s ease;}
+  .reveal.hidden{opacity:0;transform:translateY(32px);}
+
+  /* ===== ABOUT ===== */
+  #about{background:var(--dark2);}
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center;}
+  .about-visual{position:relative;}
+  .about-card{background:var(--dark3);border:1px solid rgba(201,168,76,0.12);padding:3rem 2.5rem;position:relative;}
+  .about-card::before{content:'';position:absolute;top:-1px;left:-1px;right:-1px;height:2px;background:linear-gradient(to right,var(--gold),var(--gold2),transparent);}
+  .price-display{text-align:center;padding:2rem 0;border-bottom:1px solid rgba(201,168,76,0.1);margin-bottom:2rem;}
+  .price-label{font-size:0.68rem;letter-spacing:0.35em;color:var(--muted);text-transform:uppercase;margin-bottom:0.8rem;}
+  .price-num{font-family:'Oswald',sans-serif;font-size:4rem;font-weight:200;color:var(--gold2);line-height:1;}
+  .price-unit{font-size:1rem;color:var(--muted);}
+  .price-note{font-size:0.72rem;color:var(--muted);margin-top:0.5rem;letter-spacing:0.05em;}
+  .benefits-list{display:flex;flex-direction:column;gap:0.8rem;}
+  .benefit-row{display:flex;align-items:center;gap:1rem;padding:0.6rem 0;border-bottom:1px solid rgba(255,255,255,0.04);}
+  .benefit-row:last-child{border-bottom:none;}
+  .benefit-num{font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--gold);opacity:0.7;width:24px;flex-shrink:0;}
+  .benefit-name{font-size:0.82rem;color:rgba(255,255,255,0.7);letter-spacing:0.05em;}
+  .about-text .lead{font-size:1.05rem;line-height:2.3;color:rgba(255,255,255,0.75);margin-bottom:1.5rem;font-weight:300;}
+  .about-text p{font-size:0.88rem;line-height:2.3;color:var(--muted);margin-bottom:1rem;}
+
+  /* ===== FEATURES ===== */
+  #features{background:var(--dark);}
+  .features-header{text-align:center;margin-bottom:5rem;}
+  .features-header .gold-rule{margin:0 auto 2.5rem;}
+  .features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(201,168,76,0.08);}
+  .feature-card{background:var(--dark);padding:3rem 2.5rem;position:relative;transition:background 0.4s;}
+  .feature-card:hover{background:rgba(201,168,76,0.03);}
+  .feature-card::after{content:'';position:absolute;bottom:0;left:2.5rem;right:2.5rem;height:1px;background:rgba(201,168,76,0.08);}
+  .f-num{font-family:'Cormorant Garamond',serif;font-size:4rem;font-weight:300;color:rgba(201,168,76,0.1);line-height:1;margin-bottom:1.5rem;}
+  .f-icon{display:none;}
+  .f-num{font-family:'Cormorant Garamond',serif;font-size:3.5rem;font-weight:300;background:linear-gradient(135deg,var(--gold),var(--gold2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;margin-bottom:1.2rem;letter-spacing:0.05em;}
+  .why-point-icon{display:none;}
+  .f-title{font-size:0.95rem;font-weight:700;color:var(--white);margin-bottom:0.8rem;letter-spacing:0.05em;}
+  .f-text{font-size:0.8rem;line-height:2.1;color:var(--muted);}
+  .f-tag{display:inline-block;margin-top:1rem;font-size:0.62rem;letter-spacing:0.2em;border:1px solid rgba(201,168,76,0.2);padding:0.25rem 0.8rem;color:var(--gold);text-transform:uppercase;}
+
+  /* ===== WHY ===== */
+  #why{background:var(--dark2);position:relative;overflow:hidden;}
+  #why::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 50%,rgba(201,168,76,0.04) 0%,transparent 70%);}
+  .why-inner{position:relative;z-index:1;text-align:center;max-width:800px;margin:0 auto;}
+  .why-quote{font-family:'Cormorant Garamond',serif;font-size:clamp(1.3rem,3vw,2rem);font-style:italic;font-weight:300;color:rgba(255,255,255,0.7);line-height:1.8;margin-bottom:3rem;}
+  .why-quote strong{color:var(--gold2);font-style:normal;font-weight:400;}
+  .why-points{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:4rem;}
+  .why-point{text-align:center;padding:2rem 1.5rem;border:1px solid rgba(201,168,76,0.08);}
+  .why-point-icon{font-size:2rem;margin-bottom:1rem;display:block;}
+  .why-point-title{font-size:0.88rem;font-weight:700;color:var(--white);margin-bottom:0.5rem;}
+  .why-point-text{font-size:0.78rem;line-height:2;color:var(--muted);}
+
+  /* ===== CTA ===== */
+  #cta{background:var(--dark);position:relative;overflow:hidden;}
+  #cta::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(201,168,76,0.05) 0%,transparent 50%,rgba(201,168,76,0.03) 100%);}
+  .cta-inner{position:relative;z-index:1;text-align:center;max-width:700px;margin:0 auto;}
+  .cta-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,5vw,3.5rem);font-weight:300;color:var(--white);line-height:1.3;margin-bottom:1.5rem;}
+  .cta-title em{font-style:italic;color:var(--gold);}
+  .cta-text{font-size:0.88rem;color:var(--muted);line-height:2.3;margin-bottom:3rem;}
+  .line-btn{display:inline-flex;align-items:center;gap:1rem;padding:1.3rem 4rem;background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--dark);text-decoration:none;font-size:0.9rem;font-weight:700;letter-spacing:0.15em;transition:all 0.3s;box-shadow:0 8px 40px rgba(201,168,76,0.25);}
+  .line-btn:hover{transform:translateY(-3px);box-shadow:0 16px 50px rgba(201,168,76,0.4);}
+  .line-btn svg{width:22px;height:22px;fill:currentColor;}
+  .cta-note{font-size:0.72rem;color:var(--muted);margin-top:1.5rem;letter-spacing:0.08em;line-height:2;}
+
+  /* ===== FAQ ===== */
+  #faq{background:var(--dark2);}
+  .faq-wrap{max-width:740px;display:flex;flex-direction:column;}
+  .faq-item{border-bottom:1px solid rgba(201,168,76,0.1);}
+  .faq-q{padding:1.5rem 0;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-size:0.9rem;color:rgba(255,255,255,0.8);user-select:none;letter-spacing:0.05em;gap:1rem;}
+  .faq-q::after{content:'+';font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--gold);transition:transform 0.3s;flex-shrink:0;}
+  .faq-item input:checked ~ .faq-q::after{transform:rotate(45deg);}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height 0.4s ease,padding 0.3s;font-size:0.83rem;line-height:2.3;color:var(--muted);padding:0;}
+  .faq-item input:checked ~ .faq-a{max-height:300px;padding-bottom:1.5rem;}
+
+  /* ===== FOOTER ===== */
+  footer{background:var(--dark2);padding:2.5rem 6%;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;border-top:1px solid rgba(201,168,76,0.08);}
+  .footer-logo{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--gold);font-style:italic;}
+  .footer-copy{font-size:0.68rem;color:var(--muted);letter-spacing:0.1em;}
+  .footer-back{font-size:0.75rem;color:var(--muted);text-decoration:none;transition:color 0.3s;}
+  .footer-back:hover{color:var(--gold);}
+
+  /* ===== RESPONSIVE ===== */
+  @media(max-width:900px){
+    .about-grid{grid-template-columns:1fr;}
+    .features-grid{grid-template-columns:1fr 1fr;}
+    .why-points{grid-template-columns:1fr;}
+    footer{flex-direction:column;text-align:center;}
+  }
+  @media(max-width:600px){
+    .features-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div>
+    <a href="index.html" class="nav-logo">BLO</a>
+  </div>
+  <span class="nav-badge">Premium Member</span>
+  <a href="index.html" class="nav-back">← Back</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-img">
+    <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1600&q=80" alt="">
+  </div>
+  <div class="vline vl1"></div>
+  <div class="vline vl2"></div>
+  <div class="hero-inner">
+    <p class="hero-tag">Invitation Only · BLO Premium</p>
+    <h1 class="hero-title">知らなかった世界へ、<br><em>6つの扉が開く。</em></h1>
+    <p class="hero-sub-title">BLO プレミアム会員</p>
+    <div class="hero-divider"><span>Exclusive Privilege</span></div>
+    <p class="hero-desc">
+      不動産・投資・アート・医療・金融——<br>
+      GOOD LUCKとBLOが手がける次世代エグゼクティブのための特別プログラム。
+    </p>
+    <div class="hero-btns">
+      <a href="#features" class="btn-gold">特典を見る</a>
+      <a href="#cta" class="btn-line">メールで詳細を聞く</a>
+    </div>
+  </div>
+  <div class="hero-scroll">Scroll</div>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="inner">
+    <div class="features-header">
+      <p class="eyebrow reveal">6 Exclusive Privileges</p>
+      <h2 class="sec-title reveal">プレミアム会員が手にする<em>6つの特典</em></h2>
+      <div class="gold-rule reveal"></div>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <p class="f-num">01</p>
+        
+        <h3 class="f-title">不動産キャピタルゲイン報酬</h3>
+        <p class="f-text">フィリピン不動産（VISTA LAND・DMCI HOMES等）の紹介報酬を受け取れる権利。毎月積立金×1.5%＋完成後残金×1.5%の報酬スキーム。会員10件成立ごとに1部屋購入・売却益の分配にも参加できます。</p>
+        <span class="f-tag">Real Estate</span>
+      </div>
+      <div class="feature-card reveal">
+        <p class="f-num">02</p>
+        
+        <h3 class="f-title">フィリピン投資ファンドストック報酬</h3>
+        <p class="f-text">GoodLuckが3年以上積み上げてきたフィリピン株式投資実績をもとに設立される投資ファンド。会員にはストック報酬として配布される特別参加権です。</p>
+        <span class="f-tag">Investment Fund</span>
+      </div>
+      <div class="feature-card reveal">
+        <p class="f-num">03</p>
+        
+        <h3 class="f-title">絵画（高額相当）＋絵画販売権</h3>
+        <p class="f-text">高額絵画（F10〜F20サイズ）を1枚贈呈。さらに絵画の販売代理権を取得。販売価格に応じた報酬（300万まで10%・1,000万まで20%・1,000万以上30%）を受け取ることができます。</p>
+        <span class="f-tag">Art · Gallery</span>
+      </div>
+      <div class="feature-card reveal">
+        <p class="f-num">04</p>
+        
+        <h3 class="f-title">ヘルス＆ビューティーマネジメント特典</h3>
+        <p class="f-text">原液幹細胞（高額相当）のプレゼント、AGA・ED・糖尿病・肥満などの個別医療相談、GOOD LUCKオリジナルコスメセットのプレゼントが含まれます。</p>
+        <span class="f-tag">Health · Beauty</span>
+      </div>
+      <div class="feature-card reveal">
+        <p class="f-num">05</p>
+        
+        <h3 class="f-title">プライベートバンクの開設</h3>
+        <p class="f-text">ハワイのBank of Hawaii（米国）またはスイスのEFG Bankの口座開設をサポート。グローバルな資産管理の入口として、日本人担当者が丁寧にサポートします。</p>
+        <span class="f-tag">Private Bank</span>
+      </div>
+      <div class="feature-card reveal">
+        <p class="f-num">06</p>
+        
+        <h3 class="f-title">エシュロン＆レイズ特別商品</h3>
+        <p class="f-text">ECHELON WEALTH LIMITED・RAYS GLOBAL LIMITEDが提供する特別金融商品へのアクセス権。1,000万円以上から3年・5年・10年定期など複数の商品ラインナップがあります。</p>
+        <span class="f-tag">Finance</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY BLO -->
+<section id="why">
+  <div class="inner">
+    <div class="why-inner">
+      <p class="eyebrow reveal" style="text-align:center;">Why BLO</p>
+      <h2 class="sec-title reveal" style="text-align:center;">BLOが代理店として<br><em>選ばれた理由</em></h2>
+      <div class="gold-rule reveal" style="margin:0 auto 2.5rem;"></div>
+      <p class="why-quote reveal">
+        沖縄でホテルを動かしてきた実績と人脈。<br>
+        それがGOOD LUCKから<strong>代理店資格</strong>を得た背景です。
+      </p>
+      <div class="why-points">
+        <div class="why-point reveal">
+          <p style="font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-weight:300;background:linear-gradient(135deg,var(--gold),var(--gold2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:1rem;">I</p>
+          <p class="why-point-title">沖縄4年の運営実績</p>
+          <p class="why-point-text">12棟の宿泊施設を運営。地元ネットワークと信頼関係が土台。</p>
+        </div>
+        <div class="why-point reveal">
+          <p style="font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-weight:300;background:linear-gradient(135deg,var(--gold),var(--gold2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:1rem;">II</p>
+          <p class="why-point-title">グローバルな繋がり</p>
+          <p class="why-point-text">フィリピン・ハワイ・スイスへのアクセスを持つパートナーシップ。</p>
+        </div>
+        <div class="why-point reveal">
+          <p style="font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-weight:300;background:linear-gradient(135deg,var(--gold),var(--gold2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:1rem;">III</p>
+          <p class="why-point-title">完全個別サポート</p>
+          <p class="why-point-text">会員一人ひとりに合わせた活用方法を個別にご提案します。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT / PRICING -->
+<section id="about">
+  <div class="inner">
+    <div class="about-grid">
+      <div class="about-visual reveal">
+        <div class="about-card">
+          <div class="price-display">
+            <p class="price-label">Member Fee</p>
+            <p class="price-num">300<span class="price-unit">万円</span></p>
+            <p class="price-note">買切り・権利永続</p>
+          </div>
+          <div class="benefits-list">
+            <div class="benefit-row"><span class="benefit-num">①</span><span class="benefit-name">不動産キャピタルゲイン報酬</span></div>
+            <div class="benefit-row"><span class="benefit-num">②</span><span class="benefit-name">フィリピン投資ファンドストック報酬</span></div>
+            <div class="benefit-row"><span class="benefit-num">③</span><span class="benefit-name">絵画（高額相当）＋絵画販売権</span></div>
+            <div class="benefit-row"><span class="benefit-num">④</span><span class="benefit-name">ヘルス＆ビューティーマネジメント特典</span></div>
+            <div class="benefit-row"><span class="benefit-num">⑤</span><span class="benefit-name">プライベートバンクの開設</span></div>
+            <div class="benefit-row"><span class="benefit-num">⑥</span><span class="benefit-name">エシュロン＆レイズ特別商品</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="about-text">
+        <p class="eyebrow reveal">Pricing</p>
+        <h2 class="sec-title reveal">なぜ、<em>300万円</em>なのか。</h2>
+        <div class="gold-rule reveal"></div>
+        <p class="lead reveal">この会員権は「費用」ではなく「投資」です。6つの特典はそれぞれ単独でも大きな価値を持ち、組み合わせることで資産形成の幅が大きく広がります。</p>
+        <p class="reveal">絵画1枚だけで同等額、幹細胞だけで同等額——その価値を考えると、6つまとめて手に入る会員権は、むしろ割安とも言えます。</p>
+        <p class="reveal" style="margin-top:1rem;">買切りで権利は永続。一度取得すれば追加費用なく6つの特典をずっとご活用いただけます。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="inner">
+    <p class="eyebrow reveal">FAQ</p>
+    <h2 class="sec-title reveal">よくある<em>質問</em></h2>
+    <div class="gold-rule reveal"></div>
+    <div class="faq-wrap">
+      <div class="faq-item reveal"><input type="checkbox" id="faq1" style="display:none;"><label class="faq-q" for="faq1">300万円は一括払いですか？</label><div class="faq-a">基本は一括払いとなりますが、詳細はメールにてご相談ください。</div></div>
+      <div class="faq-item reveal"><input type="checkbox" id="faq2" style="display:none;"><label class="faq-q" for="faq2">会員権に有効期限はありますか？</label><div class="faq-a">いいえ、買切りの永続権利です。一度取得すれば6つの特典を継続してご利用いただけます。</div></div>
+      <div class="faq-item reveal"><input type="checkbox" id="faq3" style="display:none;"><label class="faq-q" for="faq3">沖縄以外に住んでいても大丈夫ですか？</label><div class="faq-a">はい、全国どこからでもご参加いただけます。オンラインでの説明・サポートに対応しています。</div></div>
+      <div class="faq-item reveal"><input type="checkbox" id="faq4" style="display:none;"><label class="faq-q" for="faq4">投資経験がなくても大丈夫ですか？</label><div class="faq-a">はい、問題ありません。各特典の活用方法については個別に丁寧にご説明します。</div></div>
+      <div class="faq-item reveal"><input type="checkbox" id="faq5" style="display:none;"><label class="faq-q" for="faq5">まず話だけ聞くことはできますか？</label><div class="faq-a">もちろんです。メールにてお気軽にご連絡ください。無料でご説明いたします。</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="inner">
+    <div class="cta-inner">
+      <p class="eyebrow reveal" style="text-align:center;">Contact</p>
+      <h2 class="cta-title reveal">まずは、<em>話を聞く</em>だけでいい。</h2>
+      <p class="cta-text reveal">詳細資料のご送付・個別説明会のご案内はメールにて承っております。<br>お気軽にご連絡ください。</p>
+      <a href="mailto:blo.okinawa2023@gmail.com?subject=BLOプレミアム会員について&body=お名前：%0Aご連絡先：%0Aご質問・ご要望：" class="line-btn reveal">
+        ✉️　メールで無料相談する
+      </a>
+      <p class="cta-note reveal">blo.okinawa2023@gmail.com ・ 返信は通常24時間以内 ・ 秘密厳守 ・ 強引な勧誘は一切行いません</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-logo">BLO</span>
+  <p class="footer-copy">© 2021 BLO株式会社. All Rights Reserved.</p>
+  <a href="index.html" class="footer-back">← メインサイトへ戻る</a>
+</footer>
+
+<script>
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) setTimeout(() => e.target.classList.remove('hidden'), i * 100);
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => { el.classList.add('hidden'); obs.observe(el); });
+</script>
+</body>
+</html>
