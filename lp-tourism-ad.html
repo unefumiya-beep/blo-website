@@ -43,7 +43,7 @@
   .hero-text{}
   .hero-badge{display:inline-flex;align-items:center;gap:0.5rem;background:linear-gradient(135deg,var(--sky),var(--teal));color:var(--white);padding:0.4rem 1.2rem;border-radius:50px;font-size:0.72rem;font-weight:700;letter-spacing:0.1em;margin-bottom:1.8rem;opacity:0;animation:fadeUp 0.8s ease 0.2s forwards;}
   .hero-badge::before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.8);}
-  .hero-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:700;color:var(--navy);line-height:1.25;margin-bottom:1.2rem;letter-spacing:0.02em;opacity:0;animation:fadeUp 0.8s ease 0.4s forwards;}
+  .hero-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(1.6rem,3.2vw,2.8rem);font-weight:700;color:var(--navy);line-height:1.3;margin-bottom:1.2rem;letter-spacing:0.02em;opacity:0;animation:fadeUp 0.8s ease 0.4s forwards;}
   .hero-title em{font-style:normal;color:var(--sky);}
   .hero-title .accent{background:linear-gradient(135deg,var(--coral),var(--yellow));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
   .hero-sub{font-size:0.95rem;color:var(--muted);line-height:2;margin-bottom:2.5rem;opacity:0;animation:fadeUp 0.8s ease 0.6s forwards;}
@@ -181,6 +181,22 @@
     .options-grid{grid-template-columns:1fr 1fr;}
     footer{flex-direction:column;text-align:center;}
   }
+  @media(max-width:600px){
+    section{padding:4rem 5%;}
+    nav{padding:0 4%;}
+    .hero-inner{padding:3rem 4%;}
+    .hero-title{font-size:1.35rem;}
+    .hero-badge{font-size:0.65rem;padding:0.35rem 1rem;}
+    .hero-stats{gap:1.2rem;}
+    .hero-stat-num{font-size:1.6rem;}
+    .hero-btns{flex-direction:column;}
+    .btn-primary,.btn-secondary{text-align:center;padding:0.9rem 1.5rem;}
+    .options-grid{grid-template-columns:1fr;}
+    .compare-table th,.compare-table td{padding:0.7rem 0.8rem;font-size:0.78rem;}
+    .plan-card{padding:2rem 1.5rem;}
+    .cta-btn{padding:1rem 2rem;font-size:0.88rem;}
+    .mockup-body{padding:1rem;}
+  }
 </style>
 </head>
 <body>
@@ -199,7 +215,7 @@
     <div class="hero-text">
       <p class="hero-badge">BLO運営施設に宿泊するゲスト限定</p>
       <h1 class="hero-title">
-        購買意欲<em>最大の瞬間</em>に、<br>あなたのお店を<span class="accent">届けませんか？</span>
+        購買意欲<em>最大の瞬間に</em><br>あなたのお店を<span class="accent">届けませんか？</span>
       </h1>
       <p class="hero-sub">
         BLOが沖縄で運営する<strong>12棟の宿泊施設</strong>に宿泊するゲスト全員へ、<br>チェックイン案内メール内の<strong>宿公式おすすめページ</strong>として届きます。<br>広告ではなく「BLOが選んだお店」として、信頼とともに。
@@ -278,9 +294,14 @@
     <p class="eyebrow reveal">Why This Works</p>
     <h2 class="sec-title reveal">なぜ、このメディアが<em>効くのか。</em></h2>
     <div class="accent-bar reveal"></div>
-    <div class="reveal" style="background:linear-gradient(135deg,#e0f7ff,#f0fdf9);border-left:4px solid var(--sky);border-radius:8px;padding:1.2rem 1.5rem;margin-bottom:3rem;">
+    <div class="reveal" style="background:linear-gradient(135deg,#e0f7ff,#f0fdf9);border-left:4px solid var(--sky);border-radius:8px;padding:1.2rem 1.5rem;margin-bottom:1.5rem;">
       <p style="font-size:0.9rem;font-weight:700;color:var(--navy);">— BLOが沖縄で運営する12棟の施設に宿泊するゲストが対象です</p>
       <p style="font-size:0.82rem;color:var(--muted);margin-top:0.4rem;line-height:1.9;">南部・中部・北部エリアに展開する自社運営施設のゲストのみに配信。だからこそ信頼性が高く、「広告」ではなく「BLOのおすすめ」として届きます。</p>
+    </div>
+    <div class="reveal" style="background:var(--white);border:1px solid var(--border);border-left:4px solid var(--teal);border-radius:8px;padding:1.2rem 1.5rem;margin-bottom:3rem;">
+      <p style="font-size:0.78rem;font-weight:700;color:var(--teal);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.5rem;">What is Check-in Mail ?</p>
+      <p style="font-size:0.88rem;font-weight:700;color:var(--navy);margin-bottom:0.5rem;">チェックイン案内メールとは？</p>
+      <p style="font-size:0.82rem;color:var(--muted);line-height:2;">ゲストにとって必須の情報——<strong style="color:var(--navy);">暗証番号・入室方法</strong>などが記載されたメールです。宿泊前に必ず確認するメールであるため、<strong style="color:var(--navy);">開封率・閲覧率が非常に高く</strong>、掲載情報が確実に届きます。</p>
     </div>
     <div class="why-grid">
       <div class="why-card reveal">
