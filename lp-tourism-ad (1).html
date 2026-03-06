@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>観光案内サイト掲載のご案内 | BLO株式会社</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Barlow+Condensed:wght@300;400;500;600;700&family=Oswald:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sky:    #0ea5e9;
+    --sky2:   #38bdf8;
+    --teal:   #0d9488;
+    --coral:  #f97316;
+    --yellow: #fbbf24;
+    --navy:   #0c2d48;
+    --white:  #ffffff;
+    --offwhite:#f8fbff;
+    --gray:   #f1f5f9;
+    --text:   #1e293b;
+    --muted:  #64748b;
+    --border: #e2e8f0;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Noto Sans JP',sans-serif;color:var(--text);background:var(--white);overflow-x:hidden;letter-spacing:0.02em;}
+
+  /* NAV */
+  nav{position:fixed;top:0;left:0;right:0;z-index:9999;height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 5%;background:rgba(255,255,255,0.97);border-bottom:1px solid var(--border);box-shadow:0 2px 16px rgba(14,165,233,0.08);}
+  .nav-logo{font-family:'Oswald',sans-serif;font-size:1.5rem;font-weight:500;color:var(--navy);text-decoration:none;letter-spacing:0.1em;}
+  .nav-logo span{color:var(--sky);}
+  .nav-back{font-size:0.75rem;color:var(--muted);text-decoration:none;transition:color 0.3s;}
+  .nav-back:hover{color:var(--sky);}
+
+  /* HERO */
+  #hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding-top:60px;
+    background:linear-gradient(160deg,#e0f7ff 0%,#f0fdf9 40%,#fff7ed 100%);}
+  .hero-wave{position:absolute;bottom:0;left:0;right:0;}
+  .hero-dots{position:absolute;inset:0;background-image:radial-gradient(circle,rgba(14,165,233,0.08) 1px,transparent 1px);background-size:32px 32px;}
+  .hero-blob1{position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(14,165,233,0.12),transparent 70%);top:-100px;right:-100px;}
+  .hero-blob2{position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(251,191,36,0.1),transparent 70%);bottom:-80px;left:-80px;}
+
+  .hero-inner{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;max-width:1100px;margin:0 auto;padding:4rem 5%;}
+  .hero-text{}
+  .hero-badge{display:inline-flex;align-items:center;gap:0.5rem;background:linear-gradient(135deg,var(--sky),var(--teal));color:var(--white);padding:0.4rem 1.2rem;border-radius:50px;font-size:0.72rem;font-weight:700;letter-spacing:0.1em;margin-bottom:1.8rem;opacity:0;animation:fadeUp 0.8s ease 0.2s forwards;}
+  .hero-badge::before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.8);}
+  .hero-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:700;color:var(--navy);line-height:1.25;margin-bottom:1.2rem;letter-spacing:0.02em;opacity:0;animation:fadeUp 0.8s ease 0.4s forwards;}
+  .hero-title em{font-style:normal;color:var(--sky);}
+  .hero-title .accent{background:linear-gradient(135deg,var(--coral),var(--yellow));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+  .hero-sub{font-size:0.95rem;color:var(--muted);line-height:2;margin-bottom:2.5rem;opacity:0;animation:fadeUp 0.8s ease 0.6s forwards;}
+  .hero-stats{display:flex;gap:2rem;margin-bottom:2.5rem;opacity:0;animation:fadeUp 0.8s ease 0.8s forwards;}
+  .hero-stat{text-align:center;}
+  .hero-stat-num{font-family:'Oswald',sans-serif;font-size:2rem;font-weight:600;color:var(--sky);line-height:1;}
+  .hero-stat-label{font-size:0.7rem;color:var(--muted);margin-top:0.3rem;}
+  .hero-btns{display:flex;gap:1rem;flex-wrap:wrap;opacity:0;animation:fadeUp 0.8s ease 1s forwards;}
+  .btn-primary{display:inline-block;padding:0.95rem 2.5rem;background:linear-gradient(135deg,var(--sky),var(--teal));color:var(--white);text-decoration:none;border-radius:6px;font-size:0.88rem;font-weight:700;letter-spacing:0.08em;box-shadow:0 6px 24px rgba(14,165,233,0.3);transition:all 0.3s;}
+  .btn-primary:hover{transform:translateY(-3px);box-shadow:0 12px 36px rgba(14,165,233,0.4);}
+  .btn-secondary{display:inline-block;padding:0.95rem 2.5rem;background:var(--white);border:2px solid var(--sky);color:var(--sky);text-decoration:none;border-radius:6px;font-size:0.88rem;font-weight:600;transition:all 0.3s;}
+  .btn-secondary:hover{background:var(--sky);color:var(--white);}
+
+  /* HERO VISUAL */
+  .hero-visual{position:relative;opacity:0;animation:fadeUp 0.8s ease 0.5s forwards;}
+  .hero-mockup{background:var(--white);border-radius:16px;box-shadow:0 24px 80px rgba(12,45,72,0.12);overflow:hidden;border:1px solid var(--border);}
+  .mockup-bar{background:var(--gray);padding:0.6rem 1rem;display:flex;align-items:center;gap:0.5rem;}
+  .mockup-dot{width:10px;height:10px;border-radius:50%;}
+  .mockup-dot:nth-child(1){background:#ff5f57;}
+  .mockup-dot:nth-child(2){background:#febc2e;}
+  .mockup-dot:nth-child(3){background:#28c840;}
+  .mockup-body{padding:1.5rem;}
+  .mockup-header{background:linear-gradient(135deg,var(--sky),var(--teal));color:var(--white);padding:1rem 1.2rem;border-radius:8px;margin-bottom:1rem;}
+  .mockup-header p{font-size:0.7rem;opacity:0.8;margin-bottom:0.3rem;}
+  .mockup-header h4{font-size:0.95rem;font-weight:700;}
+  .mockup-card{background:var(--offwhite);border-radius:8px;padding:0.8rem;margin-bottom:0.6rem;display:flex;gap:0.8rem;align-items:center;border:1px solid var(--border);}
+  .mockup-card-badge{background:linear-gradient(135deg,var(--coral),var(--yellow));color:var(--white);font-size:0.55rem;padding:0.2rem 0.5rem;border-radius:4px;font-weight:700;white-space:nowrap;}
+  .mockup-card-img{width:44px;height:44px;border-radius:6px;background:linear-gradient(135deg,#e0f7ff,#ccf0e8);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.2rem;}
+  .mockup-card-text p{font-size:0.7rem;font-weight:700;color:var(--navy);margin-bottom:0.2rem;}
+  .mockup-card-text span{font-size:0.6rem;color:var(--muted);}
+  .mockup-tag{display:inline-block;background:rgba(14,165,233,0.1);color:var(--sky);font-size:0.6rem;padding:0.15rem 0.5rem;border-radius:4px;margin-top:0.3rem;}
+
+  /* COMMON */
+  section{padding:6rem 5%;}
+  .inner{max-width:1100px;margin:0 auto;}
+  .eyebrow{font-size:0.72rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:var(--sky);margin-bottom:0.8rem;}
+  .sec-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(1.5rem,3vw,2.4rem);font-weight:700;color:var(--navy);line-height:1.3;margin-bottom:1rem;letter-spacing:0.03em;}
+  .sec-title em{font-style:normal;color:var(--sky);}
+  .accent-bar{width:40px;height:4px;background:linear-gradient(to right,var(--sky),var(--teal));border-radius:2px;margin-bottom:2.5rem;}
+  .reveal{transition:opacity 0.8s ease,transform 0.8s ease;}
+  .reveal.hidden{opacity:0;transform:translateY(28px);}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+
+  /* WHY */
+  #why{background:var(--offwhite);}
+  .why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
+  .why-card{background:var(--white);border-radius:12px;padding:2.5rem 2rem;box-shadow:0 4px 20px rgba(12,45,72,0.06);border-top:3px solid var(--sky);transition:transform 0.3s,box-shadow 0.3s;}
+  .why-card:hover{transform:translateY(-5px);box-shadow:0 12px 40px rgba(12,45,72,0.1);}
+  .why-num{font-family:'Oswald',sans-serif;font-size:3rem;font-weight:300;color:rgba(14,165,233,0.15);line-height:1;margin-bottom:1rem;}
+  .why-title{font-size:1rem;font-weight:700;color:var(--navy);margin-bottom:0.8rem;}
+  .why-text{font-size:0.83rem;line-height:2;color:var(--muted);}
+
+  /* COMPARE */
+  #compare{background:var(--white);}
+  .compare-table{width:100%;max-width:780px;border-collapse:collapse;margin:0 auto;}
+  .compare-table th{padding:1rem 1.5rem;font-size:0.85rem;font-weight:700;text-align:center;}
+  .compare-table th:first-child{text-align:left;}
+  .compare-table th.col-general{color:var(--muted);background:var(--gray);border-radius:8px 8px 0 0;}
+  .compare-table th.col-blo{color:var(--white);background:linear-gradient(135deg,var(--sky),var(--teal));border-radius:8px 8px 0 0;}
+  .compare-table td{padding:1rem 1.5rem;border-bottom:1px solid var(--border);font-size:0.85rem;}
+  .compare-table td:not(:first-child){text-align:center;}
+  .compare-table tr:last-child td{border-bottom:none;}
+  .tag-bad{display:inline-block;background:var(--gray);color:var(--muted);padding:0.3rem 1rem;border-radius:50px;font-size:0.78rem;}
+  .tag-good{display:inline-block;background:linear-gradient(135deg,var(--sky),var(--teal));color:var(--white);padding:0.3rem 1rem;border-radius:50px;font-size:0.78rem;font-weight:700;}
+
+  /* PLANS */
+  #plans{background:linear-gradient(160deg,#f0f9ff 0%,#f0fdf9 100%);}
+  .plans-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;max-width:900px;margin:0 auto;}
+  .plan-card{background:var(--white);border-radius:14px;padding:2.5rem 2rem;box-shadow:0 4px 24px rgba(12,45,72,0.07);border:2px solid var(--border);position:relative;transition:all 0.3s;}
+  .plan-card.featured{border-color:var(--sky);box-shadow:0 8px 40px rgba(14,165,233,0.15);}
+  .plan-badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--sky),var(--teal));color:var(--white);font-size:0.68rem;font-weight:700;padding:0.35rem 1.2rem;border-radius:50px;white-space:nowrap;letter-spacing:0.1em;}
+  .plan-name{font-size:0.8rem;font-weight:700;color:var(--muted);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:1rem;}
+  .plan-price{font-family:'Oswald',sans-serif;font-size:2.2rem;font-weight:500;color:var(--navy);line-height:1;margin-bottom:0.3rem;}
+  .plan-price span{font-size:0.9rem;color:var(--muted);}
+  .plan-range{font-size:0.75rem;color:var(--muted);margin-bottom:1.5rem;}
+  .plan-features{list-style:none;display:flex;flex-direction:column;gap:0.6rem;margin-bottom:2rem;}
+  .plan-features li{font-size:0.82rem;color:var(--text);display:flex;align-items:flex-start;gap:0.5rem;line-height:1.6;}
+  .plan-features li::before{content:'✓';color:var(--sky);font-weight:700;flex-shrink:0;}
+  .plan-cta{display:block;text-align:center;padding:0.85rem;background:linear-gradient(135deg,var(--sky),var(--teal));color:var(--white);text-decoration:none;border-radius:6px;font-size:0.85rem;font-weight:700;transition:all 0.3s;}
+  .plan-cta:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(14,165,233,0.3);}
+  .plan-card:not(.featured) .plan-cta{background:var(--white);color:var(--sky);border:2px solid var(--sky);}
+  .plan-card:not(.featured) .plan-cta:hover{background:var(--sky);color:var(--white);}
+  .plan-note{font-size:0.72rem;color:var(--muted);text-align:center;margin-top:2rem;}
+
+  /* HOW */
+  #how{background:var(--white);}
+  .how-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;max-width:800px;}
+  .how-item{display:flex;gap:1.2rem;align-items:flex-start;padding:1.5rem;background:var(--offwhite);border-radius:10px;}
+  .how-num{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--sky),var(--teal));color:var(--white);font-family:'Oswald',sans-serif;font-size:1rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .how-title{font-size:0.9rem;font-weight:700;color:var(--navy);margin-bottom:0.4rem;}
+  .how-text{font-size:0.8rem;line-height:1.9;color:var(--muted);}
+
+  /* OPTIONS */
+  #options{background:var(--offwhite);}
+  .options-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;}
+  .option-card{background:var(--white);border-radius:10px;padding:1.5rem 1.2rem;text-align:center;border:1px solid var(--border);transition:all 0.3s;}
+  .option-card:hover{border-color:var(--sky);box-shadow:0 4px 20px rgba(14,165,233,0.1);}
+  .option-icon{display:block;font-family:'Oswald',sans-serif;font-size:1.6rem;font-weight:300;color:var(--sky);margin-bottom:0.8rem;letter-spacing:0.1em;border-bottom:1px solid rgba(14,165,233,0.2);padding-bottom:0.6rem;}
+  .option-title{font-size:0.85rem;font-weight:700;color:var(--navy);margin-bottom:0.4rem;}
+  .option-text{font-size:0.75rem;color:var(--muted);line-height:1.8;}
+
+  /* FAQ */
+  #faq{background:var(--white);}
+  .faq-wrap{max-width:720px;display:flex;flex-direction:column;gap:0.6rem;}
+  .faq-item{background:var(--offwhite);border-radius:8px;overflow:hidden;border:1px solid var(--border);}
+  .faq-q{padding:1.2rem 1.5rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-size:0.9rem;font-weight:600;color:var(--navy);user-select:none;border-left:3px solid var(--sky);}
+  .faq-q::after{content:'+';font-size:1.3rem;color:var(--sky);transition:transform 0.3s;flex-shrink:0;}
+  .faq-item input:checked ~ .faq-q::after{transform:rotate(45deg);}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height 0.4s ease,padding 0.3s;font-size:0.84rem;line-height:2.1;color:var(--muted);padding:0 1.5rem;}
+  .faq-item input:checked ~ .faq-a{max-height:200px;padding:1rem 1.5rem;border-top:1px solid var(--border);}
+
+  /* CTA */
+  #cta{background:linear-gradient(135deg,var(--navy) 0%,#1a5f8f 100%);position:relative;overflow:hidden;}
+  #cta::before{content:'';position:absolute;inset:0;background:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/></svg>') repeat;background-size:80px;}
+  .cta-inner{position:relative;z-index:1;text-align:center;max-width:680px;margin:0 auto;}
+  .cta-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:700;color:var(--white);line-height:1.3;margin-bottom:1rem;letter-spacing:0.03em;}
+  .cta-title em{font-style:normal;color:var(--yellow);}
+  .cta-sub{font-size:0.9rem;color:rgba(255,255,255,0.65);line-height:2;margin-bottom:2.5rem;}
+  .cta-btn{display:inline-block;padding:1.1rem 4rem;background:linear-gradient(135deg,var(--yellow),var(--coral));color:var(--white);text-decoration:none;border-radius:6px;font-size:0.95rem;font-weight:700;letter-spacing:0.1em;box-shadow:0 8px 32px rgba(251,191,36,0.3);transition:all 0.3s;}
+  .cta-btn:hover{transform:translateY(-3px);box-shadow:0 16px 48px rgba(251,191,36,0.4);}
+  .cta-note{font-size:0.72rem;color:rgba(255,255,255,0.4);margin-top:1.2rem;line-height:2;}
+
+  /* FOOTER */
+  footer{background:var(--navy);padding:2rem 5%;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+  .footer-logo{font-family:'Oswald',sans-serif;font-size:1.4rem;font-weight:500;color:var(--sky);letter-spacing:0.1em;}
+  .footer-copy{font-size:0.68rem;color:rgba(255,255,255,0.3);letter-spacing:0.08em;}
+  .footer-back{font-size:0.75rem;color:rgba(255,255,255,0.4);text-decoration:none;transition:color 0.3s;}
+  .footer-back:hover{color:var(--sky);}
+
+  @media(max-width:900px){
+    .hero-inner{grid-template-columns:1fr;}
+    .hero-visual{display:none;}
+    .why-grid,.plans-grid{grid-template-columns:1fr;}
+    .how-grid{grid-template-columns:1fr;}
+    .options-grid{grid-template-columns:1fr 1fr;}
+    footer{flex-direction:column;text-align:center;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">BL<span>O</span></a>
+  <a href="index.html" class="nav-back">← メインサイトへ戻る</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-dots"></div>
+  <div class="hero-blob1"></div>
+  <div class="hero-blob2"></div>
+  <div class="hero-inner">
+    <div class="hero-text">
+      <p class="hero-badge">BLO運営施設に宿泊するゲスト限定</p>
+      <h1 class="hero-title">
+        購買意欲<em>最大の瞬間</em>に、<br>あなたのお店を<span class="accent">届けませんか？</span>
+      </h1>
+      <p class="hero-sub">
+        BLOが沖縄で運営する<strong>12棟の宿泊施設</strong>に宿泊するゲスト全員へ、<br>チェックイン案内メール内の<strong>宿公式おすすめページ</strong>として届きます。<br>広告ではなく「BLOが選んだお店」として、信頼とともに。
+      </p>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <p class="hero-stat-num">1,200<span style="font-size:1rem">名+</span></p>
+          <p class="hero-stat-label">毎月の配信数</p>
+        </div>
+        <div class="hero-stat">
+          <p class="hero-stat-num">100<span style="font-size:1rem">%</span></p>
+          <p class="hero-stat-label">実際の宿泊者のみ</p>
+        </div>
+        <div class="hero-stat">
+          <p class="hero-stat-num">12<span style="font-size:1rem">棟</span></p>
+          <p class="hero-stat-label">運営施設数</p>
+        </div>
+      </div>
+      <div class="hero-btns">
+        <a href="#plans" class="btn-primary">料金プランを見る</a>
+        <a href="#cta" class="btn-secondary">掲載を問い合わせる</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-mockup">
+        <div class="mockup-bar">
+          <div class="mockup-dot"></div><div class="mockup-dot"></div><div class="mockup-dot"></div>
+        </div>
+        <div class="mockup-body">
+          <div class="mockup-header">
+            <p>✉ チェックイン案内メール</p>
+            <h4>宿公式｜おすすめ観光・飲食・サービス</h4>
+          </div>
+          <div class="mockup-card">
+            <div class="mockup-card-img" style="font-family:Oswald,sans-serif;font-size:0.7rem;color:#0ea5e9;font-weight:500;letter-spacing:0.05em;">FOOD</div>
+            <div style="flex:1;">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.3rem;">
+                <p style="font-size:0.72rem;font-weight:700;color:#0c2d48;">○○ダイニング</p>
+                <span class="mockup-card-badge">宿おすすめ</span>
+              </div>
+              <span style="font-size:0.6rem;color:#64748b;">沖縄料理・ディナー</span>
+              <div><span class="mockup-tag">MAP</span><span class="mockup-tag" style="margin-left:4px;">TEL</span></div>
+            </div>
+          </div>
+          <div class="mockup-card">
+            <div class="mockup-card-img" style="font-family:Oswald,sans-serif;font-size:0.7rem;color:#0ea5e9;font-weight:500;letter-spacing:0.05em;">CAR</div>
+            <div style="flex:1;">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.3rem;">
+                <p style="font-size:0.72rem;font-weight:700;color:#0c2d48;">○○レンタカー</p>
+                <span class="mockup-card-badge" style="background:linear-gradient(135deg,#0ea5e9,#0d9488);">独占掲載</span>
+              </div>
+              <span style="font-size:0.6rem;color:#64748b;">レンタカー・24時間対応</span>
+              <div><span class="mockup-tag">MAP</span><span class="mockup-tag" style="margin-left:4px;">WEB</span></div>
+            </div>
+          </div>
+          <div class="mockup-card">
+            <div class="mockup-card-img" style="font-family:Oswald,sans-serif;font-size:0.7rem;color:#0ea5e9;font-weight:500;letter-spacing:0.05em;">SEA</div>
+            <div style="flex:1;">
+              <p style="font-size:0.72rem;font-weight:700;color:#0c2d48;margin-bottom:0.3rem;">○○マリンスポーツ</p>
+              <span style="font-size:0.6rem;color:#64748b;">シュノーケル・ダイビング体験</span>
+              <div><span class="mockup-tag">MAP</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <svg class="hero-wave" viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 60L1440 60L1440 20C1200 60 960 0 720 20C480 40 240 0 0 20L0 60Z" fill="white"/>
+  </svg>
+</section>
+
+<!-- WHY -->
+<section id="why">
+  <div class="inner">
+    <p class="eyebrow reveal">Why This Works</p>
+    <h2 class="sec-title reveal">なぜ、このメディアが<em>効くのか。</em></h2>
+    <div class="accent-bar reveal"></div>
+    <div class="reveal" style="background:linear-gradient(135deg,#e0f7ff,#f0fdf9);border-left:4px solid var(--sky);border-radius:8px;padding:1.2rem 1.5rem;margin-bottom:1.5rem;">
+      <p style="font-size:0.9rem;font-weight:700;color:var(--navy);">— BLOが沖縄で運営する12棟の施設に宿泊するゲストが対象です</p>
+      <p style="font-size:0.82rem;color:var(--muted);margin-top:0.4rem;line-height:1.9;">南部・中部・北部エリアに展開する自社運営施設のゲストのみに配信。だからこそ信頼性が高く、「広告」ではなく「BLOのおすすめ」として届きます。</p>
+    </div>
+    <div class="reveal" style="background:var(--white);border:1px solid var(--border);border-left:4px solid var(--teal);border-radius:8px;padding:1.2rem 1.5rem;margin-bottom:3rem;">
+      <p style="font-size:0.78rem;font-weight:700;color:var(--teal);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.5rem;">What is Check-in Mail ?</p>
+      <p style="font-size:0.88rem;font-weight:700;color:var(--navy);margin-bottom:0.5rem;">チェックイン案内メールとは？</p>
+      <p style="font-size:0.82rem;color:var(--muted);line-height:2;">ゲストにとって必須の情報——<strong style="color:var(--navy);">暗証番号・入室方法</strong>などが記載されたメールです。宿泊前に必ず確認するメールであるため、<strong style="color:var(--navy);">開封率・閲覧率が非常に高く</strong>、掲載情報が確実に届きます。</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card reveal">
+        <p class="why-num">01</p>
+        <h3 class="why-title">必ず読まれるメールに掲載</h3>
+        <p class="why-text">チェックイン案内メールには暗証番号・入室方法など宿泊に必須の情報が含まれます。開封率・閲覧率が極めて高く、掲載情報が確実に届きます。</p>
+      </div>
+      <div class="why-card reveal">
+        <p class="why-num">02</p>
+        <h3 class="why-title">購買意欲が最大の瞬間にアプローチ</h3>
+        <p class="why-text">滞在直前〜滞在中のゲストは「食べる・遊ぶ・移動する」ニーズが最高潮。一般広告と違い、行動する直前のタイミングで届けられます。</p>
+      </div>
+      <div class="why-card reveal">
+        <p class="why-num">03</p>
+        <h3 class="why-title">「広告」ではなく「宿のおすすめ」</h3>
+        <p class="why-text">宿公式おすすめとして掲載されるため、信頼性が格段に高い。ゲストは他社と比較せず、そのまま来店・予約につながりやすい状態です。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARE -->
+<section id="compare">
+  <div class="inner">
+    <p class="eyebrow reveal" style="text-align:center;">Comparison</p>
+    <h2 class="sec-title reveal" style="text-align:center;">一般広告との<em>違い</em></h2>
+    <div class="accent-bar reveal" style="margin:0 auto 3rem;"></div>
+    <div class="reveal" style="overflow-x:auto;">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th></th>
+            <th class="col-general">一般広告</th>
+            <th class="col-blo">BLO 観光案内サイト</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td style="font-weight:600;color:var(--navy);">対象</td><td><span class="tag-bad">不特定多数</span></td><td><span class="tag-good">宿泊ゲストのみ</span></td></tr>
+          <tr><td style="font-weight:600;color:var(--navy);">来店確度</td><td><span class="tag-bad">低い</span></td><td><span class="tag-good">非常に高い</span></td></tr>
+          <tr><td style="font-weight:600;color:var(--navy);">信頼性</td><td><span class="tag-bad">広告</span></td><td><span class="tag-good">宿公式おすすめ</span></td></tr>
+          <tr><td style="font-weight:600;color:var(--navy);">タイミング</td><td><span class="tag-bad">ランダム</span></td><td><span class="tag-good">滞在直前〜滞在中</span></td></tr>
+          <tr><td style="font-weight:600;color:var(--navy);">競合との比較</td><td><span class="tag-bad">あり</span></td><td><span class="tag-good">ほぼなし</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- PLANS -->
+<section id="plans">
+  <div class="inner">
+    <p class="eyebrow reveal" style="text-align:center;">Pricing Plans</p>
+    <h2 class="sec-title reveal" style="text-align:center;">料金<em>プラン</em></h2>
+    <div class="accent-bar reveal" style="margin:0 auto 3rem;"></div>
+    <div class="plans-grid">
+      <div class="plan-card reveal">
+        <p class="plan-name">Basic</p>
+        <p class="plan-price">5,000<span>〜</span></p>
+        <p class="plan-price" style="font-size:1.4rem;">10,000<span>円/月</span></p>
+        <p class="plan-range">ベーシック</p>
+        <ul class="plan-features">
+          <li>店舗名・写真掲載</li>
+          <li>紹介文</li>
+          <li>マップ・SNS・HPリンク</li>
+          <li>写真2〜3枚</li>
+        </ul>
+        <a href="#cta" class="plan-cta">このプランで問い合わせる</a>
+      </div>
+      <div class="plan-card featured reveal">
+        <div class="plan-badge">⭐ おすすめ</div>
+        <p class="plan-name">Recommended</p>
+        <p class="plan-price">15,000<span>〜</span></p>
+        <p class="plan-price" style="font-size:1.4rem;">30,000<span>円/月</span></p>
+        <p class="plan-range">おすすめ枠</p>
+        <ul class="plan-features">
+          <li>ページ上部固定表示</li>
+          <li>宿公式「おすすめ」表示バッジ</li>
+          <li>滞在中に最も目に触れる位置</li>
+          <li>基本掲載内容すべて含む</li>
+        </ul>
+        <a href="#cta" class="plan-cta">このプランで問い合わせる</a>
+      </div>
+      <div class="plan-card reveal">
+        <p class="plan-name">Exclusive</p>
+        <p class="plan-price">30,000<span>〜</span></p>
+        <p class="plan-price" style="font-size:1.4rem;">50,000<span>円/月</span></p>
+        <p class="plan-range">カテゴリ独占枠</p>
+        <ul class="plan-features">
+          <li>同一カテゴリ1社限定</li>
+          <li>競合不在で直接来店・予約</li>
+          <li>レンタカー・アクティビティに特におすすめ</li>
+          <li>基本掲載内容すべて含む</li>
+        </ul>
+        <a href="#cta" class="plan-cta">このプランで問い合わせる</a>
+      </div>
+    </div>
+    <p class="plan-note reveal">※料金は前払い・月額制　※料金は内容により相談可　※途中解約は月単位で対応</p>
+  </div>
+</section>
+
+<!-- OPTIONS -->
+<section id="options">
+  <div class="inner">
+    <p class="eyebrow reveal">Optional Features</p>
+    <h2 class="sec-title reveal">任意で追加できる<em>オプション</em></h2>
+    <div class="accent-bar reveal"></div>
+    <div class="options-grid">
+      <div class="option-card reveal">
+        <span class="option-icon">COUPON</span>
+        <p class="option-title">ゲスト限定クーポン</p>
+        <p class="option-text">宿泊ゲスト限定の特別クーポンを掲載。来店動機をさらに高めます。</p>
+      </div>
+      <div class="option-card reveal">
+        <span class="option-icon">BENEFIT</span>
+        <p class="option-title">「この案内を見た」特典</p>
+        <p class="option-text">来店時の特典提示で来店効果を計測。広告効果が可視化できます。</p>
+      </div>
+      <div class="option-card reveal">
+        <span class="option-icon">SEASON</span>
+        <p class="option-title">季節特集</p>
+        <p class="option-text">夏・冬など季節に合わせた特集ページへの掲載が可能です。</p>
+      </div>
+      <div class="option-card reveal">
+        <span class="option-icon">GLOBAL</span>
+        <p class="option-title">多言語対応</p>
+        <p class="option-text">インバウンドゲスト向けに英語・中国語などの多言語対応も可能です。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW -->
+<section id="how">
+  <div class="inner">
+    <p class="eyebrow reveal">How It Works</p>
+    <h2 class="sec-title reveal">掲載までの<em>流れ</em></h2>
+    <div class="accent-bar reveal"></div>
+    <div class="how-grid">
+      <div class="how-item reveal">
+        <div class="how-num">1</div>
+        <div>
+          <p class="how-title">お問い合わせ</p>
+          <p class="how-text">メールまたはお電話にてご連絡ください。掲載内容・プランについてご説明します。</p>
+        </div>
+      </div>
+      <div class="how-item reveal">
+        <div class="how-num">2</div>
+        <div>
+          <p class="how-title">掲載内容のご確認</p>
+          <p class="how-text">掲載内容（写真・紹介文・リンク等）を事前にご確認いただけます。</p>
+        </div>
+      </div>
+      <div class="how-item reveal">
+        <div class="how-num">3</div>
+        <div>
+          <p class="how-title">お支払い・掲載開始</p>
+          <p class="how-text">前払い・月額制で掲載開始。翌月から毎月1,200名以上のゲストへ届きます。</p>
+        </div>
+      </div>
+      <div class="how-item reveal">
+        <div class="how-num">4</div>
+        <div>
+          <p class="how-title">効果レポート共有</p>
+          <p class="how-text">サイトのクリック数を共有します。効果を確認しながら継続判断が可能です。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="inner">
+    <p class="eyebrow reveal">FAQ</p>
+    <h2 class="sec-title reveal">よくある<em>質問</em></h2>
+    <div class="accent-bar reveal"></div>
+    <div class="faq-wrap">
+      <div class="faq-item reveal"><input type="checkbox" id="faq1" style="display:none;"><label class="faq-q" for="faq1">効果はありますか？</label><div class="faq-a">宿泊者全員に必ず送信されるメールに掲載されるため、閲覧率が非常に高いです。滞在直前〜滞在中という購買意欲が最大のタイミングで届けられます。</div></div>
+      <div class="faq-item reveal"><input type="checkbox" id="faq2" style="display:none;"><label class="faq-q" for="faq2">広告っぽくなりませんか？</label><div class="faq-a">「宿公式おすすめ」として信頼性を重視した形で制作します。広告感を排除し、ゲストが自然に参考にできるページデザインにしています。</div></div>
+      <div class="faq-item reveal"><input type="checkbox" id="faq3" style="display:none;"><label class="faq-q" for="faq3">途中解約できますか？</label><div class="faq-a">月単位での更新制ですので、翌月から停止することが可能です。長期縛りはありません。</div></div>
+      <div class="faq-item reveal"><input type="checkbox" id="faq4" style="display:none;"><label class="faq-q" for="faq4">どれくらい見られたか分かりますか？</label><div class="faq-a">サイトのクリック数を毎月共有します。効果を数値で確認しながら継続判断していただけます。</div></div>
+      <div class="faq-item reveal"><input type="checkbox" id="faq5" style="display:none;"><label class="faq-q" for="faq5">どんな業種が掲載できますか？</label><div class="faq-a">飲食店・カフェ・レンタカー・マリンアクティビティ・観光スポット・マッサージ・土産店など、観光客に向けたサービスであれば幅広く対応できます。公序良俗に反する内容は不可となります。</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="inner">
+    <div class="cta-inner">
+      <p class="eyebrow reveal" style="text-align:center;color:rgba(255,255,255,0.5);">Contact</p>
+      <h2 class="cta-title reveal">まずは、<em>お気軽に</em><br>ご相談ください。</h2>
+      <p class="cta-sub reveal">掲載内容・プラン・料金など、まずはメールにてお気軽にお問い合わせください。<br>担当者より2営業日以内にご返信いたします。</p>
+      <a href="/cdn-cgi/l/email-protection#6b09070445040002050a1c0a595b59582b0c060a02074508040654181e09010e081f5683cdd88eeee28dcae38eedee88e9de88e9cf88e8e38de5d983d7e288eac088eacf88eaef88eacd4d09040f12568fd7f18ccfd58efbe688e8d08ed1fc83e3fc8efbe684d7f14e5b2a88eaff8de0ee8ed6f883ebee8dccf384d7f14e5b2a82f0d083c2da8cfec18ee4dc84d7f14e5b2a88eaff8ed3e78df7f088e8fc88e8c288e8d884d7f14e5b2a88eaff83d8c18efee488e8d088eaff83cdea8df7f084d7f1" class="cta-btn reveal">
+        ✉️　メールで掲載を問い合わせる
+      </a>
+      <p class="cta-note reveal"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b7d5dbd899d8dcded9d6c0d685878584f7d0dad6dedb99d4d8da">[email&#160;protected]</a> ・ 返信は通常2営業日以内 ・ 見積もり無料</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-logo">BLO</span>
+  <p class="footer-copy">© 2021 BLO株式会社. All Rights Reserved.</p>
+  <a href="index.html" class="footer-back">← メインサイトへ戻る</a>
+</footer>
+
+<script
