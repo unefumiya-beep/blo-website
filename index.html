@@ -85,9 +85,14 @@
   .dropdown {
     display: none;
     position: absolute;
-    top: calc(100% + 12px);
+    top: 100%;
     left: 50%;
     transform: translateX(-50%);
+    padding-top: 12px;
+    background: transparent;
+    z-index: 10000;
+  }
+  .dropdown-inner {
     background: rgba(10,35,66,0.97);
     backdrop-filter: blur(12px);
     border: 1px solid rgba(76,169,216,0.2);
@@ -95,7 +100,6 @@
     min-width: 220px;
     padding: 0.5rem 0;
     box-shadow: 0 12px 40px rgba(0,0,0,0.3);
-    z-index: 10000;
   }
   .dropdown::before {
     content: '';
@@ -135,6 +139,7 @@
     flex-shrink: 0;
   }
   .has-dropdown:hover .dropdown { display: block; }
+  .has-dropdown.active .dropdown { display: block; }
 
   /* ========== HERO ========== */
   #hero {
@@ -907,13 +912,15 @@
   </label>
   <ul class="nav-links">
     <li class="has-dropdown">
-      <a href="#business">事業内容 ▾</a>
+      <a href="#business" class="dropdown-toggle">事業内容 ▾</a>
       <ul class="dropdown">
-        <li><a href="#business"><span class="d-num">01</span>宿泊施設運営・マネジメント</a></li>
-        <li><a href="#business"><span class="d-num">02</span>不動産売買コンサルティング</a></li>
-        <li><a href="#business"><span class="d-num">03</span>観光案内サイト掲載事業</a></li>
-        <li><a href="#business"><span class="d-num">04</span>プレミアム会員</a></li>
-        <li><a href="#business"><span class="d-num">05</span>Blue Ocean Development</a></li>
+        <div class="dropdown-inner">
+        <li><a href="#business-01"><span class="d-num">01</span>宿泊施設運営・マネジメント</a></li>
+        <li><a href="#business-02"><span class="d-num">02</span>不動産売買コンサルティング</a></li>
+        <li><a href="#business-03"><span class="d-num">03</span>観光案内サイト掲載事業</a></li>
+        <li><a href="#business-04"><span class="d-num">04</span>プレミアム会員</a></li>
+        <li><a href="#business-05"><span class="d-num">05</span>Blue Ocean Development</a></li>
+        </div>
       </ul>
     </li>
     <li><a href="#achievements">宿泊施設運営実績</a></li>
@@ -952,7 +959,7 @@
     <div class="business-list">
 
       <!-- 01 宿泊施設 -->
-      <div class="business-item reveal">
+      <div id="business-01" class="business-item reveal">
         <div class="business-text">
           <div class="business-number">01</div>
           <h3 class="business-title">宿泊施設運営・<br>マネジメント事業</h3>
@@ -979,7 +986,7 @@
       </div>
 
       <!-- 02 不動産 -->
-      <div class="business-item reveal">
+      <div id="business-02" class="business-item reveal">
         <div class="business-visual">
           <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&q=80" alt="不動産コンサルティング">
           <div class="business-visual-overlay"></div>
@@ -999,7 +1006,7 @@
       </div>
 
       <!-- 03 観光案内サイト掲載 -->
-      <div class="business-item reveal">
+      <div id="business-03" class="business-item reveal">
         <div class="business-text">
           <div class="business-number">03</div>
           <h3 class="business-title">観光案内サイト<br>掲載事業</h3>
@@ -1017,7 +1024,7 @@
       </div>
 
       <!-- 04 プレミアム会員 -->
-      <div class="business-item reveal">
+      <div id="business-04" class="business-item reveal">
         <div class="business-visual">
           <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80" alt="BLOプレミアム会員">
           <div class="business-visual-overlay"></div>
@@ -1035,7 +1042,7 @@
       </div>
 
       <!-- 05 Blue Ocean Dev -->
-      <div class="business-item reveal">
+      <div id="business-05" class="business-item reveal">
         <div class="business-text">
           <div class="business-number">05</div>
           <h3 class="business-title">Blue Ocean<br>Development事業</h3>
