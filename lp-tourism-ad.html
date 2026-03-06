@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>観光案内サイト掲載のご案内 | BLO株式会社</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&family=Oswald:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Barlow+Condensed:wght@300;400;500;600;700&family=Oswald:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
     --sky:    #0ea5e9;
@@ -22,7 +22,7 @@
   }
   *{margin:0;padding:0;box-sizing:border-box;}
   html{scroll-behavior:smooth;}
-  body{font-family:'Zen Kaku Gothic New',sans-serif;color:var(--text);background:var(--white);overflow-x:hidden;}
+  body{font-family:'Noto Sans JP',sans-serif;color:var(--text);background:var(--white);overflow-x:hidden;letter-spacing:0.02em;}
 
   /* NAV */
   nav{position:fixed;top:0;left:0;right:0;z-index:9999;height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 5%;background:rgba(255,255,255,0.97);border-bottom:1px solid var(--border);box-shadow:0 2px 16px rgba(14,165,233,0.08);}
@@ -42,8 +42,8 @@
   .hero-inner{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;max-width:1100px;margin:0 auto;padding:4rem 5%;}
   .hero-text{}
   .hero-badge{display:inline-flex;align-items:center;gap:0.5rem;background:linear-gradient(135deg,var(--sky),var(--teal));color:var(--white);padding:0.4rem 1.2rem;border-radius:50px;font-size:0.72rem;font-weight:700;letter-spacing:0.1em;margin-bottom:1.8rem;opacity:0;animation:fadeUp 0.8s ease 0.2s forwards;}
-  .hero-badge::before{content:'📍';}
-  .hero-title{font-family:'Noto Sans JP',sans-serif;font-size:clamp(1.6rem,3vw,2.6rem);font-weight:900;color:var(--navy);line-height:1.35;margin-bottom:1.2rem;opacity:0;animation:fadeUp 0.8s ease 0.4s forwards;}
+  .hero-badge::before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.8);}
+  .hero-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:700;color:var(--navy);line-height:1.25;margin-bottom:1.2rem;letter-spacing:0.02em;opacity:0;animation:fadeUp 0.8s ease 0.4s forwards;}
   .hero-title em{font-style:normal;color:var(--sky);}
   .hero-title .accent{background:linear-gradient(135deg,var(--coral),var(--yellow));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
   .hero-sub{font-size:0.95rem;color:var(--muted);line-height:2;margin-bottom:2.5rem;opacity:0;animation:fadeUp 0.8s ease 0.6s forwards;}
@@ -80,7 +80,7 @@
   section{padding:6rem 5%;}
   .inner{max-width:1100px;margin:0 auto;}
   .eyebrow{font-size:0.72rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:var(--sky);margin-bottom:0.8rem;}
-  .sec-title{font-family:'Noto Sans JP',sans-serif;font-size:clamp(1.5rem,3vw,2.2rem);font-weight:900;color:var(--navy);line-height:1.4;margin-bottom:1rem;}
+  .sec-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(1.5rem,3vw,2.4rem);font-weight:700;color:var(--navy);line-height:1.3;margin-bottom:1rem;letter-spacing:0.03em;}
   .sec-title em{font-style:normal;color:var(--sky);}
   .accent-bar{width:40px;height:4px;background:linear-gradient(to right,var(--sky),var(--teal));border-radius:2px;margin-bottom:2.5rem;}
   .reveal{transition:opacity 0.8s ease,transform 0.8s ease;}
@@ -141,7 +141,7 @@
   .options-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;}
   .option-card{background:var(--white);border-radius:10px;padding:1.5rem 1.2rem;text-align:center;border:1px solid var(--border);transition:all 0.3s;}
   .option-card:hover{border-color:var(--sky);box-shadow:0 4px 20px rgba(14,165,233,0.1);}
-  .option-icon{font-size:1.8rem;margin-bottom:0.8rem;display:block;}
+  .option-icon{display:block;font-family:'Oswald',sans-serif;font-size:1.6rem;font-weight:300;color:var(--sky);margin-bottom:0.8rem;letter-spacing:0.1em;border-bottom:1px solid rgba(14,165,233,0.2);padding-bottom:0.6rem;}
   .option-title{font-size:0.85rem;font-weight:700;color:var(--navy);margin-bottom:0.4rem;}
   .option-text{font-size:0.75rem;color:var(--muted);line-height:1.8;}
 
@@ -159,7 +159,7 @@
   #cta{background:linear-gradient(135deg,var(--navy) 0%,#1a5f8f 100%);position:relative;overflow:hidden;}
   #cta::before{content:'';position:absolute;inset:0;background:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/></svg>') repeat;background-size:80px;}
   .cta-inner{position:relative;z-index:1;text-align:center;max-width:680px;margin:0 auto;}
-  .cta-title{font-family:'Noto Sans JP',sans-serif;font-size:clamp(1.5rem,3vw,2.2rem);font-weight:900;color:var(--white);line-height:1.4;margin-bottom:1rem;}
+  .cta-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:700;color:var(--white);line-height:1.3;margin-bottom:1rem;letter-spacing:0.03em;}
   .cta-title em{font-style:normal;color:var(--yellow);}
   .cta-sub{font-size:0.9rem;color:rgba(255,255,255,0.65);line-height:2;margin-bottom:2.5rem;}
   .cta-btn{display:inline-block;padding:1.1rem 4rem;background:linear-gradient(135deg,var(--yellow),var(--coral));color:var(--white);text-decoration:none;border-radius:6px;font-size:0.95rem;font-weight:700;letter-spacing:0.1em;box-shadow:0 8px 32px rgba(251,191,36,0.3);transition:all 0.3s;}
@@ -230,37 +230,37 @@
         </div>
         <div class="mockup-body">
           <div class="mockup-header">
-            <p>🏠 チェックイン案内メール</p>
+            <p>✉ チェックイン案内メール</p>
             <h4>宿公式｜おすすめ観光・飲食・サービス</h4>
           </div>
           <div class="mockup-card">
-            <div class="mockup-card-img">🍽️</div>
+            <div class="mockup-card-img" style="font-family:Oswald,sans-serif;font-size:0.7rem;color:#0ea5e9;font-weight:500;letter-spacing:0.05em;">FOOD</div>
             <div style="flex:1;">
               <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.3rem;">
                 <p style="font-size:0.72rem;font-weight:700;color:#0c2d48;">○○ダイニング</p>
                 <span class="mockup-card-badge">宿おすすめ</span>
               </div>
               <span style="font-size:0.6rem;color:#64748b;">沖縄料理・ディナー</span>
-              <div><span class="mockup-tag">📍マップ</span><span class="mockup-tag" style="margin-left:4px;">📞予約</span></div>
+              <div><span class="mockup-tag">MAP</span><span class="mockup-tag" style="margin-left:4px;">TEL</span></div>
             </div>
           </div>
           <div class="mockup-card">
-            <div class="mockup-card-img">🚗</div>
+            <div class="mockup-card-img" style="font-family:Oswald,sans-serif;font-size:0.7rem;color:#0ea5e9;font-weight:500;letter-spacing:0.05em;">CAR</div>
             <div style="flex:1;">
               <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.3rem;">
                 <p style="font-size:0.72rem;font-weight:700;color:#0c2d48;">○○レンタカー</p>
                 <span class="mockup-card-badge" style="background:linear-gradient(135deg,#0ea5e9,#0d9488);">独占掲載</span>
               </div>
               <span style="font-size:0.6rem;color:#64748b;">レンタカー・24時間対応</span>
-              <div><span class="mockup-tag">📍マップ</span><span class="mockup-tag" style="margin-left:4px;">🔗予約サイト</span></div>
+              <div><span class="mockup-tag">MAP</span><span class="mockup-tag" style="margin-left:4px;">WEB</span></div>
             </div>
           </div>
           <div class="mockup-card">
-            <div class="mockup-card-img">🤿</div>
+            <div class="mockup-card-img" style="font-family:Oswald,sans-serif;font-size:0.7rem;color:#0ea5e9;font-weight:500;letter-spacing:0.05em;">SEA</div>
             <div style="flex:1;">
               <p style="font-size:0.72rem;font-weight:700;color:#0c2d48;margin-bottom:0.3rem;">○○マリンスポーツ</p>
               <span style="font-size:0.6rem;color:#64748b;">シュノーケル・ダイビング体験</span>
-              <div><span class="mockup-tag">📍マップ</span></div>
+              <div><span class="mockup-tag">MAP</span></div>
             </div>
           </div>
         </div>
@@ -279,7 +279,7 @@
     <h2 class="sec-title reveal">なぜ、このメディアが<em>効くのか。</em></h2>
     <div class="accent-bar reveal"></div>
     <div class="reveal" style="background:linear-gradient(135deg,#e0f7ff,#f0fdf9);border-left:4px solid var(--sky);border-radius:8px;padding:1.2rem 1.5rem;margin-bottom:3rem;">
-      <p style="font-size:0.9rem;font-weight:700;color:var(--navy);">📍 BLOが沖縄で運営する12棟の施設に宿泊するゲストが対象です</p>
+      <p style="font-size:0.9rem;font-weight:700;color:var(--navy);">— BLOが沖縄で運営する12棟の施設に宿泊するゲストが対象です</p>
       <p style="font-size:0.82rem;color:var(--muted);margin-top:0.4rem;line-height:1.9;">南部・中部・北部エリアに展開する自社運営施設のゲストのみに配信。だからこそ信頼性が高く、「広告」ではなく「BLOのおすすめ」として届きます。</p>
     </div>
     <div class="why-grid">
@@ -389,22 +389,22 @@
     <div class="accent-bar reveal"></div>
     <div class="options-grid">
       <div class="option-card reveal">
-        <span class="option-icon">🎟️</span>
+        <span class="option-icon">COUPON</span>
         <p class="option-title">ゲスト限定クーポン</p>
         <p class="option-text">宿泊ゲスト限定の特別クーポンを掲載。来店動機をさらに高めます。</p>
       </div>
       <div class="option-card reveal">
-        <span class="option-icon">🎁</span>
+        <span class="option-icon">BENEFIT</span>
         <p class="option-title">「この案内を見た」特典</p>
         <p class="option-text">来店時の特典提示で来店効果を計測。広告効果が可視化できます。</p>
       </div>
       <div class="option-card reveal">
-        <span class="option-icon">🌸</span>
+        <span class="option-icon">SEASON</span>
         <p class="option-title">季節特集</p>
         <p class="option-text">夏・冬など季節に合わせた特集ページへの掲載が可能です。</p>
       </div>
       <div class="option-card reveal">
-        <span class="option-icon">🌍</span>
+        <span class="option-icon">GLOBAL</span>
         <p class="option-title">多言語対応</p>
         <p class="option-text">インバウンドゲスト向けに英語・中国語などの多言語対応も可能です。</p>
       </div>
