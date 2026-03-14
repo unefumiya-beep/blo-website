@@ -1344,20 +1344,4 @@
           hamburger.classList.remove('open');
         });
       });
-      document.addEventListener('click', function(e) {
-        if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
-          navLinks.classList.remove('open');
-          hamburger.classList.remove('open');
-        }
-      });
-    }
-  })();
-
-  // Scroll reveal (右から出てくる)
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((e, i) => {
-      if (e.isIntersecting) {
-        setTimeout(() => {
-          e.target.classList.remove('hidden');
-        }, i * 80);
-      
+      document.
