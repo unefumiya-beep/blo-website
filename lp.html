@@ -380,19 +380,19 @@
       <input type="hidden" name="_template" value="table">
       <input type="hidden" name="_next" value="https://blo-oki.co.jp/thanks.html">
       <div class="form-grid">
-        <div class="form-group"><label>お名前<span>*</span></label><input type="text" placeholder="山田 太郎" required></div>
-        <div class="form-group"><label>電話番号<span>*</span></label><input type="tel" placeholder="098-000-0000" required></div>
-        <div class="form-group"><label>メールアドレス<span>*</span></label><input type="email" placeholder="example@email.com" required></div>
+        <div class="form-group"><label>お名前<span>*</span></label><input type="text" name="お名前" placeholder="山田 太郎" required></div>
+        <div class="form-group"><label>電話番号<span>*</span></label><input type="tel" name="電話番号" placeholder="098-000-0000" required></div>
+        <div class="form-group"><label>メールアドレス<span>*</span></label><input type="email" name="メールアドレス" placeholder="example@email.com" required></div>
         <div class="form-group"><label>物件エリア</label>
-          <select><option value="">選択してください</option><option>南部エリア</option><option>中部エリア</option><option>北部エリア</option><option>その他</option></select>
+          <select name="物件エリア"><option value="">選択してください</option><option>南部エリア</option><option>中部エリア</option><option>北部エリア</option><option>その他</option></select>
         </div>
         <div class="form-group"><label>物件種別</label>
-          <select><option value="">選択してください</option><option>マンション・アパート</option><option>一軒家・戸建て</option><option>リゾート・ヴィラ</option><option>その他</option></select>
+          <select name="物件種別"><option value="">選択してください</option><option>マンション・アパート</option><option>一軒家・戸建て</option><option>リゾート・ヴィラ</option><option>その他</option></select>
         </div>
         <div class="form-group"><label>ご相談内容</label>
-          <select><option value="">選択してください</option><option>新規で宿泊施設を始めたい</option><option>既存施設の運営を委託したい</option><option>他社から切り替えたい</option><option>まずは話を聞きたい</option></select>
+          <select name="ご相談内容"><option value="">選択してください</option><option>新規で宿泊施設を始めたい</option><option>既存施設の運営を委託したい</option><option>他社から切り替えたい</option><option>まずは話を聞きたい</option></select>
         </div>
-        <div class="form-group form-full"><label>メッセージ・ご質問</label><textarea placeholder="物件の詳細や気になる点など、お気軽にご記入ください。"></textarea></div>
+        <div class="form-group form-full"><label>メッセージ・ご質問</label><textarea name="メッセージ" placeholder="物件の詳細や気になる点など、お気軽にご記入ください。"></textarea></div>
       </div>
       <button type="submit" class="form-submit">🌺 無料相談を申し込む</button>
       <p class="form-note">送信後、担当者より2営業日以内にご連絡いたします。<br><a href="mailto:info@blo-oki.co.jp">info@blo-oki.co.jp</a></p>
