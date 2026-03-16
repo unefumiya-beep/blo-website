@@ -374,7 +374,11 @@
     <h2 class="sec-title reveal">無料相談・お問い合わせ</h2>
     <div class="divider reveal"></div>
     <p class="sec-lead reveal">まずはお気軽にご連絡ください。無料で収益シミュレーションをご提供します。</p>
-    <form class="reveal" onsubmit="handleSubmit(event)">
+    <form class="reveal" action="https://formsubmit.co/info@blo-oki.co.jp" method="POST">
+      <input type="hidden" name="_subject" value="【BLO】宿泊施設運営 無料相談のお申し込み">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_next" value="https://blo-oki.co.jp/thanks.html">
       <div class="form-grid">
         <div class="form-group"><label>お名前<span>*</span></label><input type="text" placeholder="山田 太郎" required></div>
         <div class="form-group"><label>電話番号<span>*</span></label><input type="tel" placeholder="098-000-0000" required></div>
@@ -391,7 +395,7 @@
         <div class="form-group form-full"><label>メッセージ・ご質問</label><textarea placeholder="物件の詳細や気になる点など、お気軽にご記入ください。"></textarea></div>
       </div>
       <button type="submit" class="form-submit">🌺 無料相談を申し込む</button>
-      <p class="form-note">送信後、担当者より2営業日以内にご連絡いたします。<br><a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#105;&#110;&#102;&#111;&#64;&#98;&#108;&#111;&#45;&#111;&#107;&#105;&#46;&#99;&#111;&#46;&#106;&#112;">info@blo-oki.co.jp</a></p>
+      <p class="form-note">送信後、担当者より2営業日以内にご連絡いたします。<br><a href="mailto:info@blo-oki.co.jp">info@blo-oki.co.jp</a></p>
     </form>
   </div>
 </section>
@@ -402,17 +406,10 @@
   <a href="index.html" class="footer-back">← メインサイトへ戻る</a>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((e, i) => {
       if (e.isIntersecting) setTimeout(() => e.target.classList.remove('hidden'), i * 80);
     });
   }, { threshold: 0.1 });
-  document.querySelectorAll('.reveal').forEach(el => { el.classList.add('hidden'); observer.observe(el); });
-
-  // FAQ handled by CSS
-  });
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    const btn = e.target.querySelecto
+  document.querySelectorAll('.r
