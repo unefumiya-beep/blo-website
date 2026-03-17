@@ -194,6 +194,7 @@
     margin-bottom: 1.8rem;
     opacity: 0;
     animation: heroFadeUp 1s ease 0.5s forwards;
+    transition: opacity 0.6s ease;
   }
 
   .hero-title {
@@ -229,6 +230,7 @@
     line-height: 2;
     opacity: 0;
     animation: heroFadeUp 1s ease 1.5s forwards;
+    transition: opacity 0.6s ease;
   }
 
   @keyframes heroFadeUp {
@@ -955,26 +957,23 @@
 
 <!-- HERO -->
 <section id="hero">
-  <!-- 動画背景：Pexels無料素材 3本をループ切り替え -->
   <div class="hero-video-wrap">
-    <video id="heroVideo" autoplay muted playsinline loop>
-      <!-- リゾート・沖縄の海イメージ -->
-      <source src="https://videos.pexels.com/video-files/1093662/1093662-hd_1920_1080_30fps.mp4" type="video/mp4">
+    <video id="heroVideo" autoplay muted playsinline>
+      <source id="heroVideoSrc" src="bill.mp4" type="video/mp4">
     </video>
     <div class="hero-video-overlay"></div>
   </div>
 
   <div class="hero-content">
-    <p class="hero-eyebrow">Blue Ocean Strategy</p>
+    <p class="hero-eyebrow" id="heroEyebrow">Blue Ocean Strategy</p>
     <h1 class="hero-title">BLO Co., Ltd.</h1>
     <p class="hero-subtitle">BLO 株式会社</p>
-    <p class="hero-tagline">既存の枠組みにとらわれない<br>新たな価値の創造に挑戦し続ける企業</p>
+    <p class="hero-tagline" id="heroTagline">既存の枠組みにとらわれない<br>新たな価値の創造に挑戦し続ける企業</p>
   </div>
 
   <div class="hero-dots">
     <div class="hero-dot active" data-index="0"></div>
     <div class="hero-dot" data-index="1"></div>
-    <div class="hero-dot" data-index="2"></div>
   </div>
 
   <div class="scroll-indicator">
@@ -1352,40 +1351,72 @@
 </div>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-  // ヒーロー動画：3本をループ切り替え（リゾート→不動産→IT/都市）
-  const heroVideos = [
-    'https://videos.pexels.com/video-files/1093662/1093662-hd_1920_1080_30fps.mp4',   // 沖縄・海・リゾート
-    'https://videos.pexels.com/video-files/3015488/3015488-uhd_2560_1440_25fps.mp4',  // 都市・不動産
-    'https://videos.pexels.com/video-files/3129957/3129957-uhd_2560_1440_25fps.mp4',  // テクノロジー・IT
+  // ヒーロー動画：2本をループ切り替え＋テキストアニメーション
+  const heroScenes = [
+    {
+      video: 'bill.mp4',
+      eyebrow: 'Blue Ocean Strategy',
+      tagline: '既存の枠組みにとらわれない<br>新たな価値の創造に挑戦し続ける企業'
+    },
+    {
+      video: 'IT.mp4',
+      eyebrow: 'Technology & Innovation',
+      tagline: '人と人とのつながりをより豊かにするための力<br>テクノロジーで、未来を切り拓く'
+    },
   ];
-  let heroVideoIndex = 0;
+  let heroIdx = 0;
   const heroVideoEl = document.getElementById('heroVideo');
+  const heroVideoSrc = document.getElementById('heroVideoSrc');
+  const heroEyebrow = document.getElementById('heroEyebrow');
+  const heroTagline = document.getElementById('heroTagline');
   const heroDots = document.querySelectorAll('.hero-dot');
 
-  function switchHeroVideo(index) {
-    heroVideoEl.style.opacity = '0';
-    setTimeout(() => {
-      heroVideoEl.querySelector('source').src = heroVideos[index];
-      heroVideoEl.load();
-      heroVideoEl.play();
-      heroVideoEl.style.opacity = '1';
-      heroDots.forEach((d, i) => d.classList.toggle('active', i === index));
-    }, 800);
-  }
-
+  // 初回ロード時にフェードイン
   heroVideoEl.addEventListener('canplay', () => {
     heroVideoEl.classList.add('loaded');
   });
 
+  function switchScene(index) {
+    const scene = heroScenes[index];
+
+    // 動画フェードアウト
+    heroVideoEl.style.opacity = '0';
+    heroEyebrow.style.opacity = '0';
+    heroTagline.style.opacity = '0';
+
+    setTimeout(() => {
+      // 動画切り替え
+      heroVideoSrc.src = scene.video;
+      heroVideoEl.load();
+      heroVideoEl.play();
+      heroVideoEl.style.opacity = '1';
+
+      // テキスト切り替え
+      heroEyebrow.textContent = scene.eyebrow;
+      heroTagline.innerHTML = scene.tagline;
+
+      // フェードイン
+      setTimeout(() => {
+        heroEyebrow.style.opacity = '1';
+        heroTagline.style.opacity = '1';
+      }, 300);
+
+      // ドット更新
+      heroDots.forEach((d, i) => d.classList.toggle('active', i === index));
+    }, 800);
+  }
+
+  // 動画終了時に次のシーンへ
   heroVideoEl.addEventListener('ended', () => {
-    heroVideoIndex = (heroVideoIndex + 1) % heroVideos.length;
-    switchHeroVideo(heroVideoIndex);
+    heroIdx = (heroIdx + 1) % heroScenes.length;
+    switchScene(heroIdx);
   });
 
+  // ドットクリックで手動切り替え
   heroDots.forEach(dot => {
     dot.addEventListener('click', () => {
-      heroVideoIndex = parseInt(dot.dataset.index);
-      switchHeroVideo(heroVideoIndex);
+      heroIdx = parseInt(dot.dataset.index);
+      switchScene(heroIdx);
     });
   });
 
