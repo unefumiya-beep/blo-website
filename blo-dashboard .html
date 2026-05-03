@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BLO 売上ダッシュボード</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#07090f; --bg2:#0f1420; --bg3:#161d2e; --bg4:#1c2540;
+  --accent:#4f8ef7; --accent2:#06c8d4; --accent3:#a855f7;
+  --up:#10b981; --down:#f43f5e; --warn:#f59e0b;
+  --text:#e8edf5; --text2:#7a8aaa; --text3:#4a5568;
+  --border:#1e2a40; --r:10px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-serif;font-size:13px;min-height:100vh;}
+
+/* IMPORT BAR */
+.import-bar{background:var(--bg3);border-bottom:2px solid var(--accent);padding:14px 28px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.import-bar h2{font-size:13px;font-weight:500;color:var(--text2);white-space:nowrap;}
+.import-bar textarea{flex:1;min-width:200px;background:var(--bg2);border:1px solid var(--border);color:var(--text);padding:8px 12px;border-radius:6px;font-size:12px;font-family:'DM Mono',monospace;height:38px;resize:none;line-height:22px;}
+.btn{padding:8px 18px;border:none;border-radius:6px;cursor:pointer;font-size:12px;font-family:'Noto Sans JP',sans-serif;font-weight:500;transition:opacity .15s;white-space:nowrap;}
+.btn:hover{opacity:.85;}
+.btn-accent{background:var(--accent);color:#fff;}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text2);}
+.btn-danger{background:#2e0d15;border:1px solid var(--down);color:var(--down);}
+
+/* HEADER */
+header{padding:16px 28px;border-bottom:1px solid var(--border);background:var(--bg2);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+header h1{font-size:17px;font-weight:700;}
+.header-meta{font-size:11px;color:var(--text2);}
+
+/* NAV */
+nav{display:flex;gap:0;border-bottom:1px solid var(--border);background:var(--bg2);overflow-x:auto;}
+.nav-tab{padding:12px 20px;cursor:pointer;font-size:12px;color:var(--text2);border-bottom:2px solid transparent;transition:all .15s;white-space:nowrap;}
+.nav-tab:hover{color:var(--text);}
+.nav-tab.active{color:var(--accent);border-bottom-color:var(--accent);}
+
+/* PANELS */
+.panel{display:none;padding:24px 28px;}
+.panel.active{display:block;}
+
+/* CARDS */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px;margin-bottom:24px;}
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:16px 18px;}
+.card.accent{background:#0f1a30;border-color:var(--accent);}
+.card .lbl{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text2);margin-bottom:8px;}
+.card .val{font-size:22px;font-weight:700;font-family:'DM Mono',monospace;}
+.card .sub{font-size:11px;margin-top:5px;}
+
+/* TABLE */
+.tbl-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:var(--r);margin-bottom:20px;}
+table{width:100%;border-collapse:collapse;}
+th{background:var(--bg3);padding:9px 14px;text-align:right;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--text2);font-weight:500;white-space:nowrap;}
+th.tl{text-align:left;}
+td{padding:9px 14px;text-align:right;border-top:1px solid var(--border);font-family:'DM Mono',monospace;font-size:12px;white-space:nowrap;}
+td.tl{text-align:left;font-family:'Noto Sans JP',sans-serif;}
+tr:hover td{background:var(--bg3);}
+tr.total td{font-weight:700;background:var(--bg3);border-top:2px solid var(--border);color:var(--accent2);}
+tr.total td.tl{color:var(--accent2);}
+.up{color:var(--up);} .down{color:var(--down);}
+
+/* WEEK TABS */
+.week-tabs{display:flex;gap:6px;margin-bottom:20px;flex-wrap:wrap;}
+.week-tab{padding:6px 14px;border:1px solid var(--border);border-radius:6px;cursor:pointer;font-size:11px;color:var(--text2);background:var(--bg2);transition:all .15s;}
+.week-tab:hover{border-color:var(--accent);color:var(--accent);}
+.week-tab.active{background:var(--accent);border-color:var(--accent);color:#fff;}
+.week-tab.latest{border-color:var(--accent2);color:var(--accent2);}
+.week-tab.latest.active{background:var(--accent2);color:#fff;}
+
+/* MONTH TABS */
+.month-tabs{display:flex;gap:4px;margin-bottom:20px;flex-wrap:wrap;}
+.month-tab{padding:5px 11px;border:1px solid var(--border);border-radius:6px;cursor:pointer;font-size:11px;color:var(--text2);background:var(--bg2);}
+.month-tab.active{background:var(--accent);border-color:var(--accent);color:#fff;}
+
+/* BAR CHART */
+.chart-box{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:18px;margin-bottom:18px;}
+.chart-title{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--text2);margin-bottom:12px;}
+.bar-chart{display:flex;align-items:flex-end;gap:3px;height:130px;}
+.bar-grp{flex:1;display:flex;gap:2px;align-items:flex-end;}
+.bar{flex:1;border-radius:3px 3px 0 0;min-height:2px;cursor:pointer;transition:opacity .2s;}
+.bar:hover{opacity:.75;}
+.bar-labels{display:flex;gap:3px;margin-top:5px;}
+.blabel{flex:1;text-align:center;font-size:9px;color:var(--text3);}
+.legend{display:flex;gap:14px;margin-bottom:10px;flex-wrap:wrap;}
+.leg{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text2);}
+.leg-dot{width:10px;height:10px;border-radius:2px;}
+
+/* TREND CHART */
+.trend-chart{display:flex;align-items:flex-end;gap:6px;height:100px;margin-bottom:6px;}
+.trend-bar{flex:1;border-radius:3px 3px 0 0;min-height:2px;background:var(--accent);position:relative;cursor:pointer;}
+.trend-bar:hover{opacity:.8;}
+.trend-labels{display:flex;gap:6px;}
+.trend-label{flex:1;text-align:center;font-size:9px;color:var(--text3);}
+
+/* HEATMAP */
+.hm-wrap{overflow-x:auto;}
+.hm-table{border-collapse:separate;border-spacing:3px;}
+.hm-table th{background:none;color:var(--text2);font-size:10px;padding:3px 6px;font-weight:500;white-space:nowrap;}
+.hm-table td{border-radius:4px;width:46px;height:32px;text-align:center;padding:4px;font-family:'DM Mono',monospace;font-size:11px;}
+.hm-name{padding:3px 10px;font-size:11px;text-align:left;white-space:nowrap;color:var(--text);}
+
+/* ROUTE BARS */
+.route-bars{display:flex;flex-direction:column;gap:8px;}
+.route-row{display:flex;align-items:center;gap:10px;}
+.route-name{width:110px;font-size:11px;color:var(--text2);text-align:right;flex-shrink:0;}
+.route-wrap{flex:1;height:18px;background:var(--bg3);border-radius:3px;overflow:hidden;}
+.route-inner{height:100%;border-radius:3px;}
+.route-val{width:90px;font-family:'DM Mono',monospace;font-size:11px;text-align:right;flex-shrink:0;}
+
+/* GRID */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px;}
+@media(max-width:720px){.grid2{grid-template-columns:1fr;}}
+.sec-title{font-size:12px;font-weight:500;color:var(--text2);letter-spacing:.05em;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--border);}
+
+/* EMPTY STATE */
+.empty{text-align:center;padding:60px 20px;color:var(--text2);}
+.empty h2{font-size:16px;margin-bottom:10px;color:var(--text);}
+.empty p{font-size:13px;line-height:1.7;}
+.empty .step{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:16px 20px;margin:16px auto;max-width:500px;text-align:left;}
+.empty .step-num{display:inline-block;width:22px;height:22px;border-radius:50%;background:var(--accent);color:#fff;text-align:center;line-height:22px;font-size:11px;font-weight:700;margin-right:8px;}
+
+select{background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:6px 12px;border-radius:6px;font-size:12px;margin-bottom:16px;cursor:pointer;}
+</style>
+</head>
+<body>
+
+<!-- IMPORT BAR -->
+<div class="import-bar">
+  <h2>📋 データ取り込み</h2>
+  <textarea id="pasteArea" placeholder="スニペット実行後、ここにCtrl+Vで貼り付け → インポートボタンを押す"></textarea>
+  <button class="btn btn-accent" onclick="importData()">インポート</button>
+  <button class="btn btn-outline" onclick="showHistory()">履歴 (<span id="histCount">0</span>件)</button>
+  <button class="btn btn-danger" onclick="clearHistory()">リセット</button>
+</div>
+
+<!-- HEADER -->
+<header>
+  <h1>📊 BLO 売上ダッシュボード</h1>
+  <div class="header-meta" id="headerMeta">データなし</div>
+</header>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-tab active" onclick="showPanel('overview',this)">サマリー</div>
+  <div class="nav-tab" onclick="showPanel('weekly',this)">週次比較</div>
+  <div class="nav-tab" onclick="showPanel('monthly',this)">月次推移</div>
+  <div class="nav-tab" onclick="showPanel('manalysis',this)">月別分析</div>
+  <div class="nav-tab" onclick="showPanel('heatmap',this)">稼働マップ</div>
+  <div class="nav-tab" onclick="showPanel('detail',this)">施設別</div>
+</nav>
+
+<!-- PANELS -->
+<div id="panel-overview" class="panel active">
+  <div id="content-overview"><div class="empty"><h2>データがありません</h2><p>以下の手順でデータを取り込んでください</p><div class="step"><span class="step-num">1</span>ミンパクインにログインし、DevToolsのスニペットで <b>weekly-snapshot.js</b> を実行</div><div class="step"><span class="step-num">2</span>「クリップボードにコピーしました」が出たら</div><div class="step"><span class="step-num">3</span>上の貼り付けエリアにCtrl+V → インポートボタン</div></div></div>
+</div>
+<div id="panel-weekly" class="panel"><div id="content-weekly"></div></div>
+<div id="panel-monthly" class="panel"><div id="content-monthly"></div></div>
+<div id="panel-manalysis" class="panel"><div id="content-manalysis"></div></div>
+<div id="panel-heatmap" class="panel"><div id="content-heatmap"></div></div>
+<div id="panel-detail" class="panel"><div id="content-detail"></div></div>
+
+<script>
+const MONTHS = ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
+const ROUTE_COLORS = ['#4f8ef7','#06c8d4','#a855f7','#f59e0b','#10b981','#f43f5e','#ec4899'];
+const STORAGE_KEY = 'blo_dashboard_snapshots';
+
+// ========== STORAGE ==========
+function getSnapshots() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); } catch { return []; }
+}
+function saveSnapshots(snaps) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(snaps));
+}
+function getLatest() {
+  const snaps = getSnapshots();
+  return snaps.length > 0 ? snaps[snaps.length - 1] : null;
+}
+function getPrev() {
+  const snaps = getSnapshots();
+  return snaps.length > 1 ? snaps[snaps.length - 2] : null;
+}
+
+// ========== HELPERS ==========
+const fmt = n => '¥' + Number(n).toLocaleString('ja-JP');
+const pctStr = (a,b) => b===0 ? '—' : (a>=b?'+':'')+((a-b)/b*100).toFixed(1)+'%';
+const upDown = (a,b) => a>=b ? 'up' : 'down';
+const getSale = (data,hid,year,month) => { try{return data[year][hid][month]?.actualSale||0;}catch{return 0;} };
+const getOcc = (data,hid,year,month) => { try{const m=data[year][hid][month];return m?.nightsCount>0?Math.round(m.nightsUsed/m.nightsCount*100):0;}catch{return 0;} };
+const yearTotal = (data,hid,year) => MONTHS.reduce((s,m)=>s+getSale(data,hid,year,m),0);
+
+// ========== IMPORT ==========
+function importData() {
+  const txt = document.getElementById('pasteArea').value.trim();
+  if (!txt) { alert('データが貼り付けられていません'); return; }
+  let snap;
+  try { snap = JSON.parse(txt); } catch { alert('データの形式が正しくありません'); return; }
+  if (!snap.data || !snap.houses) { alert('スナップショットデータが見つかりません'); return; }
+
+  const snaps = getSnapshots();
+  // 同じ日付なら上書き
+  const today = new Date().toDateString();
+  const idx = snaps.findIndex(s => new Date(s.fetchedAt).toDateString() === today);
+  if (idx >= 0) {
+    if (!confirm('今日のデータが既にあります。上書きしますか？')) return;
+    snaps[idx] = snap;
+  } else {
+    snaps.push(snap);
+    // 最大52週分保持
+    if (snaps.length > 52) snaps.shift();
+  }
+  saveSnapshots(snaps);
+  document.getElementById('pasteArea').value = '';
+  alert('✅ インポート完了！\n取得日時: ' + snap.fetchedAtJST);
+  renderAll();
+}
+
+// ========== CLEAR ==========
+function clearHistory() {
+  if (!confirm('全データを削除しますか？')) return;
+  localStorage.removeItem(STORAGE_KEY);
+  renderAll();
+}
+
+function showHistory() {
+  const snaps = getSnapshots();
+  if (snaps.length === 0) { alert('履歴はありません'); return; }
+  const list = snaps.map((s,i) => (i+1) + '. ' + s.fetchedAtJST).join('\n');
+  alert('保存済みスナップショット:\n\n' + list);
+}
+
+// ========== NAV ==========
+function showPanel(id, el) {
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('panel-'+id).classList.add('active');
+  el.classList.add('active');
+}
+
+// ========== RENDER ALL ==========
+function renderAll() {
+  const snaps = getSnapshots();
+  document.getElementById('histCount').textContent = snaps.length;
+
+  if (snaps.length === 0) {
+    document.getElementById('content-overview').innerHTML = `<div class="empty"><h2>データがありません</h2><p>上のインポートエリアからデータを取り込んでください</p></div>`;
+    ['weekly','monthly','manalysis','heatmap','detail'].forEach(id => {
+      document.getElementById('content-'+id).innerHTML = '<div class="empty"><h2>データなし</h2></div>';
+    });
+    document.getElementById('headerMeta').textContent = 'データなし';
+    return;
+  }
+
+  const latest = snaps[snaps.length-1];
+  const prev = snaps.length > 1 ? snaps[snaps.length-2] : null;
+  const {data, houses, houseIds} = latest;
+
+  document.getElementById('headerMeta').textContent =
+    '最終更新: ' + latest.fetchedAtJST + (prev ? ' | 前回: ' + prev.fetchedAtJST : '');
+
+  renderOverview(latest, prev);
+  renderWeekly(snaps);
+  renderMonthly(latest);
+  renderManalysis(latest, '1月');
+  renderHeatmap(latest);
+  renderDetail(latest, houseIds[0]);
+}
+
+// ========== OVERVIEW ==========
+function renderOverview(latest, prev) {
+  const {data, houses, houseIds} = latest;
+  let t25=0,t26=0,pt25=0,pt26=0;
+  houseIds.forEach(hid=>{t25+=yearTotal(data,hid,2025);t26+=yearTotal(data,hid,2026);});
+  if (prev) houseIds.forEach(hid=>{pt25+=yearTotal(prev.data,hid,2025);pt26+=yearTotal(prev.data,hid,2026);});
+
+  // 今月の全施設合計
+  const now = new Date();
+  const curMonth = (now.getMonth()+1)+'月';
+  let cm26=0,cm25=0;
+  houseIds.forEach(hid=>{cm26+=getSale(data,hid,2026,curMonth);cm25+=getSale(data,hid,2025,curMonth);});
+
+  let rows='',st25=0,st26=0,spt26=0;
+  houseIds.forEach(hid=>{
+    const t25h=yearTotal(data,hid,2025),t26h=yearTotal(data,hid,2026);
+    const pt26h=prev?yearTotal(prev.data,hid,2026):null;
+    st25+=t25h;st26+=t26h;if(pt26h)spt26+=pt26h;
+    const cls=upDown(t26h,t25h);
+    rows+=`<tr>
+      <td class="tl">${houses[hid]}</td>
+      <td>${fmt(t25h)}</td>
+      <td>${fmt(t26h)}</td>
+      <td class="${cls}">${pctStr(t26h,t25h)}</td>
+      ${prev?`<td class="${upDown(t26h,pt26h)}">${pctStr(t26h,pt26h)}</td>`:'<td style="color:var(--text3)">—</td>'}
+    </tr>`;
+  });
+  rows+=`<tr class="total">
+    <td class="tl">合計</td>
+    <td>${fmt(st25)}</td><td>${fmt(st26)}</td>
+    <td class="${upDown(st26,st25)}">${pctStr(st26,st25)}</td>
+    ${prev?`<td class="${upDown(st26,spt26)}">${pctStr(st26,spt26)}</td>`:'<td>—</td>'}
+  </tr>`;
+
+  document.getElementById('content-overview').innerHTML = `
+  <div class="cards">
+    <div class="card accent">
+      <div class="lbl">2026年 累計売上</div>
+      <div class="val">${fmt(t26)}</div>
+      <div class="sub ${upDown(t26,t25)}">${t26>=t25?'▲':'▼'} ${pctStr(t26,t25)} (前年比)</div>
+    </div>
+    <div class="card">
+      <div class="lbl">${curMonth} 2026年</div>
+      <div class="val">${fmt(cm26)}</div>
+      <div class="sub ${upDown(cm26,cm25)}">${cm26>=cm25?'▲':'▼'} ${pctStr(cm26,cm25)} (前年比)</div>
+    </div>
+    ${prev?`<div class="card">
+      <div class="lbl">前回比 (2026年累計)</div>
+      <div class="val ${upDown(t26,pt26)}">${pctStr(t26,pt26)}</div>
+      <div class="sub" style="color:var(--text2)">${prev.fetchedAtJST.split(' ')[0]} → ${latest.fetchedAtJST.split(' ')[0]}</div>
+    </div>`:''}
+    <div class="card">
+      <div class="lbl">スナップショット数</div>
+      <div class="val">${getSnapshots().length}</div>
+      <div class="sub" style="color:var(--text2)">週次データ</div>
+    </div>
+  </div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr>
+        <th class="tl">施設名</th>
+        <th>2025年累計</th>
+        <th>2026年累計</th>
+        <th>前年比</th>
+        <th>${prev?'前回比':'前回比'}</th>
+      </tr></thead>
+      <tbody>${rows}</tbody>
+    </table>
+  </div>`;
+}
+
+// ========== WEEKLY ==========
+function renderWeekly(snaps) {
+  if (snaps.length < 2) {
+    document.getElementById('content-weekly').innerHTML = '<div class="empty"><h2>データが2件以上必要です</h2><p>もう1回インポートすると前週比較が表示されます</p></div>';
+    return;
+  }
+  const latest = snaps[snaps.length-1];
+  const prev = snaps[snaps.length-2];
+  const {data, houses, houseIds} = latest;
+
+  // 全施設合計トレンド（月次）
+  const trendData = MONTHS.map(m=>({
+    m,
+    cur: houseIds.reduce((s,hid)=>s+getSale(data,hid,2026,m),0),
+    prv: houseIds.reduce((s,hid)=>s+getSale(prev.data,hid,2026,m),0),
+  }));
+  const maxT = Math.max(...trendData.map(x=>Math.max(x.cur,x.prv)));
+
+  let diffRows='',st_cur=0,st_prv=0;
+  houseIds.forEach(hid=>{
+    const cur=yearTotal(data,hid,2026), prv=yearTotal(prev.data,hid,2026);
+    st_cur+=cur; st_prv+=prv;
+    const cls=upDown(cur,prv);
+    diffRows+=`<tr>
+      <td class="tl">${houses[hid]}</td>
+      <td>${fmt(prv)}</td>
+      <td>${fmt(cur)}</td>
+      <td class="${cls}">${pctStr(cur,prv)}</td>
+      <td class="${cls}">${cur>=prv?'+':''}${fmt(cur-prv)}</td>
+    </tr>`;
+  });
+  diffRows+=`<tr class="total">
+    <td class="tl">合計</td>
+    <td>${fmt(st_prv)}</td><td>${fmt(st_cur)}</td>
+    <td class="${upDown(st_cur,st_prv)}">${pctStr(st_cur,st_prv)}</td>
+    <td class="${upDown(st_cur,st_prv)}">${st_cur>=st_prv?'+':''}${fmt(st_cur-st_prv)}</td>
+  </tr>`;
+
+  // 月別比較バーチャート
+  let bars='',blabels='';
+  trendData.forEach(x=>{
+    const hc=maxT>0?Math.round(x.cur/maxT*120):0;
+    const hp=maxT>0?Math.round(x.prv/maxT*120):0;
+    bars+=`<div class="bar-grp">
+      <div class="bar" style="height:${hp}px;background:var(--bg4)" title="${x.m} 前回: ${fmt(x.prv)}"></div>
+      <div class="bar" style="height:${hc}px;background:var(--accent)" title="${x.m} 今回: ${fmt(x.cur)}"></div>
+    </div>`;
+    blabels+=`<div class="blabel">${x.m.replace('月','')}</div>`;
+  });
+
+  document.getElementById('content-weekly').innerHTML = `
+  <div class="cards">
+    <div class="card accent">
+      <div class="lbl">今回 2026年累計</div>
+      <div class="val">${fmt(st_cur)}</div>
+      <div class="sub ${upDown(st_cur,st_prv)}">${st_cur>=st_prv?'▲':'▼'} ${pctStr(st_cur,st_prv)} (前回比)</div>
+    </div>
+    <div class="card">
+      <div class="lbl">前回 2026年累計</div>
+      <div class="val">${fmt(st_prv)}</div>
+      <div class="sub" style="color:var(--text2)">取得: ${prev.fetchedAtJST.split(' ')[0]}</div>
+    </div>
+  </div>
+  <div class="chart-box">
+    <div class="chart-title">月別売上比較 (2026年)</div>
+    <div class="legend">
+      <div class="leg"><div class="leg-dot" style="background:var(--bg4)"></div>前回 (${prev.fetchedAtJST.split(' ')[0]})</div>
+      <div class="leg"><div class="leg-dot" style="background:var(--accent)"></div>今回 (${latest.fetchedAtJST.split(' ')[0]})</div>
+    </div>
+    <div class="bar-chart">${bars}</div>
+    <div class="bar-labels">${blabels}</div>
+  </div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr>
+        <th class="tl">施設名</th>
+        <th>前回</th><th>今回</th><th>前回比</th><th>増減額</th>
+      </tr></thead>
+      <tbody>${diffRows}</tbody>
+    </table>
+  </div>`;
+}
+
+// ========== MONTHLY ==========
+function renderMonthly(latest) {
+  const {data, houseIds} = latest;
+  const ms = MONTHS.map(m=>({
+    m,
+    s25:houseIds.reduce((s,hid)=>s+getSale(data,hid,2025,m),0),
+    s26:houseIds.reduce((s,hid)=>s+getSale(data,hid,2026,m),0)
+  }));
+  const maxV = Math.max(...ms.map(x=>Math.max(x.s25,x.s26)));
+  let bars='',blabels='',rows='',st25=0,st26=0;
+  ms.forEach(x=>{
+    const h25=maxV>0?Math.round(x.s25/maxV*120):0;
+    const h26=maxV>0?Math.round(x.s26/maxV*120):0;
+    st25+=x.s25;st26+=x.s26;
+    const cls=upDown(x.s26,x.s25);
+    bars+=`<div class="bar-grp">
+      <div class="bar" style="height:${h25}px;background:var(--bg4)" title="${x.m} 2025: ${fmt(x.s25)}"></div>
+      <div class="bar" style="height:${h26}px;background:var(--accent)" title="${x.m} 2026: ${fmt(x.s26)}"></div>
+    </div>`;
+    blabels+=`<div class="blabel">${x.m.replace('月','')}</div>`;
+    rows+=`<tr><td class="tl">${x.m}</td><td>${x.s25>0?fmt(x.s25):'—'}</td><td>${x.s26>0?fmt(x.s26):'—'}</td>
+      <td class="${cls}">${pctStr(x.s26,x.s25)}</td><td class="${cls}">${x.s26>=x.s25?'+':''}${fmt(x.s26-x.s25)}</td></tr>`;
+  });
+  rows+=`<tr class="total"><td class="tl">合計</td><td>${fmt(st25)}</td><td>${fmt(st26)}</td>
+    <td class="${upDown(st26,st25)}">${pctStr(st26,st25)}</td>
+    <td class="${upDown(st26,st25)}">${st26>=st25?'+':''}${fmt(st26-st25)}</td></tr>`;
+
+  document.getElementById('content-monthly').innerHTML = `
+  <div class="chart-box">
+    <div class="chart-title">月別売上推移（全施設合計）</div>
+    <div class="legend">
+      <div class="leg"><div class="leg-dot" style="background:var(--bg4)"></div>2025年</div>
+      <div class="leg"><div class="leg-dot" style="background:var(--accent)"></div>2026年</div>
+    </div>
+    <div class="bar-chart">${bars}</div>
+    <div class="bar-labels">${blabels}</div>
+  </div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th class="tl">月</th><th>2025年</th><th>2026年</th><th>前年比</th><th>増減額</th></tr></thead>
+    <tbody>${rows}</tbody>
+  </table></div>`;
+}
+
+// ========== MONTH ANALYSIS ==========
+function renderManalysis(latest, month) {
+  const {data, houses, houseIds} = latest;
+  const sorted = [...houseIds].sort((a,b)=>getSale(data,b,2026,month)-getSale(data,a,2026,month));
+  let tot25=0,tot26=0,rows='';
+  sorted.forEach(hid=>{
+    const s25=getSale(data,hid,2025,month),s26=getSale(data,hid,2026,month);
+    tot25+=s25;tot26+=s26;
+    const o26=getOcc(data,hid,2026,month);
+    const cls=upDown(s26,s25);
+    rows+=`<tr><td class="tl">${houses[hid]}</td><td>${s25>0?fmt(s25):'—'}</td><td>${s26>0?fmt(s26):'—'}</td>
+      <td class="${cls}">${pctStr(s26,s25)}</td><td>${o26>0?o26+'%':'—'}</td></tr>`;
+  });
+  rows+=`<tr class="total"><td class="tl">合計</td><td>${fmt(tot25)}</td><td>${fmt(tot26)}</td>
+    <td class="${upDown(tot26,tot25)}">${pctStr(tot26,tot25)}</td><td>—</td></tr>`;
+
+  // 経路別
+  const routeMap={};
+  houseIds.forEach(hid=>{
+    const routes=data[2026]?.[hid]?.[month]?.routes||{};
+    Object.values(routes).forEach(r=>{if(r.actualSale>0&&r.name&&r.name!=='-')routeMap[r.name]=(routeMap[r.name]||0)+r.actualSale;});
+  });
+  const routeList=Object.entries(routeMap).sort((a,b)=>b[1]-a[1]);
+  const maxR=routeList.length>0?routeList[0][1]:1;
+  const routeHtml=routeList.map(([name,val],i)=>`
+    <div class="route-row">
+      <div class="route-name">${name}</div>
+      <div class="route-wrap"><div class="route-inner" style="width:${Math.round(val/maxR*100)}%;background:${ROUTE_COLORS[i%ROUTE_COLORS.length]}"></div></div>
+      <div class="route-val" style="color:var(--text)">${fmt(val)}</div>
+    </div>`).join('') || '<div style="color:var(--text2);padding:16px">データなし</div>';
+
+  const monthTabsHtml = MONTHS.map(m=>`
+    <div class="month-tab ${m===month?'active':''}" onclick="renderManalysis(window._latest,'${m}');this.parentNode.querySelectorAll('.month-tab').forEach(t=>t.classList.remove('active'));this.classList.add('active')">${m}</div>`
+  ).join('');
+
+  document.getElementById('content-manalysis').innerHTML = `
+  <div class="month-tabs">${monthTabsHtml}</div>
+  <div class="cards">
+    <div class="card accent"><div class="lbl">${month} 2026年</div><div class="val">${fmt(tot26)}</div>
+      <div class="sub ${upDown(tot26,tot25)}">${tot26>=tot25?'▲':'▼'} ${pctStr(tot26,tot25)}</div></div>
+    <div class="card"><div class="lbl">${month} 2025年</div><div class="val">${fmt(tot25)}</div></div>
+  </div>
+  <div class="grid2">
+    <div>
+      <div class="sec-title">施設別 (${month})</div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th class="tl">施設</th><th>2025年</th><th>2026年</th><th>前年比</th><th>稼働率</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table></div>
+    </div>
+    <div>
+      <div class="sec-title">経路別 (${month} 2026年)</div>
+      <div class="route-bars">${routeHtml}</div>
+    </div>
+  </div>`;
+}
+
+// ========== HEATMAP ==========
+function renderHeatmap(latest) {
+  const {data, houses, houseIds} = latest;
+  let rows='';
+  houseIds.forEach(hid=>{
+    let cells='',tot=0,cnt=0;
+    MONTHS.forEach(m=>{
+      const o=getOcc(data,hid,2026,m),s=getSale(data,hid,2026,m);
+      if(s>0){tot+=o;cnt++;}
+      const bg=s===0?'var(--bg3)':o>=70?'#0d3d2a':o>=50?'#0d2e1a':o>=30?'#1a2d0d':'#2e1a0d';
+      const col=s===0?'var(--text3)':o>=70?'var(--up)':o>=50?'#4ade80':o>=30?'var(--warn)':'var(--down)';
+      cells+=`<td style="background:${bg};color:${col}" class="hm-table">${s===0?'—':o+'%'}</td>`;
+    });
+    const avg=cnt>0?(tot/cnt).toFixed(1)+'%':'—';
+    rows+=`<tr><td class="hm-name">${houses[hid]}</td>${cells}<td style="color:var(--text2);text-align:center;font-family:'DM Mono',monospace;font-size:11px;padding:4px 8px">${avg}</td></tr>`;
+  });
+
+  document.getElementById('content-heatmap').innerHTML = `
+  <div class="sec-title">稼働率ヒートマップ — 2026年</div>
+  <div class="hm-wrap">
+    <table class="hm-table">
+      <thead><tr>
+        <th>施設</th>${MONTHS.map(m=>`<th>${m.replace('月','')}</th>`).join('')}<th>平均</th>
+      </tr></thead>
+      <tbody>${rows}</tbody>
+    </table>
+  </div>
+  <div style="margin-top:14px;display:flex;gap:14px;flex-wrap:wrap;font-size:11px">
+    <div class="leg"><div class="leg-dot" style="background:#0d3d2a"></div><span style="color:var(--up)">70%以上</span></div>
+    <div class="leg"><div class="leg-dot" style="background:#0d2e1a"></div><span style="color:#4ade80">50-69%</span></div>
+    <div class="leg"><div class="leg-dot" style="background:#1a2d0d"></div><span style="color:var(--warn)">30-49%</span></div>
+    <div class="leg"><div class="leg-dot" style="background:#2e1a0d"></div><span style="color:var(--down)">30%未満</span></div>
+  </div>`;
+}
+
+// ========== DETAIL ==========
+function renderDetail(latest, hid) {
+  const {data, houses, houseIds} = latest;
+  window._latest = latest;
+  const t25=yearTotal(data,hid,2025), t26=yearTotal(data,hid,2026);
+  let rows='';
+  MONTHS.forEach(m=>{
+    const s25=getSale(data,hid,2025,m),s26=getSale(data,hid,2026,m);
+    const o25=getOcc(data,hid,2025,m),o26=getOcc(data,hid,2026,m);
+    const cls=upDown(s26,s25);
+    rows+=`<tr><td class="tl">${m}</td><td>${s25>0?fmt(s25):'—'}</td><td>${s26>0?fmt(s26):'—'}</td>
+      <td class="${cls}">${pctStr(s26,s25)}</td>
+      <td>${o25>0?o25+'%':'—'}</td><td>${o26>0?o26+'%':'—'}</td></tr>`;
+  });
+  rows+=`<tr class="total"><td class="tl">合計</td><td>${fmt(t25)}</td><td>${fmt(t26)}</td>
+    <td class="${upDown(t26,t25)}">${pctStr(t26,t25)}</td><td>—</td><td>—</td></tr>`;
+
+  const routeMap={};
+  MONTHS.forEach(m=>{
+    const routes=data[2026]?.[hid]?.[m]?.routes||{};
+    Object.values(routes).forEach(r=>{if(r.actualSale>0&&r.name&&r.name!=='-')routeMap[r.name]=(routeMap[r.name]||0)+r.actualSale;});
+  });
+  const routeList=Object.entries(routeMap).sort((a,b)=>b[1]-a[1]);
+  const maxR=routeList.length>0?routeList[0][1]:1;
+  const routeHtml=routeList.map(([name,val],i)=>`
+    <div class="route-row">
+      <div class="route-name">${name}</div>
+      <div class="route-wrap"><div class="route-inner" style="width:${Math.round(val/maxR*100)}%;background:${ROUTE_COLORS[i%ROUTE_COLORS.length]}"></div></div>
+      <div class="route-val" style="color:var(--text)">${fmt(val)}</div>
+    </div>`).join('') || 'データなし';
+
+  const opts = houseIds.map(h=>`<option value="${h}" ${h===hid?'selected':''}>${houses[h]}</option>`).join('');
+
+  document.getElementById('content-detail').innerHTML = `
+  <select onchange="renderDetail(window._latest,this.value)">${opts}</select>
+  <div class="cards">
+    <div class="card accent"><div class="lbl">2026年 年間</div><div class="val">${fmt(t26)}</div>
+      <div class="sub ${upDown(t26,t25)}">${t26>=t25?'▲':'▼'} ${pctStr(t26,t25)}</div></div>
+    <div class="card"><div class="lbl">2025年 年間</div><div class="val">${fmt(t25)}</div></div>
+  </div>
+  <div class="grid2">
+    <div>
+      <div class="sec-title">月別推移</div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th class="tl">月</th><th>2025年</th><th>2026年</th><th>前年比</th><th>2025稼働</th><th>2026稼働</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table></div>
+    </div>
+    <div>
+      <div class="sec-title">経路別 (2026年合計)</div>
+      <div class="route-bars">${routeHtml}</div>
+    </div>
+  </div>`;
+}
+
+// 初期化
+window._latest = null;
+renderAll();
+</script>
+</body>
+</html>
